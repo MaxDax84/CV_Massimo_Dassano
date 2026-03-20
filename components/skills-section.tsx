@@ -38,6 +38,7 @@ const coreCompetencies = [
   "P&L Management",
   "CRM Administration",
   "Performance Analytics",
+  "Sales Incentives Management",
 ]
 
 export function SkillsSection() {
