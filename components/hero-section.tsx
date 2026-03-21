@@ -66,17 +66,6 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div
-          className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-1000 delay-500 ${
-            mounted ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2">
-            <div className="w-1 h-2 bg-primary rounded-full animate-bounce" />
-          </div>
-        </div>
       </div>
     </section>
   )
