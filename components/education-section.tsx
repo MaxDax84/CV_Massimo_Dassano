@@ -33,7 +33,7 @@ export function EducationSection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section id="education" className="py-24 md:py-32 relative">
+    <section id="education" className="py-14 md:py-20 relative">
       <div className="max-w-4xl mx-auto px-6">
         <div
           ref={ref}
@@ -43,7 +43,7 @@ export function EducationSection() {
         >
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-            <h2 className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
+            <h2 className="text-base tracking-[0.3em] uppercase text-primary font-medium">
               Education
             </h2>
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -60,7 +60,7 @@ export function EducationSection() {
                 return (
                   <div
                     key={index}
-                    className="p-4 rounded-lg bg-secondary/50 border border-border/50 hover:border-primary/30 transition-all group"
+                    className="p-4 rounded-lg bg-secondary/80 border border-border/50 hover:border-primary/30 transition-all group"
                   >
                     <div className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
@@ -94,7 +94,7 @@ export function EducationSection() {
               <h3 className="text-lg font-semibold text-foreground mb-6">
                 Languages
               </h3>
-              <div className="space-y-6 p-6 rounded-lg bg-secondary/50 border border-border/50">
+              <div className="space-y-6 p-6 rounded-lg bg-secondary/80 border border-border/50">
                 {languages.map((lang, index) => (
                   <div key={index}>
                     <div className="flex justify-between items-center mb-2">

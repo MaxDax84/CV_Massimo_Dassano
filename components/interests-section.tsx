@@ -34,7 +34,7 @@ export function InterestsSection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section className="py-24 md:py-32 relative">
+    <section className="py-14 md:py-20 relative">
       <div className="max-w-4xl mx-auto px-6">
         <div
           ref={ref}
@@ -44,7 +44,7 @@ export function InterestsSection() {
         >
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-            <h2 className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
+            <h2 className="text-base tracking-[0.3em] uppercase text-primary font-medium">
               Beyond Work
             </h2>
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -56,7 +56,7 @@ export function InterestsSection() {
               return (
                 <div
                   key={index}
-                  className="group p-6 rounded-xl bg-secondary/50 border border-border/50 hover:border-primary/30 transition-all hover:bg-secondary/70"
+                  className="group p-6 rounded-xl bg-secondary/80 border border-border/50 hover:border-primary/30 transition-all hover:bg-secondary"
                 >
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                     <Icon className="w-6 h-6 text-primary" />

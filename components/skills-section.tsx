@@ -45,7 +45,7 @@ export function SkillsSection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section id="skills" className="py-24 md:py-32 bg-secondary/30 relative">
+    <section id="skills" className="py-14 md:py-20 bg-secondary/30 relative">
       <div className="max-w-4xl mx-auto px-6">
         <div
           ref={ref}
@@ -55,7 +55,7 @@ export function SkillsSection() {
         >
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-            <h2 className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
+            <h2 className="text-base tracking-[0.3em] uppercase text-primary font-medium">
               Skills & Expertise
             </h2>
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -88,7 +88,7 @@ export function SkillsSection() {
                 {technicalSkills.map((skill, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-3 rounded-lg bg-background/50 border border-border/50 hover:border-primary/30 transition-all"
+                    className="flex items-center justify-between p-3 rounded-lg bg-secondary/60 border border-border/50 hover:border-primary/30 transition-all"
                   >
                     <span className="font-medium text-foreground">
                       {skill.name}
@@ -112,7 +112,7 @@ export function SkillsSection() {
                   return (
                     <div
                       key={index}
-                      className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-border/50 hover:border-primary/30 transition-all group"
+                      className="flex items-center gap-3 p-3 rounded-lg bg-secondary/60 border border-border/50 hover:border-primary/30 transition-all group"
                     >
                       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                         <Icon className="w-4 h-4 text-primary" />

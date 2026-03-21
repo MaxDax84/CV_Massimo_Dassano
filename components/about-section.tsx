@@ -6,7 +6,7 @@ export function AboutSection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section id="about" className="py-24 md:py-32 relative">
+    <section id="about" className="py-14 md:py-20 relative">
       <div className="max-w-4xl mx-auto px-6">
         <div
           ref={ref}
@@ -16,7 +16,7 @@ export function AboutSection() {
         >
           <div className="flex items-center gap-4 mb-8">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-            <h2 className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
+            <h2 className="text-base tracking-[0.3em] uppercase text-primary font-medium">
               Profile
             </h2>
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -58,7 +58,7 @@ export function AboutSection() {
             ].map((stat, index) => (
               <div
                 key={index}
-                className="text-center p-4 rounded-lg bg-secondary/50 border border-border/50"
+                className="text-center p-4 rounded-lg bg-secondary/80 border border-border/50"
               >
                 <div className="text-2xl md:text-3xl font-bold text-primary mb-1">
                   {stat.value}
