@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, MapPin, Phone } from "lucide-react"
+import { Linkedin, MapPin } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export function HeroSection() {
@@ -52,18 +52,16 @@ export function HeroSection() {
               <span>Milan, Italy</span>
             </div>
             <a
-              href="mailto:massimo.dassano@gmail.com"
+              href="https://www.linkedin.com/in/massimo-dassano-a8b31a25/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 hover:text-primary transition-colors group"
             >
-              <Mail className="w-4 h-4 text-primary" />
+              <Linkedin className="w-4 h-4 text-primary" />
               <span className="group-hover:underline underline-offset-4">
-                massimo.dassano@gmail.com
+                LinkedIn
               </span>
             </a>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-primary" />
-              <span>+39 340 487 9279</span>
-            </div>
           </div>
         </div>
       </div>

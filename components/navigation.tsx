@@ -58,10 +58,12 @@ export function Navigation() {
         </div>
         <div className="flex items-center gap-4">
           <a
-            href="mailto:massimo.dassano@gmail.com"
+            href="https://www.linkedin.com/in/massimo-dassano-a8b31a25/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline text-sm text-primary hover:text-primary/80 transition-colors"
           >
-            Contact
+            LinkedIn
           </a>
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -87,10 +89,12 @@ export function Navigation() {
             </Link>
           ))}
           <a
-            href="mailto:massimo.dassano@gmail.com"
+            href="https://www.linkedin.com/in/massimo-dassano-a8b31a25/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm text-primary hover:text-primary/80 transition-colors"
           >
-            Contact
+            LinkedIn
           </a>
         </div>
       )}

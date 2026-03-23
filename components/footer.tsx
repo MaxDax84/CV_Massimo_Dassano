@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Linkedin, MapPin } from "lucide-react"
+import { Linkedin, MapPin } from "lucide-react"
 
 export function Footer() {
   return (
@@ -18,11 +18,13 @@ export function Footer() {
 
           <div className="flex items-center gap-4">
             <a
-              href="mailto:massimo.dassano@gmail.com"
+              href="https://www.linkedin.com/in/massimo-dassano-a8b31a25/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium"
             >
-              <Mail className="w-4 h-4" />
-              <span>massimo.dassano@gmail.com</span>
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn</span>
             </a>
           </div>
         </div>
