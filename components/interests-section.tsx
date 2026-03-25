@@ -2,36 +2,13 @@
 
 import { useInView } from "@/hooks/use-in-view"
 import { Dumbbell, Lightbulb, Plane, Cpu } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
-const passions = [
-  {
-    icon: Dumbbell,
-    title: "Tennis Coaching",
-    description:
-      "Passionate about tennis, both as a player and coach, combining physical discipline with strategic thinking.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Chess Player",
-    description:
-      "Strategic board game enthusiast, applying analytical thinking and long-term planning on the chessboard.",
-  },
-  {
-    icon: Cpu,
-    title: "Emerging Technologies & AI",
-    description:
-      "Deeply interested in artificial intelligence and emerging tech trends that are reshaping business and society.",
-  },
-  {
-    icon: Plane,
-    title: "Cultural Exploration",
-    description:
-      "Avid traveler with a passion for discovering new cultures, perspectives, and ways of doing business globally.",
-  },
-]
+const ICONS = [Dumbbell, Lightbulb, Cpu, Plane]
 
 export function InterestsSection() {
   const { ref, isInView } = useInView()
+  const { t } = useLanguage()
 
   return (
     <section className="py-14 md:py-20 relative">
@@ -45,14 +22,14 @@ export function InterestsSection() {
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
             <h2 className="text-base tracking-[0.3em] uppercase text-primary font-medium">
-              Beyond Work
+              {t.interests.heading}
             </h2>
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            {passions.map((passion, index) => {
-              const Icon = passion.icon
+            {t.interests.passions.map((passion, index) => {
+              const Icon = ICONS[index]
               return (
                 <div
                   key={index}

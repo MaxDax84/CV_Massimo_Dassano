@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Mail } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 interface ContactRevealProps {
   encodedEmail: string // email string reversed
@@ -14,6 +15,7 @@ export function ContactReveal({ encodedEmail }: ContactRevealProps) {
   const [honeypot, setHoneypot] = useState("")
   const [error, setError] = useState(false)
   const [email, setEmail] = useState("")
+  const { t } = useLanguage()
 
   useEffect(() => {
     setNums({
@@ -41,7 +43,7 @@ export function ContactReveal({ encodedEmail }: ContactRevealProps) {
         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium"
       >
         <Mail className="w-4 h-4" />
-        Mostra Contatto
+        {t.contact.show}
       </button>
     )
   }
@@ -61,7 +63,7 @@ export function ContactReveal({ encodedEmail }: ContactRevealProps) {
           aria-hidden="true"
         />
         <span className="text-sm text-muted-foreground whitespace-nowrap">
-          Quanto fa {nums.a} + {nums.b}?
+          {t.contact.challenge} {nums.a} + {nums.b}{t.contact.challengeQ}
         </span>
         <input
           type="number"
@@ -79,7 +81,7 @@ export function ContactReveal({ encodedEmail }: ContactRevealProps) {
           OK
         </button>
         {error && (
-          <span className="text-sm text-destructive">Risposta errata, riprova</span>
+          <span className="text-sm text-destructive">{t.contact.error}</span>
         )}
       </form>
     )

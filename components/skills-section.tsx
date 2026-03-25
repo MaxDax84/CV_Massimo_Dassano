@@ -1,48 +1,21 @@
 "use client"
 
 import { useInView } from "@/hooks/use-in-view"
-import {
-  BarChart3,
-  Brain,
-  Target,
-  Users,
-  Database,
-  LineChart,
-  Zap,
-  Globe,
-} from "lucide-react"
+import { Database, LineChart, Zap, Target, Users } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
-const technicalSkills = [
+const TECH_SKILLS = [
   { name: "Salesforce.com", category: "CRM" },
   { name: "HubSpot", category: "CRM" },
   { name: "Microsoft Office Suite", category: "Productivity" },
   { name: "LinkedIn", category: "Networking" },
 ]
 
-const professionalInterests = [
-  { icon: Database, label: "Business & Data Modelling" },
-  { icon: LineChart, label: "Data-driven Sales Strategies" },
-  { icon: Zap, label: "AI & Technology" },
-  { icon: Target, label: "Sales-out Optimization" },
-  { icon: Users, label: "Team Leadership & Coaching" },
-]
-
-const coreCompetencies = [
-  "B2B Sales Planning",
-  "Strategic Partnerships",
-  "Go-to-Market Strategy",
-  "Revenue Growth",
-  "Stakeholder Management",
-  "Cross-functional Leadership",
-  "Partner Ecosystem Development",
-  "P&L Management",
-  "CRM Administration",
-  "Performance Analytics",
-  "Sales Incentives Management",
-]
+const INTEREST_ICONS = [Database, LineChart, Zap, Target, Users]
 
 export function SkillsSection() {
   const { ref, isInView } = useInView()
+  const { t } = useLanguage()
 
   return (
     <section id="skills" className="py-14 md:py-20 bg-secondary/30 relative">
@@ -56,7 +29,7 @@ export function SkillsSection() {
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
             <h2 className="text-base tracking-[0.3em] uppercase text-primary font-medium">
-              Skills & Expertise
+              {t.skills.heading}
             </h2>
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
           </div>
@@ -64,10 +37,10 @@ export function SkillsSection() {
           {/* Core Competencies */}
           <div className="mb-12">
             <h3 className="text-lg font-semibold text-foreground mb-6">
-              Core Competencies
+              {t.skills.core}
             </h3>
             <div className="flex flex-wrap gap-3">
-              {coreCompetencies.map((skill, index) => (
+              {t.skills.competencies.map((skill, index) => (
                 <span
                   key={index}
                   className="px-4 py-2 text-sm rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors cursor-default"
@@ -82,10 +55,10 @@ export function SkillsSection() {
             {/* Technical Skills */}
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-6">
-                Technical Proficiency
+                {t.skills.technical}
               </h3>
               <div className="space-y-3">
-                {technicalSkills.map((skill, index) => (
+                {TECH_SKILLS.map((skill, index) => (
                   <div
                     key={index}
                     className="flex items-center justify-between p-3 rounded-lg bg-secondary/60 border border-border/50 hover:border-primary/30 transition-all"
@@ -104,11 +77,11 @@ export function SkillsSection() {
             {/* Professional Interests */}
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-6">
-                Professional Focus Areas
+                {t.skills.focus}
               </h3>
               <div className="space-y-3">
-                {professionalInterests.map((interest, index) => {
-                  const Icon = interest.icon
+                {t.skills.interests.map((label, index) => {
+                  const Icon = INTEREST_ICONS[index]
                   return (
                     <div
                       key={index}
@@ -117,9 +90,7 @@ export function SkillsSection() {
                       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                         <Icon className="w-4 h-4 text-primary" />
                       </div>
-                      <span className="font-medium text-foreground">
-                        {interest.label}
-                      </span>
+                      <span className="font-medium text-foreground">{label}</span>
                     </div>
                   )
                 })}

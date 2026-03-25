@@ -4,17 +4,20 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
-
-const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Education", href: "#education" },
-  { label: "Skills", href: "#skills" },
-]
+import { useLanguage } from "@/contexts/language-context"
+import { LanguageSwitcher } from "@/components/language-switcher"
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { t } = useLanguage()
+
+  const navItems = [
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.experience, href: "#experience" },
+    { label: t.nav.education, href: "#education" },
+    { label: t.nav.skills, href: "#skills" },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +59,7 @@ export function Navigation() {
             </Link>
           ))}
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <a
             href="https://www.linkedin.com/in/massimo-dassano-a8b31a25/"
             target="_blank"
@@ -65,6 +68,7 @@ export function Navigation() {
           >
             LinkedIn
           </a>
+          <LanguageSwitcher />
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
             className="md:hidden text-foreground hover:text-primary transition-colors"
