@@ -55,8 +55,10 @@ const t_it = {
       {
         role: "Global Business & Commercial Development e CRM Manager",
         description:
-          "Riporto diretto al CEO, responsabile del coordinamento dei team di vendita a livello mondiale e dei programmi di crescita strategica.",
+          "Responsabile del coordinamento dei team di vendita a livello mondiale e dei programmi di crescita strategica.",
         highlights: [
+          "Guidato programmi interfunzionali tra Vendite, Marketing e Operazioni per rafforzare l'eccellenza operativa — includendo lanci di prodotto, implementazione di CRM e data platform, strategia di pricing, redesign del modello di revenue, localizzazione dell'esperienza cliente e revisione delle performance aziendali",
+          "Monitorato le performance commerciali e il ROI dei partner nell'ecosistema di vendita, progettando strutture incentivanti, tracciando i risultati di sell-out e definendo metriche di performance per garantire piena trasparenza e responsabilità",
           "Coordinato 21 team regionali, fungendo da collegamento chiave tra il Top Management e i team per il dispiegamento delle strategie globali",
           "Preparato il Piano Strategico quinquennale e definito obiettivi di vendita e piani incentivi per 300 persone di vendita",
           "Amministrato Salesforce.com per 10 BU, 21 team e 500+ utenti, guidando la progettazione, l'implementazione e la manutenzione della piattaforma, inclusa la formazione e l'onboarding dei nuovi team",
@@ -202,8 +204,10 @@ const t_en = {
       {
         role: "Global Business & Commercial Development and CRM Manager",
         description:
-          "Direct report of the CEO, in charge of the coordination of the sales teams world-wide, and the strategic growth programs.",
+          "In charge of the coordination of the sales teams world-wide, and the strategic growth programs.",
         highlights: [
+          "Spearheaded cross-functional programs spanning Sales, Marketing and Operations to drive operational excellence — covering product launches, CRM & data platform deployment, pricing strategy, revenue model redesign, customer experience localization, and business performance reviews",
+          "Monitored commercial performance and partner ROI across the sales ecosystem, designing incentive structures, tracking sell-out results, and establishing performance metrics to ensure full transparency and accountability",
           "Coordinated 21 regional teams, serving as a key connection between Top Management and teams for deploying global strategies",
           "Prepared the 5-year Strategic Plan and set sales targets & incentive plans for 300 sales people",
           "Administered Salesforce.com for 10 BUs, 21 teams, and 500+ users, leading platform design, implementation, and maintenance, including training and onboarding of new teams",
@@ -349,8 +353,10 @@ const t_fr = {
       {
         role: "Responsable Développement Commercial & CRM Global",
         description:
-          "Rapport direct au PDG, chargé de la coordination des équipes de vente mondiales et des programmes de croissance stratégique.",
+          "Chargé de la coordination des équipes de vente mondiales et des programmes de croissance stratégique.",
         highlights: [
+          "Piloté des programmes transversaux entre les équipes Ventes, Marketing et Opérations pour renforcer l'excellence opérationnelle — incluant des lancements de produits, le déploiement de CRM et data platform, la stratégie tarifaire, la refonte du modèle de revenus, la localisation de l'expérience client et les revues de performance globale",
+          "Suivi les performances commerciales et le ROI des partenaires au sein de l'écosystème commercial, en concevant des structures d'incentives, en suivant les résultats de sell-out et en établissant des métriques de performance pour garantir la transparence et la pleine responsabilité",
           "Coordonné 21 équipes régionales, servant de lien clé entre la Direction Générale et les équipes pour le déploiement des stratégies globales",
           "Élaboré le Plan Stratégique sur 5 ans et fixé les objectifs de vente et les plans d'incentives pour 300 commerciaux",
           "Administré Salesforce.com pour 10 BU, 21 équipes et 500+ utilisateurs, pilotant la conception, l'implémentation et la maintenance de la plateforme, y compris la formation et l'intégration des nouvelles équipes",
@@ -496,8 +502,10 @@ const t_de = {
       {
         role: "Global Business & Commercial Development und CRM Manager",
         description:
-          "Direkter Bericht an den CEO, verantwortlich für die Koordination der weltweiten Vertriebsteams und der strategischen Wachstumsprogramme.",
+          "Verantwortlich für die Koordination der weltweiten Vertriebsteams und der strategischen Wachstumsprogramme.",
         highlights: [
+          "Geleitete funktionsübergreifende Programme in Vertrieb, Marketing und Operations zur Stärkung der operativen Exzellenz — darunter Produktlaunches, CRM- und Data-Platform-Einführung, Preisstrategie, Umsatzmodell-Überarbeitung, Customer-Experience-Lokalisierung und Business-Performance-Reviews",
+          "Überwachte kommerzielle Leistung und Partner-ROI im gesamten Vertriebsökosystem, entwarf Incentive-Strukturen, verfolgte Sell-out-Ergebnisse und etablierte Leistungskennzahlen für volle Transparenz und Verantwortlichkeit",
           "Koordinierte 21 regionale Teams als Schlüsselverbindung zwischen Top-Management und Teams für die Umsetzung globaler Strategien",
           "Erstellte den 5-Jahres-Strategieplan und legte Vertriebsziele & Incentive-Pläne für 300 Vertriebsmitarbeiter fest",
           "Administrierte Salesforce.com für 10 Geschäftsbereiche, 21 Teams und 500+ Nutzer, leitete Plattformdesign, -implementierung und -wartung einschließlich Schulung und Onboarding neuer Teams",
@@ -643,8 +651,10 @@ const t_zh = {
       {
         role: "全球业务与商务发展及CRM经理",
         description:
-          "直接向CEO汇报，负责协调全球销售团队及战略增长计划。",
+          "负责协调全球销售团队及战略增长计划。",
         highlights: [
+          "主导跨销售、市场营销和运营部门的项目，提升运营卓越性——涵盖产品发布、CRM及数据平台部署、定价策略、收入模式重设计、客户体验本地化及业务绩效审查",
+          "监控整个销售生态系统的商业绩效和合作伙伴ROI，设计激励方案、追踪销售成果，建立绩效指标以确保全面透明度和问责制",
           "协调21个区域团队，担任高层管理与团队之间部署全球战略的关键纽带",
           "制定5年战略计划，为300名销售人员制定销售目标和激励计划",
           "管理Salesforce.com平台，覆盖10个业务部门、21个团队和500名以上用户，领导平台设计、实施和维护，包括新团队的培训和入职",
@@ -790,8 +800,10 @@ const t_sw = {
       {
         role: "Meneja wa Maendeleo ya Biashara ya Kimataifa na CRM",
         description:
-          "Ripoti ya moja kwa moja kwa Mkurugenzi Mtendaji, anayehusika na uratibu wa timu za mauzo ulimwenguni kote, na programu za ukuaji wa kimkakati.",
+          "Anayehusika na uratibu wa timu za mauzo ulimwenguni kote, na programu za ukuaji wa kimkakati.",
         highlights: [
+          "Kuongoza mipango ya mseto kati ya Mauzo, Masoko na Uendeshaji ili kuimarisha ubora wa uendeshaji — ikiwa ni pamoja na uzinduzi wa bidhaa, uwekaji wa CRM na data platform, mkakati wa bei, mabadiliko ya mfumo wa mapato, ubinafsi wa uzoefu wa mteja na mapitio ya utendaji wa biashara",
+          "Kufuatilia utendaji wa kibiashara na ROI ya washirika katika mfumo mzima wa mauzo, kuunda miundo ya motisha, kufuatilia matokeo ya mauzo na kuweka vipimo vya utendaji ili kuhakikisha uwazi kamili na uwajibikaji",
           "Kuratibu timu 21 za kikanda, kutumikia kama unganisho muhimu kati ya Menejimenti ya Juu na timu kwa ajili ya kupeleka mikakati ya kimataifa",
           "Kuandaa Mpango wa Kimkakati wa miaka 5 na kuweka malengo ya mauzo na mipango ya motisha kwa watu wa mauzo 300",
           "Kusimamia Salesforce.com kwa BU 10, timu 21, na watumiaji 500+, kuongoza muundo wa jukwaa, utekelezaji, na matengenezo, ikiwa ni pamoja na mafunzo na ujumuishaji wa timu mpya",
@@ -938,8 +950,10 @@ const t_ql = {
       {
         role: "Global Carwë & Telpë ar CRM-Haryon",
         description:
-          "Ondolissë CEO, rantha nossë malta-rimbë ar mardë ukuajio kimkakati.",
+          "Rantha nossë malta-rimbë ar mardë ukuajio kimkakati.",
         highlights: [
+          "Rantha nossë rimbë Sales, Cormë ar Telpë — carna mírë ar carwë vanya: malta-carna, CRM, telpë-ranta ar nórëo carwë vanyë",
+          "Tirë malta-carwë ar toron-ROI, carna incentivë, sell-out ar metriki — anwa istya ar nossëo",
           "Rantha nossë neldequain ar minquë, carna liaison Top-Haryon ar nossë",
           "Carna Malta-Plan cainen-yéni, seti malengo 300 malta-quenyaron",
           "Tir Salesforce neldëquain BU, nossë neldëquain ar minquë, ar quenyar neldë-rimbë",
