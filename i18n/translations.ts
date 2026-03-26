@@ -167,7 +167,7 @@ const t_en = {
   hero: {
     subtitle: "Senior Manager",
     description:
-      "15+ years of international experience in B2B sales planning, strategic partnerships, and global business development",
+      "15+ years of international experience in B2B sales planning, sales coordination, strategic partnerships and ecosystem growth as well as and business development",
     location: "Milan, Italy",
   },
   about: {
