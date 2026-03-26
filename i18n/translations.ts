@@ -206,8 +206,8 @@ const t_en = {
         description:
           "In charge of the coordination of the sales teams world-wide, and the strategic growth programs.",
         highlights: [
-          "Spearheaded cross-functional programs spanning Sales, Marketing and Operations to drive operational excellence — covering product launches, CRM & data platform deployment, pricing strategy, revenue model redesign, customer experience localization, and business performance reviews",
-          "Monitored commercial performance and partner ROI across the sales ecosystem, designing incentive structures, tracking sell-out results, and establishing performance metrics to ensure full transparency and accountability",
+          "Directed end-to-end strategic initiatives across Sales, Marketing, and Operations to optimize internal workflows — managing full-cycle product rollouts, CRM and data architecture integration, revenue stream restructuring, regional user journey adaptation, and comprehensive business audits.",
+          "Analyzed global sales results and organizational ROI, engineering high-impact motivation frameworks, auditing final market output, and defining success KPIs to maintain absolute visibility and departmental responsibility.",
           "Coordinated 21 regional teams, serving as a key connection between Top Management and teams for deploying global strategies",
           "Prepared the 5-year Strategic Plan and set sales targets & incentive plans for 300 sales people",
           "Administered Salesforce.com for 10 BUs, 21 teams, and 500+ users, leading platform design, implementation, and maintenance, including training and onboarding of new teams",
