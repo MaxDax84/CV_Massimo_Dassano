@@ -9,9 +9,9 @@ export function AboutSection() {
 
   const stats = [
     { value: "15+", label: t.about.stats.yearsExp },
-    { value: "125+", label: t.about.stats.partners },
-    { value: "$2M+", label: t.about.stats.revenue },
     { value: "21", label: t.about.stats.teams },
+    { value: "500+", label: t.about.stats.people },
+    { value: "4", label: t.about.stats.companies },
   ]
 
   return (

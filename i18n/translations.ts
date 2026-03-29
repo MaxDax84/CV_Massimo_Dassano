@@ -31,9 +31,9 @@ const t_it = {
     p3: "Attualmente focalizzato sulla massimizzazione delle performance di sell-out attraverso iniziative basate sul ROI, porto una combinazione unica di rigore analitico e visione strategica ad ogni sfida.",
     stats: {
       yearsExp: "Anni di Esperienza",
-      partners: "Partner Reclutati",
-      revenue: "Fatturato Gestito",
       teams: "Team Coordinati",
+      people: "Persone Impattate",
+      companies: "Aziende",
     },
   },
   experience: {
@@ -180,9 +180,9 @@ const t_en = {
     p3: "Currently focused on maximizing sales-out performance through ROI-based initiatives, I bring a unique combination of analytical rigor and strategic vision to every challenge.",
     stats: {
       yearsExp: "Years Experience",
-      partners: "Partners Recruited",
-      revenue: "Revenue Managed",
       teams: "Teams Coordinated",
+      people: "People Impacted",
+      companies: "Companies",
     },
   },
   experience: {
@@ -329,9 +329,9 @@ const t_fr = {
     p3: "Actuellement focalisé sur la maximisation des performances de sell-out grâce à des initiatives basées sur le ROI, j'apporte une combinaison unique de rigueur analytique et de vision stratégique à chaque défi.",
     stats: {
       yearsExp: "Ans d'expérience",
-      partners: "Partenaires recrutés",
-      revenue: "CA géré",
       teams: "Équipes coordonnées",
+      people: "Personnes impactées",
+      companies: "Entreprises",
     },
   },
   experience: {
@@ -478,9 +478,9 @@ const t_de = {
     p3: "Derzeit konzentriere ich mich auf die Maximierung der Sell-out-Performance durch ROI-basierte Initiativen und bringe eine einzigartige Kombination aus analytischer Strenge und strategischer Vision in jede Herausforderung ein.",
     stats: {
       yearsExp: "Jahre Erfahrung",
-      partners: "Partner rekrutiert",
-      revenue: "Umsatz verwaltet",
       teams: "Teams koordiniert",
+      people: "Betroffene Personen",
+      companies: "Unternehmen",
     },
   },
   experience: {
@@ -627,9 +627,9 @@ const t_zh = {
     p3: "目前专注于通过基于ROI的举措最大化销售表现，为每一个挑战带来分析严谨性与战略视野的独特结合。",
     stats: {
       yearsExp: "年工作经验",
-      partners: "合作伙伴",
-      revenue: "营收管理",
       teams: "团队协调",
+      people: "影响人数",
+      companies: "就职公司",
     },
   },
   experience: {
@@ -776,9 +776,9 @@ const t_sw = {
     p3: "Kwa sasa ninalenga kupitisha utendaji wa mauzo kupitia mipango inayozingatia ROI, nakileta mchanganyiko wa kipekee wa uchambuzi wa kina na maono ya kimkakati kwa kila changamoto.",
     stats: {
       yearsExp: "Miaka ya Uzoefu",
-      partners: "Washirika Walioajiriwa",
-      revenue: "Mapato Yaliyosimamiwa",
       teams: "Timu Zilizoratibiwa",
+      people: "Watu Walioathiriwa",
+      companies: "Makampuni",
     },
   },
   experience: {
@@ -926,9 +926,9 @@ const t_ql = {
     p3: "Sí tirë malta-sout ar ROI — carna mírë ar istya sanya, cormë ilye yaimëo.",
     stats: {
       yearsExp: "Yéni Carwëo",
-      partners: "Toron Hirini",
-      revenue: "Malta Tirna",
       teams: "Nossë Ranthainë",
+      people: "Quenyar Ranthainë",
+      companies: "Nórë Rimbë",
     },
   },
   experience: {
