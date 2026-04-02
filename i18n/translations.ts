@@ -20,7 +20,7 @@ const t_it = {
   hero: {
     subtitle: "Senior Manager",
     description:
-      "15+ anni di esperienza internazionale in pianificazione vendite B2B, partnership strategiche e sviluppo del business a livello globale",
+      "15+ anni di esperienza internazionale nella pianificazione delle vendite B2B, partnership strategiche e sviluppo del business a livello globale",
     location: "Milano, Italia",
   },
   about: {
@@ -60,7 +60,7 @@ const t_it = {
           "Guidato programmi interfunzionali tra Vendite, Marketing e Operazioni per rafforzare l'eccellenza operativa — includendo lanci di prodotto, implementazione di CRM e data platform, strategia di pricing, redesign del modello di revenue, localizzazione dell'esperienza cliente e revisione delle performance aziendali",
           "Monitorato le performance commerciali e il ROI dei partner nell'ecosistema di vendita, progettando strutture incentivanti, tracciando i risultati di sell-out e definendo metriche di performance per garantire piena trasparenza e responsabilità",
           "Coordinato 21 team regionali, fungendo da collegamento chiave tra il Top Management e i team per il dispiegamento delle strategie globali",
-          "Preparato il Piano Strategico quinquennale e definito obiettivi di vendita e piani incentivi per 300 persone di vendita",
+          "Preparato il Piano Strategico quinquennale e definito obiettivi di vendita e piani di incentivi per 300 commerciali",
           "Amministrato Salesforce.com per 10 BU, 21 team e 500+ utenti, guidando la progettazione, l'implementazione e la manutenzione della piattaforma, inclusa la formazione e l'onboarding dei nuovi team",
         ],
       },
@@ -79,7 +79,7 @@ const t_it = {
         description:
           "Realizzato progetti di consulenza strategica in diversi settori, guidando la trasformazione organizzativa e l'eccellenza operativa.",
         highlights: [
-          "Completato 10 progetti per 6 clienti, specializzandosi in change management, vendite & marketing, strategia & operazioni, miglioramento dei processi e pianificazione aziendale",
+          "Completato 10 progetti per 6 clienti, specializzato in change management, vendite & marketing, strategia & operazioni, miglioramento dei processi e pianificazione aziendale",
         ],
       },
     ],
@@ -169,7 +169,7 @@ const t_en = {
   hero: {
     subtitle: "Senior Manager",
     description:
-      "15+ years of international experience in B2B sales planning, sales coordination, strategic partnerships and ecosystem growth as well as and business development",
+      "15+ years of international experience in B2B sales planning, sales coordination, strategic partnerships and ecosystem growth as well as business development",
     location: "Milan, Italy",
   },
   about: {
@@ -204,12 +204,12 @@ const t_en = {
       {
         role: "Global Business & Commercial Development and CRM Manager",
         description:
-          "In charge of the coordination of the sales teams world-wide, and the strategic growth programs.",
+          "In charge of the coordination of the sales teams worldwide, and the strategic growth programs.",
         highlights: [
           "Directed end-to-end strategic initiatives across Sales, Marketing, and Operations to optimize internal workflows — managing full-cycle product rollouts, CRM and data architecture integration, revenue stream restructuring, regional user journey adaptation, and comprehensive business audits.",
           "Analyzed global sales results and organizational ROI, engineering high-impact motivation frameworks, auditing final market output, and defining success KPIs to maintain absolute visibility and departmental responsibility.",
           "Coordinated 21 regional teams, serving as a key connection between Top Management and teams for deploying global strategies",
-          "Prepared the 5-year Strategic Plan and set sales targets & incentive plans for 300 sales people",
+          "Prepared the 5-year Strategic Plan and set sales targets & incentive plans for 300 salespeople",
           "Administered Salesforce.com for 10 BUs, 21 teams, and 500+ users, leading platform design, implementation, and maintenance, including training and onboarding of new teams",
         ],
       },
@@ -220,7 +220,7 @@ const t_en = {
         highlights: [
           "Achieved +30% growth in sales year-over-year",
           "Managed approximately 300 direct customers",
-          "Coordinated network of 25 dealers for indirect sales channel",
+          "Coordinated a network of 25 dealers for the indirect sales channel",
         ],
       },
       {
