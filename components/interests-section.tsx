@@ -4,7 +4,7 @@ import { useInView } from "@/hooks/use-in-view"
 import { Dumbbell, Lightbulb, Plane, Cpu, Palette } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
-const ICONS = [Dumbbell, Lightbulb, Cpu, Plane, Palette]
+const ICONS = [Palette, Dumbbell, Lightbulb, Cpu, Plane]
 
 export function InterestsSection() {
   const { ref, isInView } = useInView()
