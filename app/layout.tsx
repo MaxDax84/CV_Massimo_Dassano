@@ -90,95 +90,14 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: 'Massimo Dassano — Web Creator',
+    '@type': 'Person',
+    name: 'Massimo Dassano',
+    jobTitle: 'Web Creator & Web Designer Freelance',
     url: BASE_URL,
-    description:
-      'Creazione di siti web personalizzati, restyling di siti esistenti, landing page e manutenzione. Ogni progetto è unico, curato personalmente, senza template o pacchetti predefiniti.',
-    founder: {
-      '@type': 'Person',
-      name: 'Massimo Dassano',
-      sameAs: 'https://www.linkedin.com/in/massimo-dassano-a8b31a25/',
-    },
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Milano',
-      addressRegion: 'MI',
       addressCountry: 'IT',
-    },
-    areaServed: [
-      { '@type': 'City', name: 'Milano' },
-      { '@type': 'Country', name: 'Italy' },
-    ],
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Servizi Web',
-      itemListElement: [
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Restyling Sito Web',
-            description: 'Modernizzazione e redesign di siti web esistenti e datati.',
-          },
-          priceSpecification: {
-            '@type': 'PriceSpecification',
-            price: '200',
-            priceCurrency: 'EUR',
-            minPrice: '200',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Creazione Sito Web',
-            description: 'Realizzazione di siti web personalizzati da zero, senza template.',
-          },
-          priceSpecification: {
-            '@type': 'PriceSpecification',
-            price: '500',
-            priceCurrency: 'EUR',
-            minPrice: '500',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Sito Web Completo',
-            description: 'Sito web completo multi-pagina con blog, analytics e SEO avanzato.',
-          },
-          priceSpecification: {
-            '@type': 'PriceSpecification',
-            price: '1500',
-            priceCurrency: 'EUR',
-            minPrice: '1500',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Creazione Landing Page',
-            description: 'Landing page personalizzata ad alta conversione, senza template predefiniti.',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Manutenzione Sito Web',
-            description: 'Aggiornamento, manutenzione e ottimizzazione di siti web esistenti.',
-          },
-        },
-      ],
-    },
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'customer service',
-      email: 'massimo.dassano@gmail.com',
-      availableLanguage: ['Italian', 'English'],
     },
     sameAs: [
       'https://www.linkedin.com/in/massimo-dassano-a8b31a25/',
@@ -186,18 +105,11 @@ const jsonLd = [
   },
   {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Massimo Dassano',
+    '@type': 'ProfessionalService',
+    name: 'Massimo Dassano — Web Creator',
+    description: 'Creazione siti web personalizzati, restyling e landing page',
     url: BASE_URL,
-    jobTitle: 'Web Creator & Web Interior Designer',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Milano',
-      addressCountry: 'IT',
-    },
-    sameAs: [
-      'https://www.linkedin.com/in/massimo-dassano-a8b31a25/',
-    ],
+    areaServed: 'Italia',
   },
 ]
 

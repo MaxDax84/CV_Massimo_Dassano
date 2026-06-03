@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
   Linkedin, MapPin, ChevronDown, ExternalLink, Menu, X,
@@ -237,6 +238,7 @@ function HomeNav() {
 
   const links = [
     { label: "Servizi", href: "#servizi" },
+    { label: "Chi sono", href: "/cv" },
     { label: "Prezzi", href: "#pricing" },
     { label: "Contatti", href: "#contatto" },
   ]
@@ -605,6 +607,61 @@ function ManifestoSection() {
 }
 
 /* ─────────────────────────────────────────────────────
+   WHY ME
+───────────────────────────────────────────────────── */
+function WhyMeSection() {
+  const { ref, inView } = useScrollInView()
+
+  return (
+    <section className="py-24 relative">
+      <div className="absolute inset-0 cyber-grid-dense" style={{ opacity: 0.12 }} />
+      <div className="max-w-3xl mx-auto px-6">
+        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <SectionHeader title="Perché lavorare con me è diverso" />
+
+          <div className="relative rounded-2xl px-8 py-10 md:px-12"
+            style={{ background: "rgba(0,245,255,0.022)", border: "1px solid rgba(0,245,255,0.11)" }}>
+            <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.5)", borderLeft: "2px solid rgba(0,245,255,0.5)" }} />
+            <div className="absolute top-0 right-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.5)", borderRight: "2px solid rgba(0,245,255,0.5)" }} />
+            <div className="absolute bottom-0 left-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.5)", borderLeft: "2px solid rgba(0,245,255,0.5)" }} />
+            <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.5)", borderRight: "2px solid rgba(0,245,255,0.5)" }} />
+
+            <div className="space-y-6 text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>
+              <p>
+                Ho trascorso 15 anni in aziende strutturate — da Ernst &amp; Young ad Alibaba.com — a capire perché
+                certi business crescono e altri si fermano. Ho gestito budget, partner, team internazionali e
+                strategie go-to-market in mercati competitivi.
+              </p>
+
+              <p>
+                Ora costruisco siti web. Ma con una prospettiva che la maggior parte dei web designer non ha:
+                so cosa guarda davvero un decision maker quando apre un sito. So cosa lo convince e cosa lo perde.
+                So che{" "}
+                <span className="text-white font-medium">un sito bello che non converte è un costo, non un investimento.</span>
+              </p>
+
+              <p>
+                Lavoro con professionisti e piccole imprese che vogliono una presenza digitale che lavori per loro
+                — non solo una che sembri professionale. Da remoto, ovunque.
+              </p>
+            </div>
+
+            <div className="mt-8 pt-6" style={{ borderTop: "1px solid rgba(0,245,255,0.08)" }}>
+              <Link href="/cv"
+                className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3"
+                style={{ color: "#00f5ff" }}>
+                Scopri il mio background
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
    PRICING
 ───────────────────────────────────────────────────── */
 function PricingSection() {
@@ -715,8 +772,8 @@ function PricingSection() {
 ───────────────────────────────────────────────────── */
 function ContactSection() {
   const { ref, inView } = useScrollInView()
+  const router = useRouter()
   const [form, setForm] = useState({ nome: "", cognome: "", email: "", tipo: "", messaggio: "" })
-  const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
@@ -742,7 +799,7 @@ function ContactSection() {
         body: JSON.stringify(form),
       })
       if (!res.ok) throw new Error()
-      setSent(true)
+      router.push("/grazie")
     } catch {
       setErrors({ messaggio: "Errore nell'invio. Riprova o scrivimi su LinkedIn." })
     } finally {
@@ -789,17 +846,7 @@ function ContactSection() {
             <div className="absolute bottom-0 left-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderLeft: "2px solid rgba(0,245,255,0.55)" }} />
             <div className="absolute bottom-0 right-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderRight: "2px solid rgba(0,245,255,0.55)" }} />
 
-            {sent ? (
-              <div className="py-8 text-center">
-                <div className="text-4xl mb-4">✓</div>
-                <p className="text-white font-bold text-xl mb-2">Messaggio inviato!</p>
-                <p className="text-sm" style={{ color: "rgba(155,180,215,0.75)" }}>
-                  Grazie per avermi contattato.<br />
-                  Ti rispondo entro 24–48h.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                 <div className="grid sm:grid-cols-2 gap-5">
                   {field("nome", "Nome", "Mario")}
                   {field("cognome", "Cognome", "Rossi")}
@@ -866,7 +913,6 @@ function ContactSection() {
                   Preventivo gratuito · Nessun impegno
                 </p>
               </form>
-            )}
           </div>
         </div>
       </div>
@@ -920,6 +966,7 @@ export default function HomePage() {
       <HeroSection />
       <ServicesSection />
       <ManifestoSection />
+      <WhyMeSection />
       <PricingSection />
       <ContactSection />
       <HomeFooter />
