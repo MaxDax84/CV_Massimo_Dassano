@@ -855,6 +855,11 @@ function HomeFooter() {
    PAGE
 ───────────────────────────────────────────────────── */
 export default function HomePage() {
+  useEffect(() => {
+    history.scrollRestoration = "manual"
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <main style={{ background: "#030610", minHeight: "100vh", color: "#e2e8f0", position: "relative" }}>
       <ParticleCanvas />
