@@ -12,25 +12,34 @@ const BASE_URL = 'https://massimodassano.it'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Massimo Dassano | Web Creator & Web Interior Designer — Milano',
+    default: 'Massimo Dassano | Web Creator & Web Interior Designer',
     template: '%s | Massimo Dassano',
   },
   description:
-    'Creo siti web personalizzati da zero e restyling di siti esistenti. Niente template, niente pacchetti fissi: ogni progetto è unico, curato personalmente e pensato per te. Disponibile a Milano e in tutta Italia.',
+    'Creo siti web personalizzati da zero, restyling di siti esistenti, landing page e manutenzione siti web. Niente template, niente pacchetti fissi: ogni progetto è unico, curato personalmente e pensato per te.',
   keywords: [
     'Massimo Dassano',
-    'web creator Milano',
-    'web designer Milano',
-    'restyling sito web',
-    'siti web personalizzati',
-    'creazione sito web Milano',
+    'web creator',
     'web interior designer',
-    'ristrutturazione sito web',
-    'sito web artigianale',
-    'web creator Italia',
+    'creazione sito web',
+    'sito web personalizzato',
+    'restyling sito web',
     'rifacimento sito web',
+    'ristrutturazione sito web',
+    'manutenzione sito web',
+    'creazione landing page',
+    'landing page personalizzata',
     'sito web su misura',
     'realizzazione siti web',
+    'sito web professionale',
+    'web design personalizzato',
+    'sito web senza template',
+    'sito web piccole imprese',
+    'sito web per professionisti',
+    'aggiornamento sito web',
+    'restyling grafico sito',
+    'sito vetrina personalizzato',
+    'creazione sito web da zero',
   ],
   authors: [{ name: 'Massimo Dassano', url: BASE_URL }],
   creator: 'Massimo Dassano',
@@ -43,7 +52,7 @@ export const metadata: Metadata = {
     siteName: 'Massimo Dassano',
     title: 'Massimo Dassano | Web Creator & Web Interior Designer',
     description:
-      'Siti web personalizzati e restyling di siti esistenti. Niente template — ogni progetto è unico, pensato per te. Milano.',
+      'Siti web personalizzati, restyling, landing page e manutenzione. Niente template — ogni progetto è unico, pensato per te.',
     locale: 'it_IT',
     images: [
       {
@@ -58,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Massimo Dassano | Web Creator & Web Interior Designer',
     description:
-      'Siti web personalizzati e restyling di siti esistenti. Niente template — ogni progetto è unico.',
+      'Siti web personalizzati, restyling, landing page e manutenzione. Niente template — ogni progetto è unico.',
     images: ['/opengraph-image'],
   },
   robots: {
@@ -85,7 +94,7 @@ const jsonLd = [
     name: 'Massimo Dassano — Web Creator',
     url: BASE_URL,
     description:
-      'Creazione di siti web personalizzati da zero e restyling di siti esistenti. Ogni progetto è unico, curato personalmente, senza template o pacchetti predefiniti.',
+      'Creazione di siti web personalizzati, restyling di siti esistenti, landing page e manutenzione. Ogni progetto è unico, curato personalmente, senza template o pacchetti predefiniti.',
     founder: {
       '@type': 'Person',
       name: 'Massimo Dassano',
@@ -145,6 +154,22 @@ const jsonLd = [
             price: '1500',
             priceCurrency: 'EUR',
             minPrice: '1500',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Creazione Landing Page',
+            description: 'Landing page personalizzata ad alta conversione, senza template predefiniti.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Manutenzione Sito Web',
+            description: 'Aggiornamento, manutenzione e ottimizzazione di siti web esistenti.',
           },
         },
       ],
