@@ -97,31 +97,51 @@ function GlitchText({ text, className = "" }: { text: string; className?: string
 function useHoloTilt(intensity = 11) {
   const ref = useRef<HTMLDivElement>(null)
 
-  const onMouseMove = useCallback((e: React.MouseEvent) => {
+  useEffect(() => {
     const el = ref.current
     if (!el) return
-    const r = el.getBoundingClientRect()
-    const x = (e.clientX - r.left - r.width / 2) / (r.width / 2)
-    const y = (e.clientY - r.top - r.height / 2) / (r.height / 2)
-    el.style.transform = `perspective(800px) rotateX(${-y * intensity}deg) rotateY(${x * intensity}deg) scale3d(1.025,1.025,1.025)`
-    el.style.transition = "transform 0.05s ease"
-    const shimmer = el.querySelector<HTMLElement>(".holo-shimmer-inner")
-    if (shimmer) {
-      shimmer.style.background = `radial-gradient(circle at ${(x + 1) / 2 * 100}% ${(y + 1) / 2 * 100}%, rgba(0,245,255,0.13) 0%, rgba(168,85,247,0.07) 40%, transparent 70%)`
-      shimmer.style.opacity = "1"
+
+    const applyTilt = (clientX: number, clientY: number) => {
+      const r = el.getBoundingClientRect()
+      const x = Math.max(-1, Math.min(1, (clientX - r.left - r.width / 2) / (r.width / 2)))
+      const y = Math.max(-1, Math.min(1, (clientY - r.top - r.height / 2) / (r.height / 2)))
+      el.style.transform = `perspective(800px) rotateX(${-y * intensity}deg) rotateY(${x * intensity}deg) scale3d(1.025,1.025,1.025)`
+      el.style.transition = "transform 0.05s ease"
+      const shimmer = el.querySelector<HTMLElement>(".holo-shimmer-inner")
+      if (shimmer) {
+        shimmer.style.background = `radial-gradient(circle at ${(x + 1) / 2 * 100}% ${(y + 1) / 2 * 100}%, rgba(0,245,255,0.13) 0%, rgba(168,85,247,0.07) 40%, transparent 70%)`
+        shimmer.style.opacity = "1"
+      }
+    }
+
+    const resetTilt = () => {
+      el.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)"
+      el.style.transition = "transform 0.55s ease"
+      const shimmer = el.querySelector<HTMLElement>(".holo-shimmer-inner")
+      if (shimmer) shimmer.style.opacity = "0"
+    }
+
+    const onMouseMove = (e: MouseEvent) => applyTilt(e.clientX, e.clientY)
+    const onMouseLeave = () => resetTilt()
+    const onTouchMove = (e: TouchEvent) => { const t = e.touches[0]; if (t) applyTilt(t.clientX, t.clientY) }
+    const onTouchEnd = () => resetTilt()
+
+    el.addEventListener("mousemove", onMouseMove)
+    el.addEventListener("mouseleave", onMouseLeave)
+    el.addEventListener("touchmove", onTouchMove, { passive: true })
+    el.addEventListener("touchend", onTouchEnd)
+    el.addEventListener("touchcancel", onTouchEnd)
+
+    return () => {
+      el.removeEventListener("mousemove", onMouseMove)
+      el.removeEventListener("mouseleave", onMouseLeave)
+      el.removeEventListener("touchmove", onTouchMove)
+      el.removeEventListener("touchend", onTouchEnd)
+      el.removeEventListener("touchcancel", onTouchEnd)
     }
   }, [intensity])
 
-  const onMouseLeave = useCallback(() => {
-    const el = ref.current
-    if (!el) return
-    el.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)"
-    el.style.transition = "transform 0.55s ease"
-    const shimmer = el.querySelector<HTMLElement>(".holo-shimmer-inner")
-    if (shimmer) shimmer.style.opacity = "0"
-  }, [])
-
-  return { ref, onMouseMove, onMouseLeave }
+  return { ref }
 }
 
 /* ─────────────────────────────────────────────────────
@@ -154,7 +174,7 @@ function SectionHeader({ title, subtitle }: { title: string; subtitle?: string }
         {title}
       </h2>
       {subtitle && (
-        <p className="max-w-xl mx-auto text-sm leading-relaxed" style={{ color: "rgba(140,165,200,0.75)" }}>
+        <p className="max-w-xl mx-auto text-sm leading-relaxed whitespace-pre-line" style={{ color: "rgba(140,165,200,0.75)" }}>
           {subtitle}
         </p>
       )}
@@ -440,8 +460,6 @@ function ServicesSection() {
               return (
                 <div key={i}
                   ref={t.ref}
-                  onMouseMove={t.onMouseMove}
-                  onMouseLeave={t.onMouseLeave}
                   className="relative rounded-2xl p-8 overflow-hidden cursor-default"
                   style={{
                     background: `rgba(${svc.rgb},0.035)`,
@@ -726,7 +744,7 @@ function ContactSection() {
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,245,255,0.035) 0%, transparent 72%)" }} />
       <div className="max-w-xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <SectionHeader title="Parliamone" subtitle="Raccontami il tuo progetto — ti rispondo entro 24–48h" />
+          <SectionHeader title="Parliamone" subtitle={`Raccontami il tuo progetto,\nti rispondo entro 24–48h`} />
 
           <div className="relative rounded-2xl p-8"
             style={{ background: "rgba(0,245,255,0.022)", border: "1px solid rgba(0,245,255,0.12)", boxShadow: "0 0 50px rgba(0,245,255,0.04)" }}>
