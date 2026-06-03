@@ -11,19 +11,26 @@ const BASE_URL = 'https://massimodassano.it'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: 'Massimo Dassano | Senior Sales & Business Development Manager',
-  description: 'Senior Manager with 15+ years of international experience in B2B sales planning, strategic partnerships, and global business development. Based in Milan, Italy.',
+  title: {
+    default: 'Massimo Dassano | Web Creator & Web Interior Designer — Milano',
+    template: '%s | Massimo Dassano',
+  },
+  description:
+    'Creo siti web personalizzati da zero e restyling di siti esistenti. Niente template, niente pacchetti fissi: ogni progetto è unico, curato personalmente e pensato per te. Disponibile a Milano e in tutta Italia.',
   keywords: [
     'Massimo Dassano',
-    'Sales Manager',
-    'Business Development',
-    'B2B Sales Planning',
-    'Strategic Partnerships',
-    'Go-to-Market Strategy',
-    'Alibaba',
-    'Nidec',
-    'Milan',
-    'Italy',
+    'web creator Milano',
+    'web designer Milano',
+    'restyling sito web',
+    'siti web personalizzati',
+    'creazione sito web Milano',
+    'web interior designer',
+    'ristrutturazione sito web',
+    'sito web artigianale',
+    'web creator Italia',
+    'rifacimento sito web',
+    'sito web su misura',
+    'realizzazione siti web',
   ],
   authors: [{ name: 'Massimo Dassano', url: BASE_URL }],
   creator: 'Massimo Dassano',
@@ -31,25 +38,27 @@ export const metadata: Metadata = {
     canonical: BASE_URL,
   },
   openGraph: {
-    type: 'profile',
+    type: 'website',
     url: BASE_URL,
     siteName: 'Massimo Dassano',
-    title: 'Massimo Dassano | Senior Sales & Business Development Manager',
-    description: 'Senior Manager with 15+ years of international experience in B2B sales planning, strategic partnerships, and global business development. Based in Milan, Italy.',
-    locale: 'en_US',
+    title: 'Massimo Dassano | Web Creator & Web Interior Designer',
+    description:
+      'Siti web personalizzati e restyling di siti esistenti. Niente template — ogni progetto è unico, pensato per te. Milano.',
+    locale: 'it_IT',
     images: [
       {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Massimo Dassano – Senior Sales & Business Development Manager',
+        alt: 'Massimo Dassano — Web Creator & Web Interior Designer, Milano',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Massimo Dassano | Senior Sales & Business Development Manager',
-    description: 'Senior Manager with 15+ years of international experience in B2B sales planning, strategic partnerships, and global business development.',
+    title: 'Massimo Dassano | Web Creator & Web Interior Designer',
+    description:
+      'Siti web personalizzati e restyling di siti esistenti. Niente template — ogni progetto è unico.',
     images: ['/opengraph-image'],
   },
   robots: {
@@ -69,22 +78,103 @@ export const metadata: Metadata = {
   },
 }
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Massimo Dassano',
-  url: BASE_URL,
-  jobTitle: 'Senior Sales & Business Development Manager',
-  description: 'Senior Manager with 15+ years of international experience in B2B sales planning, strategic partnerships, and global business development.',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Milan',
-    addressCountry: 'IT',
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'Massimo Dassano — Web Creator',
+    url: BASE_URL,
+    description:
+      'Creazione di siti web personalizzati da zero e restyling di siti esistenti. Ogni progetto è unico, curato personalmente, senza template o pacchetti predefiniti.',
+    founder: {
+      '@type': 'Person',
+      name: 'Massimo Dassano',
+      sameAs: 'https://www.linkedin.com/in/massimo-dassano-a8b31a25/',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Milano',
+      addressRegion: 'MI',
+      addressCountry: 'IT',
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Milano' },
+      { '@type': 'Country', name: 'Italy' },
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Servizi Web',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Restyling Sito Web',
+            description: 'Modernizzazione e redesign di siti web esistenti e datati.',
+          },
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            price: '200',
+            priceCurrency: 'EUR',
+            minPrice: '200',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Creazione Sito Web',
+            description: 'Realizzazione di siti web personalizzati da zero, senza template.',
+          },
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            price: '500',
+            priceCurrency: 'EUR',
+            minPrice: '500',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Sito Web Completo',
+            description: 'Sito web completo multi-pagina con blog, analytics e SEO avanzato.',
+          },
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            price: '1500',
+            priceCurrency: 'EUR',
+            minPrice: '1500',
+          },
+        },
+      ],
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      email: 'massimo.dassano@gmail.com',
+      availableLanguage: ['Italian', 'English'],
+    },
+    sameAs: [
+      'https://www.linkedin.com/in/massimo-dassano-a8b31a25/',
+    ],
   },
-  sameAs: [
-    'https://www.linkedin.com/in/massimo-dassano-a8b31a25/',
-  ],
-}
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Massimo Dassano',
+    url: BASE_URL,
+    jobTitle: 'Web Creator & Web Interior Designer',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Milano',
+      addressCountry: 'IT',
+    },
+    sameAs: [
+      'https://www.linkedin.com/in/massimo-dassano-a8b31a25/',
+    ],
+  },
+]
 
 export default function RootLayout({
   children,
@@ -92,7 +182,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="it">
       <head>
         <script
           type="application/ld+json"

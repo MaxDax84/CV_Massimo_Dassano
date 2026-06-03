@@ -8,8 +8,21 @@ import { Footer } from "@/components/footer"
 import { Navigation } from "@/components/navigation"
 
 export const metadata = {
-  title: "Il mio background | Massimo Dassano",
-  description: "Senior Manager con 15+ anni di esperienza internazionale in B2B sales planning, strategic partnerships e global business development.",
+  title: "Il mio background",
+  description: "Senior Manager con 15+ anni di esperienza internazionale in B2B sales planning, strategic partnerships e global business development. Milano, Italia.",
+  alternates: {
+    canonical: "https://massimodassano.it/cv",
+  },
+  openGraph: {
+    title: "Il mio background | Massimo Dassano",
+    description: "Senior Manager con 15+ anni di esperienza internazionale in B2B sales, strategic partnerships e business development globale.",
+    url: "https://massimodassano.it/cv",
+    locale: "it_IT",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function CvPage() {
