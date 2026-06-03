@@ -1,23 +1,870 @@
-import { HeroSection } from "@/components/hero-section"
-import { AboutSection } from "@/components/about-section"
-import { ExperienceSection } from "@/components/experience-section"
-import { EducationSection } from "@/components/education-section"
-import { SkillsSection } from "@/components/skills-section"
-import { InterestsSection } from "@/components/interests-section"
-import { Footer } from "@/components/footer"
-import { Navigation } from "@/components/navigation"
+"use client"
 
-export default function Home() {
+import { useState, useEffect, useRef, useCallback } from "react"
+import Link from "next/link"
+import {
+  Linkedin, MapPin, ChevronDown, ExternalLink, Menu, X,
+  Monitor, Wand2, Star, Zap, Code, Smartphone, Search,
+  ArrowRight, Mail,
+} from "lucide-react"
+// ExternalLink used in HomeNav for /cv link
+import { ParticleCanvas } from "@/components/particle-canvas"
+import { ContactReveal } from "@/components/contact-reveal"
+
+/* ─────────────────────────────────────────────────────
+   TYPING TEXT
+───────────────────────────────────────────────────── */
+function TypingText({ texts }: { texts: string[] }) {
+  const [display, setDisplay] = useState("")
+  const [ti, setTi] = useState(0)
+  const [ci, setCi] = useState(0)
+  const [deleting, setDeleting] = useState(false)
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    if (paused) return
+    const cur = texts[ti]
+    const id = setTimeout(() => {
+      if (!deleting) {
+        if (ci < cur.length) {
+          setDisplay(cur.slice(0, ci + 1))
+          setCi(c => c + 1)
+        } else {
+          setPaused(true)
+          setTimeout(() => { setPaused(false); setDeleting(true) }, 2200)
+        }
+      } else {
+        if (ci > 0) {
+          setDisplay(cur.slice(0, ci - 1))
+          setCi(c => c - 1)
+        } else {
+          setDeleting(false)
+          setTi(i => (i + 1) % texts.length)
+        }
+      }
+    }, deleting ? 42 : 72)
+    return () => clearTimeout(id)
+  }, [ci, deleting, paused, ti, texts])
+
   return (
-    <main className="min-h-screen bg-background">
-      <Navigation />
+    <span>
+      {display}
+      <span className="animate-blink-cursor" style={{ color: "#00f5ff" }}>_</span>
+    </span>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   GLITCH TEXT
+───────────────────────────────────────────────────── */
+function GlitchText({ text, className = "" }: { text: string; className?: string }) {
+  const [glitching, setGlitching] = useState(false)
+
+  useEffect(() => {
+    let id: ReturnType<typeof setTimeout>
+    const schedule = () => {
+      id = setTimeout(() => {
+        setGlitching(true)
+        setTimeout(() => { setGlitching(false); schedule() }, 240 + Math.random() * 160)
+      }, 3200 + Math.random() * 4000)
+    }
+    schedule()
+    return () => clearTimeout(id)
+  }, [])
+
+  return (
+    <span className={`relative inline-block ${className}`}>
+      <span className="relative z-10">{text}</span>
+      {glitching && (
+        <>
+          <span className="absolute inset-0 z-20 animate-glitch-1"
+            style={{ color: "#ff00ea", clipPath: "inset(14% 0 54% 0)", transform: "translate(-4px, 2px)" }}>
+            {text}
+          </span>
+          <span className="absolute inset-0 z-20 animate-glitch-2"
+            style={{ color: "#00f5ff", clipPath: "inset(62% 0 12% 0)", transform: "translate(4px, -2px)" }}>
+            {text}
+          </span>
+        </>
+      )}
+    </span>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   HOLO TILT HOOK
+───────────────────────────────────────────────────── */
+function useHoloTilt(intensity = 11) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = ref.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const x = (e.clientX - r.left - r.width / 2) / (r.width / 2)
+    const y = (e.clientY - r.top - r.height / 2) / (r.height / 2)
+    el.style.transform = `perspective(800px) rotateX(${-y * intensity}deg) rotateY(${x * intensity}deg) scale3d(1.025,1.025,1.025)`
+    el.style.transition = "transform 0.05s ease"
+    const shimmer = el.querySelector<HTMLElement>(".holo-shimmer-inner")
+    if (shimmer) {
+      shimmer.style.background = `radial-gradient(circle at ${(x + 1) / 2 * 100}% ${(y + 1) / 2 * 100}%, rgba(0,245,255,0.13) 0%, rgba(168,85,247,0.07) 40%, transparent 70%)`
+      shimmer.style.opacity = "1"
+    }
+  }, [intensity])
+
+  const onMouseLeave = useCallback(() => {
+    const el = ref.current
+    if (!el) return
+    el.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)"
+    el.style.transition = "transform 0.55s ease"
+    const shimmer = el.querySelector<HTMLElement>(".holo-shimmer-inner")
+    if (shimmer) shimmer.style.opacity = "0"
+  }, [])
+
+  return { ref, onMouseMove, onMouseLeave }
+}
+
+/* ─────────────────────────────────────────────────────
+   USE IN VIEW
+───────────────────────────────────────────────────── */
+function useScrollInView(threshold = 0.1) {
+  const [inView, setInView] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true) }, { threshold })
+    if (ref.current) obs.observe(ref.current)
+    return () => obs.disconnect()
+  }, [threshold])
+  return { ref, inView }
+}
+
+/* ─────────────────────────────────────────────────────
+   SECTION HEADER
+───────────────────────────────────────────────────── */
+function SectionHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <div className="text-center mb-16">
+      <div className="flex items-center justify-center gap-4 mb-4">
+        <div className="h-px flex-1 max-w-28" style={{ background: "linear-gradient(90deg, transparent, rgba(0,245,255,0.45))" }} />
+        <span className="text-xs font-mono" style={{ color: "rgba(0,245,255,0.55)" }}>◈</span>
+        <div className="h-px flex-1 max-w-28" style={{ background: "linear-gradient(90deg, rgba(0,245,255,0.45), transparent)" }} />
+      </div>
+      <h2 className="text-3xl md:text-4xl font-bold text-white mb-3"
+        style={{ textShadow: "0 0 30px rgba(0,245,255,0.18)" }}>
+        {title}
+      </h2>
+      {subtitle && (
+        <p className="max-w-xl mx-auto text-sm leading-relaxed" style={{ color: "rgba(140,165,200,0.75)" }}>
+          {subtitle}
+        </p>
+      )}
+      <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="h-px w-8" style={{ background: "rgba(0,245,255,0.35)" }} />
+        <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00f5ff", boxShadow: "0 0 8px rgba(0,245,255,0.8)" }} />
+        <div className="h-px w-8" style={{ background: "rgba(0,245,255,0.35)" }} />
+      </div>
+    </div>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   HOME NAVIGATION
+───────────────────────────────────────────────────── */
+function HomeNav() {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", h)
+    return () => window.removeEventListener("scroll", h)
+  }, [])
+
+  const links = [
+    { label: "Servizi", href: "#servizi" },
+    { label: "Prezzi", href: "#pricing" },
+    { label: "Contatti", href: "#contatto" },
+  ]
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        background: scrolled || menuOpen ? "rgba(3,6,16,0.92)" : "transparent",
+        backdropFilter: scrolled || menuOpen ? "blur(14px)" : "none",
+        borderBottom: scrolled || menuOpen ? "1px solid rgba(0,245,255,0.1)" : "none",
+        boxShadow: scrolled ? "0 0 25px rgba(0,245,255,0.04)" : "none",
+      }}>
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="text-xl font-black tracking-tight transition-all duration-300 hover:scale-110"
+          style={{ color: "#00f5ff", textShadow: "0 0 14px rgba(0,245,255,0.65)" }}>
+          MD
+        </button>
+
+        <div className="hidden md:flex items-center gap-8">
+          {links.map(l => (
+            <a key={l.href} href={l.href}
+              className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400"
+              style={{ color: "rgba(175,195,220,0.65)" }}>
+              {l.label}
+            </a>
+          ))}
+        </div>
+
+        <button onClick={() => setMenuOpen(p => !p)} className="md:hidden" style={{ color: "#00f5ff" }}>
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="md:hidden px-6 py-4 flex flex-col gap-5"
+          style={{ borderTop: "1px solid rgba(0,245,255,0.08)", background: "rgba(3,6,16,0.97)" }}>
+          {links.map(l => (
+            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
+              className="text-sm tracking-wider uppercase" style={{ color: "rgba(175,195,220,0.7)" }}>
+              {l.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </nav>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────────────── */
+function HeroSection() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden scanlines">
+      <div className="absolute inset-0 cyber-grid" style={{ opacity: 0.45 }} />
+      <div className="absolute inset-0" style={{
+        background: "radial-gradient(ellipse 75% 55% at 50% 42%, rgba(0,245,255,0.055) 0%, transparent 72%)"
+      }} />
+      <div className="absolute inset-0" style={{
+        background: "linear-gradient(180deg, transparent 55%, #030610 100%)"
+      }} />
+
+      {/* Floating orbs */}
+      <div className="absolute top-[19%] right-[11%] pointer-events-none animate-float-orb" style={{ animationDelay: "-1s" }}>
+        <div className="w-36 h-36 rounded-full" style={{
+          border: "1px solid rgba(0,245,255,0.17)",
+          background: "radial-gradient(circle, rgba(0,245,255,0.07) 0%, transparent 70%)",
+          boxShadow: "0 0 45px rgba(0,245,255,0.1)",
+        }} />
+      </div>
+      <div className="absolute bottom-[32%] left-[7%] pointer-events-none animate-float-orb-2" style={{ animationDelay: "-4.5s" }}>
+        <div className="w-24 h-24 rounded-full" style={{
+          border: "1px solid rgba(168,85,247,0.22)",
+          background: "radial-gradient(circle, rgba(168,85,247,0.07) 0%, transparent 70%)",
+          boxShadow: "0 0 35px rgba(168,85,247,0.13)",
+        }} />
+      </div>
+      <div className="absolute top-[17%] left-[17%] pointer-events-none animate-float-orb" style={{ animationDelay: "-6s" }}>
+        <div className="w-9 h-9 rotate-45" style={{
+          border: "1px solid rgba(0,245,255,0.28)",
+          boxShadow: "0 0 12px rgba(0,245,255,0.22)",
+        }} />
+      </div>
+      <div className="absolute bottom-[22%] right-[17%] pointer-events-none animate-float-orb-2" style={{ animationDelay: "-2.5s" }}>
+        <div className="w-7 h-7 rotate-45" style={{
+          border: "1px solid rgba(168,85,247,0.32)",
+          boxShadow: "0 0 10px rgba(168,85,247,0.28)",
+        }} />
+      </div>
+      <div className="absolute top-[55%] left-[3%] pointer-events-none animate-float-orb" style={{ animationDelay: "-8s" }}>
+        <div className="w-5 h-5 rotate-45" style={{ border: "1px solid rgba(240,171,252,0.3)" }} />
+      </div>
+      <div className="absolute top-[30%] right-[3%] pointer-events-none animate-float-orb-2" style={{ animationDelay: "-3s" }}>
+        <div className="w-5 h-5 rotate-45" style={{ border: "1px solid rgba(0,245,255,0.25)" }} />
+      </div>
+
+      {/* Rotating rings */}
+      <div className="absolute pointer-events-none" style={{ width: 580, height: 580, opacity: 0.075 }}>
+        <div className="absolute inset-0 rounded-full animate-spin-slow" style={{ border: "1px dashed rgba(0,245,255,0.9)" }} />
+        <div className="absolute inset-[26px] rounded-full animate-spin-slow-reverse" style={{ border: "1px solid rgba(168,85,247,0.9)" }} />
+        <div className="absolute inset-[65px] rounded-full animate-spin-slow" style={{ border: "1px dotted rgba(0,245,255,0.7)" }} />
+      </div>
+
+      {/* Scanline sweep */}
+      <div className="absolute left-0 right-0 h-px pointer-events-none animate-scanline"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(0,245,255,0.55), rgba(168,85,247,0.35), transparent)",
+          boxShadow: "0 0 22px rgba(0,245,255,0.45)",
+          zIndex: 20,
+        }} />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        {/* Status bar */}
+        <div className={`flex justify-center gap-6 mb-10 transition-all duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ boxShadow: "0 0 7px rgba(74,222,128,0.9)" }} />
+            <span className="text-xs tracking-[0.22em] uppercase" style={{ color: "rgba(74,222,128,0.9)" }}>DISPONIBILE</span>
+          </div>
+          <div className="hidden sm:flex items-center gap-2">
+            <MapPin className="w-3 h-3" style={{ color: "rgba(0,245,255,0.65)" }} />
+            <span className="text-xs tracking-[0.22em] uppercase" style={{ color: "rgba(0,245,255,0.65)" }}>MILANO, IT</span>
+          </div>
+        </div>
+
+        {/* Name with HUD frame */}
+        <div className={`relative inline-block px-8 py-5 mb-5 transition-all duration-700 delay-100 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.7)", borderLeft: "2px solid rgba(0,245,255,0.7)" }} />
+          <div className="absolute top-0 right-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.7)", borderRight: "2px solid rgba(0,245,255,0.7)" }} />
+          <div className="absolute bottom-0 left-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.7)", borderLeft: "2px solid rgba(0,245,255,0.7)" }} />
+          <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.7)", borderRight: "2px solid rgba(0,245,255,0.7)" }} />
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white"
+            style={{ textShadow: "0 0 40px rgba(0,245,255,0.22), 0 0 80px rgba(0,245,255,0.08)" }}>
+            <GlitchText text="Massimo Dassano" />
+          </h1>
+        </div>
+
+        {/* Typing subtitle */}
+        <div className={`text-xl md:text-2xl font-mono mb-7 h-8 transition-all duration-700 delay-200 ${mounted ? "opacity-100" : "opacity-0"}`}
+          style={{ color: "#00f5ff" }}>
+          <TypingText texts={["Web Creator", "Digital Architect", "Web Interior Designer"]} />
+        </div>
+
+        {/* Separator */}
+        <div className={`flex items-center justify-center gap-4 mb-8 transition-all duration-700 delay-300 ${mounted ? "opacity-100" : "opacity-0"}`}>
+          <div className="h-px w-20" style={{ background: "linear-gradient(90deg, transparent, rgba(0,245,255,0.45))" }} />
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00f5ff", boxShadow: "0 0 9px rgba(0,245,255,0.9)" }} />
+          <div className="h-px w-20" style={{ background: "linear-gradient(90deg, rgba(0,245,255,0.45), transparent)" }} />
+        </div>
+
+        {/* Description */}
+        <p className={`text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed transition-all duration-700 delay-400 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ color: "rgba(155,180,215,0.8)" }}>
+          Creo siti web personalizzati che trasformano la tua identità digitale.
+          Che tu parta da zero o voglia rinnovare quello che hai,
+          costruiamo qualcosa di cui andare fieri.
+        </p>
+
+        {/* CTAs */}
+        <div className={`flex flex-wrap justify-center gap-4 transition-all duration-700 delay-500 ${mounted ? "opacity-100" : "opacity-0"}`}>
+          <a href="#servizi"
+            className="flex items-center gap-2 px-8 py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-105"
+            style={{
+              background: "rgba(0,245,255,0.08)",
+              border: "1px solid rgba(0,245,255,0.38)",
+              color: "#00f5ff",
+              boxShadow: "0 0 22px rgba(0,245,255,0.13)",
+            }}>
+            <span>Scopri i servizi</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+          <a href="#contatto"
+            className="flex items-center gap-2 px-8 py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-105"
+            style={{
+              background: "rgba(168,85,247,0.08)",
+              border: "1px solid rgba(168,85,247,0.38)",
+              color: "#a855f7",
+              boxShadow: "0 0 22px rgba(168,85,247,0.13)",
+            }}>
+            <span>Contattami</span>
+            <Mail className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce" style={{ opacity: 0.38 }}>
+        <div className="w-px h-10" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.6))" }} />
+        <ChevronDown className="w-4 h-4" style={{ color: "#00f5ff" }} />
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   SERVICES
+───────────────────────────────────────────────────── */
+function ServicesSection() {
+  const { ref, inView } = useScrollInView()
+  const card1 = useHoloTilt()
+  const card2 = useHoloTilt()
+
+  const services = [
+    {
+      icon: Wand2,
+      tag: "RESTYLING",
+      color: "#a855f7",
+      rgb: "168,85,247",
+      title: "Restyling Sito Esistente",
+      sub: "Per chi ha un sito che non li rappresenta più",
+      body: "Il tuo sito ha qualche anno? Il design sembra datato? Analizziamo quello che hai, manteniamo ciò che funziona e trasformiamo il resto in qualcosa di moderno ed efficace.",
+      features: [
+        { icon: Star, text: "Analisi del sito attuale" },
+        { icon: Wand2, text: "Nuovo design moderno" },
+        { icon: ArrowRight, text: "Migrazione completa dei contenuti" },
+        { icon: Zap, text: "Ottimizzazione performance" },
+      ],
+    },
+    {
+      icon: Monitor,
+      tag: "EX NOVO",
+      color: "#00f5ff",
+      rgb: "0,245,255",
+      title: "Sito Web da Zero",
+      sub: "Per chi non ha ancora una presenza online",
+      body: "Partiamo da un foglio bianco e costruiamo insieme la tua identità digitale. Design personalizzato, struttura pensata per i tuoi obiettivi, ottimizzato per convertire visitatori in clienti.",
+      features: [
+        { icon: Code, text: "Design custom su misura" },
+        { icon: Smartphone, text: "Mobile-first & responsive" },
+        { icon: Search, text: "SEO ottimizzato" },
+        { icon: Zap, text: "Veloce, sicuro e ottimizzato per tutti i dispositivi" },
+      ],
+    },
+  ]
+
+  const tilts = [card1, card2]
+
+  return (
+    <section id="servizi" className="py-24 relative">
+      <div className="absolute inset-0 cyber-grid-dense" style={{ opacity: 0.18 }} />
+      <div className="max-w-5xl mx-auto px-6">
+        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <SectionHeader
+            title="Cosa posso fare per te"
+            subtitle="Due percorsi, un obiettivo: una presenza digitale che ti rappresenti davvero"
+          />
+          <div className="grid md:grid-cols-2 gap-8">
+            {services.map((svc, i) => {
+              const Icon = svc.icon
+              const t = tilts[i]
+              return (
+                <div key={i}
+                  ref={t.ref}
+                  onMouseMove={t.onMouseMove}
+                  onMouseLeave={t.onMouseLeave}
+                  className="relative rounded-2xl p-8 overflow-hidden cursor-default"
+                  style={{
+                    background: `rgba(${svc.rgb},0.035)`,
+                    border: `1px solid rgba(${svc.rgb},0.2)`,
+                    boxShadow: `0 0 35px rgba(${svc.rgb},0.06)`,
+                    transformStyle: "preserve-3d",
+                  }}>
+                  <div className="holo-shimmer-inner absolute inset-0 rounded-2xl pointer-events-none" style={{ opacity: 0 }} />
+                  <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: `2px solid rgba(${svc.rgb},0.58)`, borderLeft: `2px solid rgba(${svc.rgb},0.58)` }} />
+                  <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: `2px solid rgba(${svc.rgb},0.58)`, borderRight: `2px solid rgba(${svc.rgb},0.58)` }} />
+
+                  <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 text-xs font-mono tracking-wider"
+                    style={{ background: `rgba(${svc.rgb},0.1)`, border: `1px solid rgba(${svc.rgb},0.28)`, color: svc.color }}>
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ background: svc.color, boxShadow: `0 0 6px ${svc.color}` }} />
+                    {svc.tag}
+                  </div>
+
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
+                    style={{ background: `rgba(${svc.rgb},0.1)`, border: `1px solid rgba(${svc.rgb},0.22)`, boxShadow: `0 0 22px rgba(${svc.rgb},0.1)` }}>
+                    <Icon className="w-7 h-7" style={{ color: svc.color }} />
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-white mb-2">{svc.title}</h3>
+                  <p className="text-sm font-medium mb-4" style={{ color: svc.color }}>{svc.sub}</p>
+                  <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(145,170,210,0.75)" }}>{svc.body}</p>
+
+                  <ul className="space-y-2.5 mb-8">
+                    {svc.features.map((f, fi) => {
+                      const FIcon = f.icon
+                      return (
+                        <li key={fi} className="flex items-center gap-3 text-sm" style={{ color: "rgba(195,215,240,0.82)" }}>
+                          <div className="w-6 h-6 rounded flex items-center justify-center shrink-0"
+                            style={{ background: `rgba(${svc.rgb},0.1)` }}>
+                            <FIcon className="w-3.5 h-3.5" style={{ color: svc.color }} />
+                          </div>
+                          {f.text}
+                        </li>
+                      )
+                    })}
+                  </ul>
+
+                  <a href="#contatto"
+                    className="flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3"
+                    style={{ color: svc.color }}>
+                    Parliamone <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   MANIFESTO
+───────────────────────────────────────────────────── */
+function ManifestoSection() {
+  const { ref, inView } = useScrollInView()
+
+  return (
+    <section className="py-20 relative">
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.018) 50%, transparent)" }} />
+      <div className="max-w-4xl mx-auto px-6">
+        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+
+          {/* Quote block */}
+          <div className="relative rounded-2xl px-8 py-10 md:px-14 md:py-12 text-center mb-12"
+            style={{
+              background: "rgba(0,245,255,0.025)",
+              border: "1px solid rgba(0,245,255,0.12)",
+            }}>
+            {/* Corners */}
+            <div className="absolute top-0 left-0 w-6 h-6" style={{ borderTop: "2px solid rgba(0,245,255,0.55)", borderLeft: "2px solid rgba(0,245,255,0.55)" }} />
+            <div className="absolute top-0 right-0 w-6 h-6" style={{ borderTop: "2px solid rgba(0,245,255,0.55)", borderRight: "2px solid rgba(0,245,255,0.55)" }} />
+            <div className="absolute bottom-0 left-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderLeft: "2px solid rgba(0,245,255,0.55)" }} />
+            <div className="absolute bottom-0 right-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderRight: "2px solid rgba(0,245,255,0.55)" }} />
+
+            {/* Tag */}
+            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 text-xs font-mono tracking-wider"
+              style={{ background: "rgba(0,245,255,0.08)", border: "1px solid rgba(0,245,255,0.2)", color: "#00f5ff" }}>
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00f5ff", boxShadow: "0 0 6px #00f5ff" }} />
+              IL MIO APPROCCIO
+            </div>
+
+            <blockquote className="text-2xl md:text-3xl font-bold text-white leading-snug mb-4"
+              style={{ textShadow: "0 0 30px rgba(0,245,255,0.15)" }}>
+              Lavoro come una boutique artigianale:
+              poche cose, semplici, fatte{" "}
+              <span style={{ color: "#00f5ff" }}>bene.</span>
+            </blockquote>
+
+            <p className="max-w-2xl mx-auto text-sm leading-relaxed" style={{ color: "rgba(155,180,215,0.8)" }}>
+              Niente template da compilare, niente pacchetti fissi, niente strumenti automatici
+              che producono siti tutti uguali. Ogni elemento è personalizzabile: struttura, testi,
+              immagini, colori. Hai foto da inserire o descrizioni da aggiungere? Vengono posizionate
+              esattamente dove vuoi — con la cura e la flessibilità che nessun compilatore automatico
+              potrà mai offrirti.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   PRICING
+───────────────────────────────────────────────────── */
+function PricingSection() {
+  const { ref, inView } = useScrollInView()
+
+  const plans = [
+    {
+      name: "RESTYLING",
+      tag: "Rinnova il Sito",
+      price: "da €200",
+      color: "#f0abfc",
+      rgb: "240,171,252",
+      featured: false,
+      desc: "Hai già un sito ma non ti rappresenta più? Lo analizziamo, trasformiamo e ottimizziamo.",
+      features: ["Analisi del sito esistente", "Nuovo design moderno", "Migrazione dei contenuti", "Ottimizzazione performance", "SEO refresh"],
+    },
+    {
+      name: "STARTER",
+      tag: "Presenza Online",
+      price: "da €500",
+      color: "#00f5ff",
+      rgb: "0,245,255",
+      featured: false,
+      desc: "Per professionisti e piccole realtà che vogliono una presenza online pulita ed efficace.",
+      features: ["10+ pagine create insieme", "Design su misura", "Mobile-first & responsive", "SEO base", "Consegna in 1 settimana"],
+    },
+    {
+      name: "BUSINESS",
+      tag: "Sito Completo",
+      price: "da €1.500",
+      color: "#a855f7",
+      rgb: "168,85,247",
+      featured: true,
+      desc: "Per aziende e brand che vogliono un sito multi-pagina completo con funzionalità avanzate.",
+      features: ["Blog / CMS integrato", "Analytics & tracking", "SEO avanzato", "Ottimizzazione performance", "Consegna in 3–4 settimane"],
+    },
+  ]
+
+  return (
+    <section id="pricing" className="py-24 relative">
+      <div className="absolute inset-0 cyber-grid" style={{ opacity: 0.22 }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.018) 50%, transparent)" }} />
+      <div className="max-w-5xl mx-auto px-6">
+        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <SectionHeader
+            title="Investimento"
+            subtitle="Prezzi indicativi. Ogni progetto è unico — preventivo sempre gratuito e senza impegno."
+          />
+          <div className="grid md:grid-cols-3 gap-6">
+            {plans.map((pl, i) => (
+              <div key={i}
+                className="relative rounded-2xl p-7 flex flex-col"
+                style={{
+                  background: pl.featured ? `rgba(${pl.rgb},0.06)` : `rgba(${pl.rgb},0.025)`,
+                  border: pl.featured ? `1px solid rgba(${pl.rgb},0.42)` : `1px solid rgba(${pl.rgb},0.17)`,
+                  boxShadow: pl.featured ? `0 0 45px rgba(${pl.rgb},0.12), 0 0 90px rgba(${pl.rgb},0.06)` : "none",
+                }}>
+                {pl.featured && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-0.5 text-xs font-mono font-bold"
+                    style={{ background: `rgba(${pl.rgb},0.18)`, border: `1px solid rgba(${pl.rgb},0.48)`, color: pl.color }}>
+                    PIÙ SCELTO
+                  </div>
+                )}
+                <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: `2px solid rgba(${pl.rgb},0.48)`, borderLeft: `2px solid rgba(${pl.rgb},0.48)` }} />
+                <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: `2px solid rgba(${pl.rgb},0.48)`, borderRight: `2px solid rgba(${pl.rgb},0.48)` }} />
+
+                <div className="mb-5">
+                  <span className="text-xs font-mono tracking-[0.28em]" style={{ color: pl.color }}>{pl.name}</span>
+                  <h3 className="text-lg font-bold text-white mt-1">{pl.tag}</h3>
+                </div>
+
+                <div className="mb-6">
+                  <div className="text-3xl font-black" style={{ color: pl.color, textShadow: `0 0 22px rgba(${pl.rgb},0.4)` }}>{pl.price}</div>
+                  <div className="text-xs mt-1" style={{ color: "rgba(120,145,185,0.7)" }}>IVA esclusa</div>
+                </div>
+
+                <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(145,170,210,0.72)" }}>{pl.desc}</p>
+
+                <ul className="space-y-2.5 flex-1 mb-8">
+                  {pl.features.map((f, fi) => (
+                    <li key={fi} className="flex items-start gap-2.5 text-sm" style={{ color: "rgba(195,215,240,0.82)" }}>
+                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
+                        style={{ background: pl.color, boxShadow: `0 0 6px rgba(${pl.rgb},0.6)` }} />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <a href="#contatto"
+                  className="flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-all duration-200 hover:scale-105"
+                  style={{ background: `rgba(${pl.rgb},0.1)`, border: `1px solid rgba(${pl.rgb},0.33)`, color: pl.color }}>
+                  Richiedi preventivo <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-xs mt-8 max-w-lg mx-auto" style={{ color: "rgba(110,135,175,0.6)" }}>
+            I prezzi variano in base a complessità, funzionalità e contenuti. Contattami per un preventivo personalizzato e gratuito.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────────────────── */
+function ContactSection() {
+  const { ref, inView } = useScrollInView()
+  const [form, setForm] = useState({ nome: "", cognome: "", email: "", tipo: "", messaggio: "" })
+  const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
+  const validate = () => {
+    const e: Record<string, string> = {}
+    if (!form.nome.trim()) e.nome = "Campo obbligatorio"
+    if (!form.cognome.trim()) e.cognome = "Campo obbligatorio"
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Email non valida"
+    if (!form.messaggio.trim()) e.messaggio = "Campo obbligatorio"
+    return e
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const errs = validate()
+    if (Object.keys(errs).length > 0) { setErrors(errs); return }
+    setErrors({})
+    setLoading(true)
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error()
+      setSent(true)
+    } catch {
+      setErrors({ messaggio: "Errore nell'invio. Riprova o scrivimi su LinkedIn." })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const field = (id: keyof typeof form, label: string, placeholder: string, type = "text") => (
+    <div>
+      <label className="block text-xs font-medium mb-1.5 tracking-wide" style={{ color: "rgba(175,200,235,0.7)" }}>
+        {label}{["nome","cognome","email","messaggio"].includes(id) && <span style={{ color: "#00f5ff" }}> *</span>}
+      </label>
+      <input
+        type={type}
+        value={form[id]}
+        onChange={ev => setForm(f => ({ ...f, [id]: ev.target.value }))}
+        placeholder={placeholder}
+        className="w-full px-4 py-3 text-sm rounded-lg outline-none transition-all duration-200"
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: `1px solid ${errors[id] ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"}`,
+          color: "#e2e8f0",
+          caretColor: "#00f5ff",
+        }}
+        onFocus={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.4)"; ev.target.style.boxShadow = "0 0 0 3px rgba(0,245,255,0.06)" }}
+        onBlur={ev => { ev.target.style.borderColor = errors[id] ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"; ev.target.style.boxShadow = "none" }}
+      />
+      {errors[id] && <p className="text-xs mt-1" style={{ color: "rgba(248,113,113,0.85)" }}>{errors[id]}</p>}
+    </div>
+  )
+
+  return (
+    <section id="contatto" className="py-24 relative">
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,245,255,0.035) 0%, transparent 72%)" }} />
+      <div className="max-w-xl mx-auto px-6">
+        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <SectionHeader title="Parliamone" subtitle="Raccontami il tuo progetto — ti rispondo entro 24–48h" />
+
+          <div className="relative rounded-2xl p-8"
+            style={{ background: "rgba(0,245,255,0.022)", border: "1px solid rgba(0,245,255,0.12)", boxShadow: "0 0 50px rgba(0,245,255,0.04)" }}>
+            {/* Corners */}
+            <div className="absolute top-0 left-0 w-6 h-6" style={{ borderTop: "2px solid rgba(0,245,255,0.55)", borderLeft: "2px solid rgba(0,245,255,0.55)" }} />
+            <div className="absolute top-0 right-0 w-6 h-6" style={{ borderTop: "2px solid rgba(0,245,255,0.55)", borderRight: "2px solid rgba(0,245,255,0.55)" }} />
+            <div className="absolute bottom-0 left-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderLeft: "2px solid rgba(0,245,255,0.55)" }} />
+            <div className="absolute bottom-0 right-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderRight: "2px solid rgba(0,245,255,0.55)" }} />
+
+            {sent ? (
+              <div className="py-8 text-center">
+                <div className="text-4xl mb-4">✓</div>
+                <p className="text-white font-bold text-xl mb-2">Messaggio inviato!</p>
+                <p className="text-sm" style={{ color: "rgba(155,180,215,0.75)" }}>
+                  Grazie per avermi contattato.<br />
+                  Ti rispondo entro 24–48h.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                <div className="grid sm:grid-cols-2 gap-5">
+                  {field("nome", "Nome", "Mario")}
+                  {field("cognome", "Cognome", "Rossi")}
+                </div>
+                {field("email", "Email", "mario@esempio.it", "email")}
+
+                {/* Tipo progetto */}
+                <div>
+                  <label className="block text-xs font-medium mb-1.5 tracking-wide" style={{ color: "rgba(175,200,235,0.7)" }}>
+                    Tipo di progetto
+                  </label>
+                  <select
+                    value={form.tipo}
+                    onChange={ev => setForm(f => ({ ...f, tipo: ev.target.value }))}
+                    className="w-full px-4 py-3 text-sm rounded-lg outline-none transition-all duration-200 appearance-none"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(0,245,255,0.12)",
+                      color: form.tipo ? "#e2e8f0" : "rgba(155,175,210,0.45)",
+                    }}
+                    onFocus={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.4)"; ev.target.style.boxShadow = "0 0 0 3px rgba(0,245,255,0.06)" }}
+                    onBlur={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.12)"; ev.target.style.boxShadow = "none" }}
+                  >
+                    <option value="" disabled style={{ background: "#0d1117" }}>Seleziona un'opzione</option>
+                    <option value="Restyling sito esistente" style={{ background: "#0d1117" }}>Restyling sito esistente</option>
+                    <option value="Nuovo sito web" style={{ background: "#0d1117" }}>Nuovo sito web</option>
+                    <option value="Sito completo" style={{ background: "#0d1117" }}>Sito completo</option>
+                    <option value="Non so ancora" style={{ background: "#0d1117" }}>Non so ancora, voglio informazioni</option>
+                  </select>
+                </div>
+
+                {/* Messaggio */}
+                <div>
+                  <label className="block text-xs font-medium mb-1.5 tracking-wide" style={{ color: "rgba(175,200,235,0.7)" }}>
+                    Messaggio <span style={{ color: "#00f5ff" }}>*</span>
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={form.messaggio}
+                    onChange={ev => setForm(f => ({ ...f, messaggio: ev.target.value }))}
+                    placeholder="Raccontami la tua idea, il tuo settore, cosa vorresti nel sito..."
+                    className="w-full px-4 py-3 text-sm rounded-lg outline-none transition-all duration-200 resize-none"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: `1px solid ${errors.messaggio ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"}`,
+                      color: "#e2e8f0",
+                      caretColor: "#00f5ff",
+                    }}
+                    onFocus={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.4)"; ev.target.style.boxShadow = "0 0 0 3px rgba(0,245,255,0.06)" }}
+                    onBlur={ev => { ev.target.style.borderColor = errors.messaggio ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"; ev.target.style.boxShadow = "none" }}
+                  />
+                  {errors.messaggio && <p className="text-xs mt-1" style={{ color: "rgba(248,113,113,0.85)" }}>{errors.messaggio}</p>}
+                </div>
+
+                <button type="submit" disabled={loading}
+                  className="w-full py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  style={{ background: "rgba(0,245,255,0.1)", border: "1px solid rgba(0,245,255,0.38)", color: "#00f5ff", boxShadow: "0 0 25px rgba(0,245,255,0.1)" }}>
+                  {loading ? "Apertura email..." : (
+                    <><Mail className="w-4 h-4" /> Invia messaggio</>
+                  )}
+                </button>
+
+                <p className="text-center text-xs" style={{ color: "rgba(100,125,165,0.5)" }}>
+                  Preventivo gratuito · Nessun impegno
+                </p>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────────────── */
+function HomeFooter() {
+  return (
+    <footer className="py-8" style={{ borderTop: "1px solid rgba(0,245,255,0.07)", background: "rgba(0,0,0,0.25)" }}>
+      <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <span className="text-xl font-black" style={{ color: "#00f5ff", textShadow: "0 0 14px rgba(0,245,255,0.65)" }}>MD</span>
+          <span className="text-sm" style={{ color: "rgba(120,145,185,0.6)" }}>Massimo Dassano — Web Creator</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-4 justify-center md:justify-end">
+          <Link href="/cv" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
+            Il mio background
+          </Link>
+          <Link href="/privacy" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
+            Privacy Policy
+          </Link>
+          <Link href="/cookie-policy" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
+            Cookie Policy
+          </Link>
+          <span className="text-xs" style={{ color: "rgba(100,120,160,0.45)" }}>
+            © {new Date().getFullYear()} Massimo Dassano
+          </span>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   PAGE
+───────────────────────────────────────────────────── */
+export default function HomePage() {
+  return (
+    <main style={{ background: "#030610", minHeight: "100vh", color: "#e2e8f0", position: "relative" }}>
+      <ParticleCanvas />
+      <HomeNav />
       <HeroSection />
-      <AboutSection />
-      <ExperienceSection />
-      <EducationSection />
-      <SkillsSection />
-      <InterestsSection />
-      <Footer />
+      <ServicesSection />
+      <ManifestoSection />
+      <PricingSection />
+      <ContactSection />
+      <HomeFooter />
     </main>
   )
 }

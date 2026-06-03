@@ -124,3 +124,134 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   SCI-FI KEYFRAMES
+═══════════════════════════════════════════════════ */
+
+@keyframes glitch-1 {
+  0%   { clip-path: inset(10% 0 82% 0); transform: translate(-4px, 2px) skewX(-4deg); }
+  25%  { clip-path: inset(38% 0 44% 0); transform: translate(4px, -1px) skewX(3deg); }
+  50%  { clip-path: inset(68% 0 14% 0); transform: translate(-2px, 3px) skewX(-2deg); }
+  75%  { clip-path: inset(22% 0 66% 0); transform: translate(3px, -2px) skewX(4deg); }
+  100% { clip-path: inset(54% 0 28% 0); transform: translate(-1px, 1px) skewX(-1deg); }
+}
+
+@keyframes glitch-2 {
+  0%   { clip-path: inset(78% 0 6% 0); transform: translate(4px, -2px) skewX(4deg); }
+  25%  { clip-path: inset(12% 0 78% 0); transform: translate(-4px, 2px) skewX(-3deg); }
+  50%  { clip-path: inset(52% 0 32% 0); transform: translate(2px, -3px) skewX(2deg); }
+  75%  { clip-path: inset(4% 0 88% 0); transform: translate(-2px, 2px) skewX(-4deg); }
+  100% { clip-path: inset(64% 0 22% 0); transform: translate(1px, -1px) skewX(1deg); }
+}
+
+@keyframes scanline-sweep {
+  0%   { transform: translateY(-100vh); opacity: 0; }
+  8%   { opacity: 0.7; }
+  92%  { opacity: 0.7; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes float-orb {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  25%       { transform: translateY(-16px) translateX(7px) rotate(5deg); }
+  50%       { transform: translateY(-28px) translateX(-5px) rotate(-4deg); }
+  75%       { transform: translateY(-10px) translateX(9px) rotate(7deg); }
+}
+
+@keyframes float-orb-2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+  33%       { transform: translateY(-18px) rotate(-9deg) scale(1.04); }
+  66%       { transform: translateY(-7px) rotate(7deg) scale(0.96); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0,245,255,0.3), 0 0 20px rgba(0,245,255,0.1);
+    border-color: rgba(0,245,255,0.3);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(0,245,255,0.65), 0 0 55px rgba(0,245,255,0.28), 0 0 80px rgba(0,245,255,0.1);
+    border-color: rgba(0,245,255,0.7);
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes spin-slow-reverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+@keyframes blink-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes shimmer-slide {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%) skewX(-15deg); }
+}
+
+/* ═══════════════════════════════════════════════════
+   SCI-FI UTILITY CLASSES
+═══════════════════════════════════════════════════ */
+
+.animate-glitch-1 { animation: glitch-1 0.18s steps(3) infinite; }
+.animate-glitch-2 { animation: glitch-2 0.18s steps(3) infinite; }
+.animate-float-orb { animation: float-orb 8s ease-in-out infinite; }
+.animate-float-orb-2 { animation: float-orb-2 10s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 18s linear infinite; }
+.animate-spin-slow-reverse { animation: spin-slow-reverse 24s linear infinite; }
+.animate-blink-cursor { animation: blink-cursor 1s step-end infinite; }
+.animate-scanline { animation: scanline-sweep 7s ease-in-out infinite; }
+
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.cyber-grid-dense {
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.025) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.035) 3px,
+    rgba(0, 0, 0, 0.035) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.holo-shimmer-inner {
+  transition: opacity 0.3s ease;
+}
+
+/* Smooth scroll for all anchor navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #030610; }
+::-webkit-scrollbar-thumb { background: rgba(0, 245, 255, 0.25); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 245, 255, 0.5); }
+
+::selection { background: rgba(0, 245, 255, 0.2); color: #00f5ff; }

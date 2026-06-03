@@ -144,6 +144,11 @@ const t_it = {
         description:
           "Viaggiatore appassionato con la passione per scoprire nuove culture, prospettive e modi di fare business a livello globale.",
       },
+      {
+        title: "Creazione & Restyling di Siti Web",
+        description:
+          "Mi occupo personalmente della creazione di siti web su misura e del restyling di siti esistenti, trasformando presenze online datate in esperienze moderne, eleganti e d'impatto.",
+      },
     ],
   },
   footer: {
@@ -292,6 +297,11 @@ const t_en = {
         title: "Cultural Exploration",
         description:
           "Avid traveler with a passion for discovering new cultures, perspectives, and ways of doing business globally.",
+      },
+      {
+        title: "Web Creation & Restyling",
+        description:
+          "I personally handle the creation of custom websites and the restyling of existing ones, turning outdated online presences into modern, elegant and impactful digital experiences.",
       },
     ],
   },
@@ -442,6 +452,11 @@ const t_fr = {
         description:
           "Voyageur passionné, avide de découvrir de nouvelles cultures, perspectives et façons de faire des affaires à l'échelle mondiale.",
       },
+      {
+        title: "Création & Refonte de Sites Web",
+        description:
+          "Je gère personnellement la création de sites web sur mesure et la refonte de sites existants, transformant des présences en ligne dépassées en expériences numériques modernes et percutantes.",
+      },
     ],
   },
   footer: {
@@ -590,6 +605,11 @@ const t_de = {
         title: "Kulturelle Entdeckungen",
         description:
           "Begeisterter Reisender mit einer Leidenschaft für neue Kulturen, Perspektiven und globale Geschäftspraktiken.",
+      },
+      {
+        title: "Web-Erstellung & Redesign",
+        description:
+          "Ich kümmere mich persönlich um die Erstellung maßgeschneiderter Websites und das Redesign bestehender Seiten — veraltete Online-Auftritte werden in moderne, elegante digitale Erlebnisse verwandelt.",
       },
     ],
   },
@@ -740,6 +760,11 @@ const t_zh = {
         description:
           "热爱旅行，热衷于发现新文化、新视角和全球不同的商业模式。",
       },
+      {
+        title: "网站创建与改版",
+        description:
+          "亲自负责定制网站的创建和现有网站的改版，将过时的线上形象转变为现代、优雅且有影响力的数字体验。",
+      },
     ],
   },
   footer: {
@@ -888,6 +913,11 @@ const t_sw = {
         title: "Uchunguzi wa Utamaduni",
         description:
           "Msafiri mkubwa mwenye shauku ya kugundua tamaduni mpya, mitazamo, na njia za kufanya biashara duniani kote.",
+      },
+      {
+        title: "Uundaji & Ukarabati wa Tovuti",
+        description:
+          "Ninashughulikia kibinafsi uundaji wa tovuti za kipekee na ukarabati wa zilizopo, nikibadilisha uwepo wa mtandaoni uliochakaa kuwa uzoefu wa kisasa na wa kuvutia.",
       },
     ],
   },
@@ -1038,6 +1068,11 @@ const t_ql = {
         title: "Nórëo Ando Hildë",
         description:
           "Hir nórëo rimbë, lambë rimbë, ar telpë-ando rimbë yaimëo ondolë.",
+      },
+      {
+        title: "Telpë-Mir Carë & Sírë",
+        description:
+          "Carë telpë-mir vanwa ar sírë telpë-mir yaimë — cormë-mir danna olosse vanyarë ar anwavë.",
       },
     ],
   },

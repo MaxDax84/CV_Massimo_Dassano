@@ -2,15 +2,18 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Home } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useLanguage } from "@/contexts/language-context"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { usePathname } from "next/navigation"
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { t } = useLanguage()
+  const pathname = usePathname()
+  const isOnCv = pathname === "/cv"
 
   const navItems = [
     { label: t.nav.about, href: "#about" },
@@ -60,6 +63,15 @@ export function Navigation() {
           ))}
         </div>
         <div className="flex items-center gap-3">
+          {isOnCv && (
+            <Link
+              href="/"
+              className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors px-3 py-1.5 border border-border/50 rounded-md hover:border-primary/30"
+            >
+              <Home className="w-3 h-3" />
+              <span>Home</span>
+            </Link>
+          )}
           <a
             href="https://www.linkedin.com/in/massimo-dassano-a8b31a25/"
             target="_blank"
@@ -82,6 +94,16 @@ export function Navigation() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md px-6 py-4 flex flex-col gap-4">
+          {isOnCv && (
+            <Link
+              href="/"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Home className="w-3.5 h-3.5" />
+              Home
+            </Link>
+          )}
           {navItems.map((item) => (
             <Link
               key={item.href}
