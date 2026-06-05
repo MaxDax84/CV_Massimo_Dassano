@@ -8,9 +8,235 @@ import {
   Monitor, Wand2, Star, Zap, Code, Smartphone, Search,
   ArrowRight, Mail,
 } from "lucide-react"
-// ExternalLink used in HomeNav for /cv link
 import { ParticleCanvas } from "@/components/particle-canvas"
 import { ContactReveal } from "@/components/contact-reveal"
+import { useLanguage } from "@/contexts/language-context"
+
+/* ─────────────────────────────────────────────────────
+   HOME TRANSLATIONS
+───────────────────────────────────────────────────── */
+type HomeLang = "it" | "en"
+
+const homeT = {
+  it: {
+    nav: {
+      services: "Servizi",
+      about: "Chi sono",
+      pricing: "Prezzi",
+      contact: "Contatti",
+    },
+    hero: {
+      available: "DISPONIBILE",
+      tagline: "Creo siti web personalizzati che trasformano la tua identità digitale. Che tu parta da zero o voglia rinnovare quello che hai, costruiamo qualcosa di cui andare fieri.",
+      cta_services: "Scopri i servizi",
+      cta_contact: "Contattami",
+    },
+    services: {
+      title: "Cosa posso fare per te",
+      subtitle: "Due percorsi, un obiettivo: una presenza digitale che ti rappresenti davvero",
+      cta: "Parliamone",
+      list: [
+        {
+          tag: "RESTYLING",
+          title: "Restyling Sito Esistente",
+          sub: "Per chi ha un sito che non li rappresenta più",
+          body: "Il tuo sito ha qualche anno? Il design sembra datato? Analizziamo quello che hai, manteniamo ciò che funziona e trasformiamo il resto in qualcosa di moderno ed efficace.",
+          features: ["Analisi del sito attuale", "Nuovo design moderno", "Migrazione completa dei contenuti", "Ottimizzazione performance"],
+        },
+        {
+          tag: "EX NOVO",
+          title: "Sito Web da Zero",
+          sub: "Per chi non ha ancora una presenza online",
+          body: "Partiamo da un foglio bianco e costruiamo insieme la tua identità digitale. Design personalizzato, struttura pensata per i tuoi obiettivi, ottimizzato per convertire visitatori in clienti.",
+          features: ["Design custom su misura", "Mobile-first & responsive", "SEO ottimizzato", "Veloce, sicuro e ottimizzato per tutti i dispositivi"],
+        },
+      ],
+    },
+    manifesto: {
+      tag: "IL MIO APPROCCIO",
+      quote_pre: "Lavoro come una boutique artigianale: poche cose, semplici, fatte ",
+      quote_highlight: "bene.",
+      body: "Niente template da compilare, niente pacchetti fissi, niente strumenti automatici che producono siti tutti uguali. Ogni elemento è personalizzabile: struttura, testi, immagini, colori. Hai foto da inserire o descrizioni da aggiungere? Vengono posizionate esattamente dove vuoi — con la cura e la flessibilità che nessun compilatore automatico potrà mai offrirti.",
+    },
+    whyme: {
+      title: "Perché lavorare con me è diverso",
+      p1: "Ho trascorso 15 anni in aziende strutturate — da Ernst & Young ad Alibaba.com — a capire perché certi business crescono e altri si fermano. Ho gestito budget, partner, team internazionali e strategie go-to-market in mercati competitivi.",
+      p2_pre: "Ora costruisco siti web. Ma con una prospettiva che la maggior parte dei web designer non ha: so cosa guarda davvero un decision maker quando apre un sito. So cosa lo convince e cosa lo perde. So che ",
+      p2_highlight: "un sito bello che non converte è un costo, non un investimento.",
+      p3: "Lavoro con professionisti e piccole imprese che vogliono una presenza digitale che lavori per loro — non solo una che sembri professionale. Da remoto, ovunque.",
+      cta: "Scopri il mio background",
+    },
+    pricing: {
+      title: "Investimento",
+      subtitle: "Prezzi indicativi. Ogni progetto è unico — preventivo sempre gratuito e senza impegno.",
+      featured_badge: "PIÙ SCELTO",
+      vat: "IVA esclusa",
+      cta: "Richiedi preventivo",
+      note: "I prezzi variano in base a complessità, funzionalità e contenuti. Contattami per un preventivo personalizzato e gratuito.",
+      plans: [
+        {
+          name: "RESTYLING",
+          tag: "Rinnova il Sito",
+          desc: "Hai già un sito ma non ti rappresenta più? Lo analizziamo, trasformiamo e ottimizziamo.",
+          features: ["Analisi del sito esistente", "Nuovo design moderno", "Migrazione dei contenuti", "Ottimizzazione performance", "SEO refresh"],
+        },
+        {
+          name: "STARTER",
+          tag: "Presenza Online",
+          desc: "Per professionisti e piccole realtà che vogliono una presenza online pulita ed efficace.",
+          features: ["10+ pagine create insieme", "Design su misura", "Mobile-first & responsive", "SEO base", "Consegna in 1 settimana"],
+        },
+        {
+          name: "BUSINESS",
+          tag: "Sito Completo",
+          desc: "Per aziende e brand che vogliono un sito multi-pagina completo con funzionalità avanzate.",
+          features: ["Blog / CMS integrato", "Analytics & tracking", "SEO avanzato", "Ottimizzazione performance", "Consegna in 3–4 settimane"],
+        },
+      ],
+    },
+    contact: {
+      title: "Parliamone",
+      subtitle: "Raccontami il tuo progetto,\nti rispondo entro 24–48h",
+      nome: "Nome",
+      cognome: "Cognome",
+      email: "Email",
+      tipo_label: "Tipo di progetto",
+      tipo_placeholder: "Seleziona un'opzione",
+      tipo_options: ["Restyling sito esistente", "Nuovo sito web", "Sito completo", "Non so ancora, voglio informazioni"],
+      messaggio: "Messaggio",
+      messaggio_ph: "Raccontami la tua idea, il tuo settore, cosa vorresti nel sito...",
+      submit: "Invia messaggio",
+      loading: "Apertura email...",
+      footer_note: "Preventivo gratuito · Nessun impegno",
+      err_required: "Campo obbligatorio",
+      err_email: "Email non valida",
+      err_send: "Errore nell'invio. Riprova o scrivimi su LinkedIn.",
+      nome_ph: "Mario",
+      cognome_ph: "Rossi",
+      email_ph: "mario@esempio.it",
+    },
+    footer: { cv_link: "Il mio background" },
+  },
+  en: {
+    nav: {
+      services: "Services",
+      about: "About me",
+      pricing: "Pricing",
+      contact: "Contact",
+    },
+    hero: {
+      available: "AVAILABLE",
+      tagline: "I build custom websites that transform your digital identity. Whether you're starting from scratch or want to refresh what you have, let's create something to be proud of.",
+      cta_services: "Explore services",
+      cta_contact: "Contact me",
+    },
+    services: {
+      title: "What I can do for you",
+      subtitle: "Two paths, one goal: a digital presence that truly represents you",
+      cta: "Let's talk",
+      list: [
+        {
+          tag: "RESTYLING",
+          title: "Website Restyling",
+          sub: "For those with a site that no longer represents them",
+          body: "Your website is a few years old? The design looks dated? We analyze what you have, keep what works, and transform the rest into something modern and effective.",
+          features: ["Current site analysis", "New modern design", "Full content migration", "Performance optimization"],
+        },
+        {
+          tag: "FROM SCRATCH",
+          title: "Website from Scratch",
+          sub: "For those who don't yet have an online presence",
+          body: "We start from a blank page and build your digital identity together. Custom design, structure tailored to your goals, optimized to turn visitors into clients.",
+          features: ["Custom design", "Mobile-first & responsive", "SEO optimized", "Fast, secure and optimized for all devices"],
+        },
+      ],
+    },
+    manifesto: {
+      tag: "MY APPROACH",
+      quote_pre: "I work like an artisan boutique: a few things, simple, done ",
+      quote_highlight: "well.",
+      body: "No templates to fill in, no fixed packages, no automated tools that produce identical sites. Every element is customizable: structure, text, images, colors. Do you have photos to include or descriptions to add? They're placed exactly where you want — with the care and flexibility that no automatic builder will ever offer you.",
+    },
+    whyme: {
+      title: "Why working with me is different",
+      p1: "I spent 15 years in structured companies — from Ernst & Young to Alibaba.com — understanding why some businesses grow and others stall. I managed budgets, partners, international teams and go-to-market strategies in competitive markets.",
+      p2_pre: "Now I build websites. But with a perspective most web designers don't have: I know what a decision-maker really looks at when they open a site. I know what convinces them and what loses them. I know that ",
+      p2_highlight: "a beautiful site that doesn't convert is a cost, not an investment.",
+      p3: "I work with professionals and small businesses who want a digital presence that works for them — not just one that looks professional. Remotely, from anywhere.",
+      cta: "Discover my background",
+    },
+    pricing: {
+      title: "Investment",
+      subtitle: "Indicative prices. Every project is unique — quote always free and without commitment.",
+      featured_badge: "MOST POPULAR",
+      vat: "VAT excl.",
+      cta: "Request a quote",
+      note: "Prices vary based on complexity, features and content. Contact me for a free personalized quote.",
+      plans: [
+        {
+          name: "RESTYLING",
+          tag: "Renew Your Site",
+          desc: "Already have a site but it no longer represents you? We analyze, transform and optimize it.",
+          features: ["Existing site analysis", "New modern design", "Content migration", "Performance optimization", "SEO refresh"],
+        },
+        {
+          name: "STARTER",
+          tag: "Online Presence",
+          desc: "For professionals and small businesses who want a clean and effective online presence.",
+          features: ["10+ pages built together", "Custom design", "Mobile-first & responsive", "Basic SEO", "Delivery in 1 week"],
+        },
+        {
+          name: "BUSINESS",
+          tag: "Complete Website",
+          desc: "For companies and brands who want a complete multi-page site with advanced features.",
+          features: ["Blog / CMS integrated", "Analytics & tracking", "Advanced SEO", "Performance optimization", "Delivery in 3–4 weeks"],
+        },
+      ],
+    },
+    contact: {
+      title: "Let's talk",
+      subtitle: "Tell me about your project,\nI'll reply within 24–48h",
+      nome: "First name",
+      cognome: "Last name",
+      email: "Email",
+      tipo_label: "Project type",
+      tipo_placeholder: "Select an option",
+      tipo_options: ["Restyling existing site", "New website", "Complete website", "Not sure yet, I want information"],
+      messaggio: "Message",
+      messaggio_ph: "Tell me about your idea, your industry, what you'd like in the site...",
+      submit: "Send message",
+      loading: "Sending...",
+      footer_note: "Free quote · No commitment",
+      err_required: "Required field",
+      err_email: "Invalid email",
+      err_send: "Error sending. Try again or write to me on LinkedIn.",
+      nome_ph: "John",
+      cognome_ph: "Smith",
+      email_ph: "john@example.com",
+    },
+    footer: { cv_link: "My background" },
+  },
+} as const
+
+function useHomeLang() {
+  const { lang } = useLanguage()
+  const homeLang: HomeLang = lang === "en" ? "en" : "it"
+  return homeT[homeLang]
+}
+
+/* ─────────────────────────────────────────────────────
+   STATIC CONFIG (non-translatable)
+───────────────────────────────────────────────────── */
+const SERVICE_STATIC = [
+  { icon: Wand2, color: "#a855f7", rgb: "168,85,247", featureIcons: [Star, Wand2, ArrowRight, Zap] },
+  { icon: Monitor, color: "#00f5ff", rgb: "0,245,255", featureIcons: [Code, Smartphone, Search, Zap] },
+] as const
+
+const PLAN_STATIC = [
+  { price: "da €200", color: "#f0abfc", rgb: "240,171,252", featured: false },
+  { price: "da €500", color: "#00f5ff", rgb: "0,245,255", featured: false },
+  { price: "da €1.500", color: "#a855f7", rgb: "168,85,247", featured: true },
+] as const
 
 /* ─────────────────────────────────────────────────────
    TYPING TEXT
@@ -134,10 +360,8 @@ function useHoloTilt(intensity = 11) {
 
     const springBack = (clientX: number, clientY: number) => {
       const { x, y } = getTilt(clientX, clientY)
-      // Push in slightly toward click point
       el.style.transform = `perspective(800px) rotateX(${-y * intensity}deg) rotateY(${x * intensity}deg) scale3d(0.97,0.97,0.97)`
       el.style.transition = "transform 0.1s ease-out"
-      // Then spring back with overshoot easing
       springTimer = setTimeout(() => {
         resetTilt("transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)")
       }, 110)
@@ -152,7 +376,6 @@ function useHoloTilt(intensity = 11) {
     const onTouchEnd = (e: TouchEvent) => {
       const t = e.changedTouches[0]
       if (t) springBack(t.clientX, t.clientY)
-      // Block synthetic mouse events generated by browser after touch
       setTimeout(() => { isTouching = false }, 500)
     }
     const onTouchCancel = () => { resetTilt(); setTimeout(() => { isTouching = false }, 500) }
@@ -229,6 +452,8 @@ function SectionHeader({ title, subtitle }: { title: string; subtitle?: string }
 function HomeNav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { lang, setLang } = useLanguage()
+  const ht = homeT[lang === "en" ? "en" : "it"]
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 50)
@@ -236,11 +461,13 @@ function HomeNav() {
     return () => window.removeEventListener("scroll", h)
   }, [])
 
+  const toggleLang = () => setLang(lang === "en" ? "it" : "en")
+
   const links = [
-    { label: "Servizi", href: "#servizi" },
-    { label: "Chi sono", href: "/cv" },
-    { label: "Prezzi", href: "#pricing" },
-    { label: "Contatti", href: "#contatto" },
+    { label: ht.nav.services, href: "#servizi" },
+    { label: ht.nav.about, href: "/cv" },
+    { label: ht.nav.pricing, href: "#pricing" },
+    { label: ht.nav.contact, href: "#contatto" },
   ]
 
   return (
@@ -267,6 +494,16 @@ function HomeNav() {
               {l.label}
             </a>
           ))}
+          <button
+            onClick={toggleLang}
+            className="text-xs font-mono tracking-[0.14em] px-2.5 py-1 transition-all duration-200 hover:scale-105"
+            style={{
+              color: "#00f5ff",
+              border: "1px solid rgba(0,245,255,0.28)",
+              background: "rgba(0,245,255,0.05)",
+            }}>
+            {lang === "en" ? "IT" : "EN"}
+          </button>
         </div>
 
         <button onClick={() => setMenuOpen(p => !p)} className="md:hidden" style={{ color: "#00f5ff" }}>
@@ -283,6 +520,16 @@ function HomeNav() {
               {l.label}
             </a>
           ))}
+          <button
+            onClick={() => { toggleLang(); setMenuOpen(false) }}
+            className="self-start text-xs font-mono tracking-[0.14em] px-2.5 py-1 transition-all duration-200"
+            style={{
+              color: "#00f5ff",
+              border: "1px solid rgba(0,245,255,0.28)",
+              background: "rgba(0,245,255,0.05)",
+            }}>
+            {lang === "en" ? "IT" : "EN"}
+          </button>
         </div>
       )}
     </nav>
@@ -294,6 +541,7 @@ function HomeNav() {
 ───────────────────────────────────────────────────── */
 function HeroSection() {
   const [mounted, setMounted] = useState(false)
+  const ht = useHomeLang()
   useEffect(() => { setMounted(true) }, [])
 
   return (
@@ -361,7 +609,7 @@ function HeroSection() {
         <div className={`flex justify-center gap-6 mb-10 transition-all duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ boxShadow: "0 0 7px rgba(74,222,128,0.9)" }} />
-            <span className="text-xs tracking-[0.22em] uppercase" style={{ color: "rgba(74,222,128,0.9)" }}>DISPONIBILE</span>
+            <span className="text-xs tracking-[0.22em] uppercase" style={{ color: "rgba(74,222,128,0.9)" }}>{ht.hero.available}</span>
           </div>
           <div className="hidden sm:flex items-center gap-2">
             <MapPin className="w-3 h-3" style={{ color: "rgba(0,245,255,0.65)" }} />
@@ -397,9 +645,7 @@ function HeroSection() {
         {/* Description */}
         <p className={`text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed transition-all duration-700 delay-400 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
           style={{ color: "rgba(155,180,215,0.8)" }}>
-          Creo siti web personalizzati che trasformano la tua identità digitale.
-          Che tu parta da zero o voglia rinnovare quello che hai,
-          costruiamo qualcosa di cui andare fieri.
+          {ht.hero.tagline}
         </p>
 
         {/* CTAs */}
@@ -412,7 +658,7 @@ function HeroSection() {
               color: "#00f5ff",
               boxShadow: "0 0 22px rgba(0,245,255,0.13)",
             }}>
-            <span>Scopri i servizi</span>
+            <span>{ht.hero.cta_services}</span>
             <ArrowRight className="w-4 h-4" />
           </a>
           <a href="#contatto"
@@ -423,7 +669,7 @@ function HeroSection() {
               color: "#a855f7",
               boxShadow: "0 0 22px rgba(168,85,247,0.13)",
             }}>
-            <span>Contattami</span>
+            <span>{ht.hero.cta_contact}</span>
             <Mail className="w-4 h-4" />
           </a>
         </div>
@@ -445,40 +691,9 @@ function ServicesSection() {
   const { ref, inView } = useScrollInView()
   const card1 = useHoloTilt()
   const card2 = useHoloTilt()
+  const ht = useHomeLang()
 
-  const services = [
-    {
-      icon: Wand2,
-      tag: "RESTYLING",
-      color: "#a855f7",
-      rgb: "168,85,247",
-      title: "Restyling Sito Esistente",
-      sub: "Per chi ha un sito che non li rappresenta più",
-      body: "Il tuo sito ha qualche anno? Il design sembra datato? Analizziamo quello che hai, manteniamo ciò che funziona e trasformiamo il resto in qualcosa di moderno ed efficace.",
-      features: [
-        { icon: Star, text: "Analisi del sito attuale" },
-        { icon: Wand2, text: "Nuovo design moderno" },
-        { icon: ArrowRight, text: "Migrazione completa dei contenuti" },
-        { icon: Zap, text: "Ottimizzazione performance" },
-      ],
-    },
-    {
-      icon: Monitor,
-      tag: "EX NOVO",
-      color: "#00f5ff",
-      rgb: "0,245,255",
-      title: "Sito Web da Zero",
-      sub: "Per chi non ha ancora una presenza online",
-      body: "Partiamo da un foglio bianco e costruiamo insieme la tua identità digitale. Design personalizzato, struttura pensata per i tuoi obiettivi, ottimizzato per convertire visitatori in clienti.",
-      features: [
-        { icon: Code, text: "Design custom su misura" },
-        { icon: Smartphone, text: "Mobile-first & responsive" },
-        { icon: Search, text: "SEO ottimizzato" },
-        { icon: Zap, text: "Veloce, sicuro e ottimizzato per tutti i dispositivi" },
-      ],
-    },
-  ]
-
+  const services = ht.services.list.map((s, i) => ({ ...s, ...SERVICE_STATIC[i] }))
   const tilts = [card1, card2]
 
   return (
@@ -486,10 +701,7 @@ function ServicesSection() {
       <div className="absolute inset-0 cyber-grid-dense" style={{ opacity: 0.18 }} />
       <div className="max-w-5xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <SectionHeader
-            title="Cosa posso fare per te"
-            subtitle="Due percorsi, un obiettivo: una presenza digitale che ti rappresenti davvero"
-          />
+          <SectionHeader title={ht.services.title} subtitle={ht.services.subtitle} />
           <div className="grid md:grid-cols-2 gap-8">
             {services.map((svc, i) => {
               const Icon = svc.icon
@@ -525,14 +737,14 @@ function ServicesSection() {
 
                   <ul className="space-y-2.5 mb-8">
                     {svc.features.map((f, fi) => {
-                      const FIcon = f.icon
+                      const FIcon = svc.featureIcons[fi]
                       return (
                         <li key={fi} className="flex items-center gap-3 text-sm" style={{ color: "rgba(195,215,240,0.82)" }}>
                           <div className="w-6 h-6 rounded flex items-center justify-center shrink-0"
                             style={{ background: `rgba(${svc.rgb},0.1)` }}>
                             <FIcon className="w-3.5 h-3.5" style={{ color: svc.color }} />
                           </div>
-                          {f.text}
+                          {f}
                         </li>
                       )
                     })}
@@ -541,7 +753,7 @@ function ServicesSection() {
                   <a href="#contatto"
                     className="flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3"
                     style={{ color: svc.color }}>
-                    Parliamone <ArrowRight className="w-4 h-4" />
+                    {ht.services.cta} <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
               )
@@ -558,6 +770,7 @@ function ServicesSection() {
 ───────────────────────────────────────────────────── */
 function ManifestoSection() {
   const { ref, inView } = useScrollInView()
+  const ht = useHomeLang()
 
   return (
     <section className="py-20 relative">
@@ -581,22 +794,17 @@ function ManifestoSection() {
             <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 text-xs font-mono tracking-wider"
               style={{ background: "rgba(0,245,255,0.08)", border: "1px solid rgba(0,245,255,0.2)", color: "#00f5ff" }}>
               <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00f5ff", boxShadow: "0 0 6px #00f5ff" }} />
-              IL MIO APPROCCIO
+              {ht.manifesto.tag}
             </div>
 
             <blockquote className="text-2xl md:text-3xl font-bold text-white leading-snug mb-4"
               style={{ textShadow: "0 0 30px rgba(0,245,255,0.15)" }}>
-              Lavoro come una boutique artigianale:
-              poche cose, semplici, fatte{" "}
-              <span style={{ color: "#00f5ff" }}>bene.</span>
+              {ht.manifesto.quote_pre}
+              <span style={{ color: "#00f5ff" }}>{ht.manifesto.quote_highlight}</span>
             </blockquote>
 
             <p className="max-w-2xl mx-auto text-sm leading-relaxed" style={{ color: "rgba(155,180,215,0.8)" }}>
-              Niente template da compilare, niente pacchetti fissi, niente strumenti automatici
-              che producono siti tutti uguali. Ogni elemento è personalizzabile: struttura, testi,
-              immagini, colori. Hai foto da inserire o descrizioni da aggiungere? Vengono posizionate
-              esattamente dove vuoi — con la cura e la flessibilità che nessun compilatore automatico
-              potrà mai offrirti.
+              {ht.manifesto.body}
             </p>
           </div>
 
@@ -611,13 +819,14 @@ function ManifestoSection() {
 ───────────────────────────────────────────────────── */
 function WhyMeSection() {
   const { ref, inView } = useScrollInView()
+  const ht = useHomeLang()
 
   return (
     <section className="py-24 relative">
       <div className="absolute inset-0 cyber-grid-dense" style={{ opacity: 0.12 }} />
       <div className="max-w-3xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <SectionHeader title="Perché lavorare con me è diverso" />
+          <SectionHeader title={ht.whyme.title} />
 
           <div className="relative rounded-2xl px-8 py-10 md:px-12"
             style={{ background: "rgba(0,245,255,0.022)", border: "1px solid rgba(0,245,255,0.11)" }}>
@@ -627,30 +836,19 @@ function WhyMeSection() {
             <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.5)", borderRight: "2px solid rgba(0,245,255,0.5)" }} />
 
             <div className="space-y-6 text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>
+              <p>{ht.whyme.p1}</p>
               <p>
-                Ho trascorso 15 anni in aziende strutturate — da Ernst &amp; Young ad Alibaba.com — a capire perché
-                certi business crescono e altri si fermano. Ho gestito budget, partner, team internazionali e
-                strategie go-to-market in mercati competitivi.
+                {ht.whyme.p2_pre}
+                <span className="text-white font-medium">{ht.whyme.p2_highlight}</span>
               </p>
-
-              <p>
-                Ora costruisco siti web. Ma con una prospettiva che la maggior parte dei web designer non ha:
-                so cosa guarda davvero un decision maker quando apre un sito. So cosa lo convince e cosa lo perde.
-                So che{" "}
-                <span className="text-white font-medium">un sito bello che non converte è un costo, non un investimento.</span>
-              </p>
-
-              <p>
-                Lavoro con professionisti e piccole imprese che vogliono una presenza digitale che lavori per loro
-                — non solo una che sembri professionale. Da remoto, ovunque.
-              </p>
+              <p>{ht.whyme.p3}</p>
             </div>
 
             <div className="mt-8 pt-6" style={{ borderTop: "1px solid rgba(0,245,255,0.08)" }}>
               <Link href="/cv"
                 className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3"
                 style={{ color: "#00f5ff" }}>
-                Scopri il mio background
+                {ht.whyme.cta}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -666,39 +864,9 @@ function WhyMeSection() {
 ───────────────────────────────────────────────────── */
 function PricingSection() {
   const { ref, inView } = useScrollInView()
+  const ht = useHomeLang()
 
-  const plans = [
-    {
-      name: "RESTYLING",
-      tag: "Rinnova il Sito",
-      price: "da €200",
-      color: "#f0abfc",
-      rgb: "240,171,252",
-      featured: false,
-      desc: "Hai già un sito ma non ti rappresenta più? Lo analizziamo, trasformiamo e ottimizziamo.",
-      features: ["Analisi del sito esistente", "Nuovo design moderno", "Migrazione dei contenuti", "Ottimizzazione performance", "SEO refresh"],
-    },
-    {
-      name: "STARTER",
-      tag: "Presenza Online",
-      price: "da €500",
-      color: "#00f5ff",
-      rgb: "0,245,255",
-      featured: false,
-      desc: "Per professionisti e piccole realtà che vogliono una presenza online pulita ed efficace.",
-      features: ["10+ pagine create insieme", "Design su misura", "Mobile-first & responsive", "SEO base", "Consegna in 1 settimana"],
-    },
-    {
-      name: "BUSINESS",
-      tag: "Sito Completo",
-      price: "da €1.500",
-      color: "#a855f7",
-      rgb: "168,85,247",
-      featured: true,
-      desc: "Per aziende e brand che vogliono un sito multi-pagina completo con funzionalità avanzate.",
-      features: ["Blog / CMS integrato", "Analytics & tracking", "SEO avanzato", "Ottimizzazione performance", "Consegna in 3–4 settimane"],
-    },
-  ]
+  const plans = ht.pricing.plans.map((p, i) => ({ ...p, ...PLAN_STATIC[i] }))
 
   return (
     <section id="pricing" className="py-24 relative">
@@ -706,10 +874,7 @@ function PricingSection() {
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.018) 50%, transparent)" }} />
       <div className="max-w-5xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <SectionHeader
-            title="Investimento"
-            subtitle="Prezzi indicativi. Ogni progetto è unico — preventivo sempre gratuito e senza impegno."
-          />
+          <SectionHeader title={ht.pricing.title} subtitle={ht.pricing.subtitle} />
           <div className="grid md:grid-cols-3 gap-6">
             {plans.map((pl, i) => (
               <div key={i}
@@ -722,7 +887,7 @@ function PricingSection() {
                 {pl.featured && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-0.5 text-xs font-mono font-bold"
                     style={{ background: `rgba(${pl.rgb},0.18)`, border: `1px solid rgba(${pl.rgb},0.48)`, color: pl.color }}>
-                    PIÙ SCELTO
+                    {ht.pricing.featured_badge}
                   </div>
                 )}
                 <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: `2px solid rgba(${pl.rgb},0.48)`, borderLeft: `2px solid rgba(${pl.rgb},0.48)` }} />
@@ -735,7 +900,7 @@ function PricingSection() {
 
                 <div className="mb-6">
                   <div className="text-3xl font-black" style={{ color: pl.color, textShadow: `0 0 22px rgba(${pl.rgb},0.4)` }}>{pl.price}</div>
-                  <div className="text-xs mt-1" style={{ color: "rgba(120,145,185,0.7)" }}>IVA esclusa</div>
+                  <div className="text-xs mt-1" style={{ color: "rgba(120,145,185,0.7)" }}>{ht.pricing.vat}</div>
                 </div>
 
                 <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(145,170,210,0.72)" }}>{pl.desc}</p>
@@ -753,13 +918,13 @@ function PricingSection() {
                 <a href="#contatto"
                   className="flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-all duration-200 hover:scale-105"
                   style={{ background: `rgba(${pl.rgb},0.1)`, border: `1px solid rgba(${pl.rgb},0.33)`, color: pl.color }}>
-                  Richiedi preventivo <ArrowRight className="w-4 h-4" />
+                  {ht.pricing.cta} <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
             ))}
           </div>
           <p className="text-center text-xs mt-8 max-w-lg mx-auto" style={{ color: "rgba(110,135,175,0.6)" }}>
-            I prezzi variano in base a complessità, funzionalità e contenuti. Contattami per un preventivo personalizzato e gratuito.
+            {ht.pricing.note}
           </p>
         </div>
       </div>
@@ -773,16 +938,17 @@ function PricingSection() {
 function ContactSection() {
   const { ref, inView } = useScrollInView()
   const router = useRouter()
+  const ht = useHomeLang()
   const [form, setForm] = useState({ nome: "", cognome: "", email: "", tipo: "", messaggio: "" })
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const validate = () => {
     const e: Record<string, string> = {}
-    if (!form.nome.trim()) e.nome = "Campo obbligatorio"
-    if (!form.cognome.trim()) e.cognome = "Campo obbligatorio"
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Email non valida"
-    if (!form.messaggio.trim()) e.messaggio = "Campo obbligatorio"
+    if (!form.nome.trim()) e.nome = ht.contact.err_required
+    if (!form.cognome.trim()) e.cognome = ht.contact.err_required
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = ht.contact.err_email
+    if (!form.messaggio.trim()) e.messaggio = ht.contact.err_required
     return e
   }
 
@@ -801,7 +967,7 @@ function ContactSection() {
       if (!res.ok) throw new Error()
       router.push("/grazie")
     } catch {
-      setErrors({ messaggio: "Errore nell'invio. Riprova o scrivimi su LinkedIn." })
+      setErrors({ messaggio: ht.contact.err_send })
     } finally {
       setLoading(false)
     }
@@ -836,7 +1002,7 @@ function ContactSection() {
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,245,255,0.035) 0%, transparent 72%)" }} />
       <div className="max-w-xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <SectionHeader title="Parliamone" subtitle={`Raccontami il tuo progetto,\nti rispondo entro 24–48h`} />
+          <SectionHeader title={ht.contact.title} subtitle={ht.contact.subtitle} />
 
           <div className="relative rounded-2xl p-8"
             style={{ background: "rgba(0,245,255,0.022)", border: "1px solid rgba(0,245,255,0.12)", boxShadow: "0 0 50px rgba(0,245,255,0.04)" }}>
@@ -847,72 +1013,71 @@ function ContactSection() {
             <div className="absolute bottom-0 right-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderRight: "2px solid rgba(0,245,255,0.55)" }} />
 
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                <div className="grid sm:grid-cols-2 gap-5">
-                  {field("nome", "Nome", "Mario")}
-                  {field("cognome", "Cognome", "Rossi")}
-                </div>
-                {field("email", "Email", "mario@esempio.it", "email")}
+              <div className="grid sm:grid-cols-2 gap-5">
+                {field("nome", ht.contact.nome, ht.contact.nome_ph)}
+                {field("cognome", ht.contact.cognome, ht.contact.cognome_ph)}
+              </div>
+              {field("email", ht.contact.email, ht.contact.email_ph, "email")}
 
-                {/* Tipo progetto */}
-                <div>
-                  <label className="block text-xs font-medium mb-1.5 tracking-wide" style={{ color: "rgba(175,200,235,0.7)" }}>
-                    Tipo di progetto
-                  </label>
-                  <select
-                    value={form.tipo}
-                    onChange={ev => setForm(f => ({ ...f, tipo: ev.target.value }))}
-                    className="w-full px-4 py-3 text-sm rounded-lg outline-none transition-all duration-200 appearance-none"
-                    style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(0,245,255,0.12)",
-                      color: form.tipo ? "#e2e8f0" : "rgba(155,175,210,0.45)",
-                    }}
-                    onFocus={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.4)"; ev.target.style.boxShadow = "0 0 0 3px rgba(0,245,255,0.06)" }}
-                    onBlur={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.12)"; ev.target.style.boxShadow = "none" }}
-                  >
-                    <option value="" disabled style={{ background: "#0d1117" }}>Seleziona un'opzione</option>
-                    <option value="Restyling sito esistente" style={{ background: "#0d1117" }}>Restyling sito esistente</option>
-                    <option value="Nuovo sito web" style={{ background: "#0d1117" }}>Nuovo sito web</option>
-                    <option value="Sito completo" style={{ background: "#0d1117" }}>Sito completo</option>
-                    <option value="Non so ancora" style={{ background: "#0d1117" }}>Non so ancora, voglio informazioni</option>
-                  </select>
-                </div>
+              {/* Tipo progetto */}
+              <div>
+                <label className="block text-xs font-medium mb-1.5 tracking-wide" style={{ color: "rgba(175,200,235,0.7)" }}>
+                  {ht.contact.tipo_label}
+                </label>
+                <select
+                  value={form.tipo}
+                  onChange={ev => setForm(f => ({ ...f, tipo: ev.target.value }))}
+                  className="w-full px-4 py-3 text-sm rounded-lg outline-none transition-all duration-200 appearance-none"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(0,245,255,0.12)",
+                    color: form.tipo ? "#e2e8f0" : "rgba(155,175,210,0.45)",
+                  }}
+                  onFocus={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.4)"; ev.target.style.boxShadow = "0 0 0 3px rgba(0,245,255,0.06)" }}
+                  onBlur={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.12)"; ev.target.style.boxShadow = "none" }}
+                >
+                  <option value="" disabled style={{ background: "#0d1117" }}>{ht.contact.tipo_placeholder}</option>
+                  {ht.contact.tipo_options.map(opt => (
+                    <option key={opt} value={opt} style={{ background: "#0d1117" }}>{opt}</option>
+                  ))}
+                </select>
+              </div>
 
-                {/* Messaggio */}
-                <div>
-                  <label className="block text-xs font-medium mb-1.5 tracking-wide" style={{ color: "rgba(175,200,235,0.7)" }}>
-                    Messaggio <span style={{ color: "#00f5ff" }}>*</span>
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={form.messaggio}
-                    onChange={ev => setForm(f => ({ ...f, messaggio: ev.target.value }))}
-                    placeholder="Raccontami la tua idea, il tuo settore, cosa vorresti nel sito..."
-                    className="w-full px-4 py-3 text-sm rounded-lg outline-none transition-all duration-200 resize-none"
-                    style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: `1px solid ${errors.messaggio ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"}`,
-                      color: "#e2e8f0",
-                      caretColor: "#00f5ff",
-                    }}
-                    onFocus={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.4)"; ev.target.style.boxShadow = "0 0 0 3px rgba(0,245,255,0.06)" }}
-                    onBlur={ev => { ev.target.style.borderColor = errors.messaggio ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"; ev.target.style.boxShadow = "none" }}
-                  />
-                  {errors.messaggio && <p className="text-xs mt-1" style={{ color: "rgba(248,113,113,0.85)" }}>{errors.messaggio}</p>}
-                </div>
+              {/* Messaggio */}
+              <div>
+                <label className="block text-xs font-medium mb-1.5 tracking-wide" style={{ color: "rgba(175,200,235,0.7)" }}>
+                  {ht.contact.messaggio} <span style={{ color: "#00f5ff" }}>*</span>
+                </label>
+                <textarea
+                  rows={4}
+                  value={form.messaggio}
+                  onChange={ev => setForm(f => ({ ...f, messaggio: ev.target.value }))}
+                  placeholder={ht.contact.messaggio_ph}
+                  className="w-full px-4 py-3 text-sm rounded-lg outline-none transition-all duration-200 resize-none"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: `1px solid ${errors.messaggio ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"}`,
+                    color: "#e2e8f0",
+                    caretColor: "#00f5ff",
+                  }}
+                  onFocus={ev => { ev.target.style.borderColor = "rgba(0,245,255,0.4)"; ev.target.style.boxShadow = "0 0 0 3px rgba(0,245,255,0.06)" }}
+                  onBlur={ev => { ev.target.style.borderColor = errors.messaggio ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"; ev.target.style.boxShadow = "none" }}
+                />
+                {errors.messaggio && <p className="text-xs mt-1" style={{ color: "rgba(248,113,113,0.85)" }}>{errors.messaggio}</p>}
+              </div>
 
-                <button type="submit" disabled={loading}
-                  className="w-full py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                  style={{ background: "rgba(0,245,255,0.1)", border: "1px solid rgba(0,245,255,0.38)", color: "#00f5ff", boxShadow: "0 0 25px rgba(0,245,255,0.1)" }}>
-                  {loading ? "Apertura email..." : (
-                    <><Mail className="w-4 h-4" /> Invia messaggio</>
-                  )}
-                </button>
+              <button type="submit" disabled={loading}
+                className="w-full py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                style={{ background: "rgba(0,245,255,0.1)", border: "1px solid rgba(0,245,255,0.38)", color: "#00f5ff", boxShadow: "0 0 25px rgba(0,245,255,0.1)" }}>
+                {loading ? ht.contact.loading : (
+                  <><Mail className="w-4 h-4" /> {ht.contact.submit}</>
+                )}
+              </button>
 
-                <p className="text-center text-xs" style={{ color: "rgba(100,125,165,0.5)" }}>
-                  Preventivo gratuito · Nessun impegno
-                </p>
-              </form>
+              <p className="text-center text-xs" style={{ color: "rgba(100,125,165,0.5)" }}>
+                {ht.contact.footer_note}
+              </p>
+            </form>
           </div>
         </div>
       </div>
@@ -924,6 +1089,8 @@ function ContactSection() {
    FOOTER
 ───────────────────────────────────────────────────── */
 function HomeFooter() {
+  const ht = useHomeLang()
+
   return (
     <footer className="py-8" style={{ borderTop: "1px solid rgba(0,245,255,0.07)", background: "rgba(0,0,0,0.25)" }}>
       <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -933,7 +1100,7 @@ function HomeFooter() {
         </div>
         <div className="flex flex-wrap items-center gap-4 justify-center md:justify-end">
           <Link href="/cv" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-            Il mio background
+            {ht.footer.cv_link}
           </Link>
           <Link href="/privacy" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
             Privacy Policy
