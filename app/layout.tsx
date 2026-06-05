@@ -121,6 +121,7 @@ export default function RootLayout({
   return (
     <html lang="it">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: "history.scrollRestoration='manual';" }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

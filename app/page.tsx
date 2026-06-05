@@ -1128,7 +1128,6 @@ function HomeFooter() {
 ───────────────────────────────────────────────────── */
 export default function HomePage() {
   useEffect(() => {
-    history.scrollRestoration = "manual"
     window.scrollTo(0, 0)
   }, [])
 
