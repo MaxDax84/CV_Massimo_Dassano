@@ -224,6 +224,9 @@ function useHomeLang() {
   return homeT[homeLang]
 }
 
+const scrollToSection = (id: string) =>
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+
 /* ─────────────────────────────────────────────────────
    STATIC CONFIG (non-translatable)
 ───────────────────────────────────────────────────── */
@@ -463,11 +466,10 @@ function HomeNav() {
 
   const toggleLang = () => setLang(lang === "en" ? "it" : "en")
 
-  const links = [
-    { label: ht.nav.services, href: "#servizi" },
-    { label: ht.nav.about, href: "/cv" },
-    { label: ht.nav.pricing, href: "#pricing" },
-    { label: ht.nav.contact, href: "#contatto" },
+  const sections = [
+    { label: ht.nav.services, id: "servizi" },
+    { label: ht.nav.pricing, id: "pricing" },
+    { label: ht.nav.contact, id: "contatto" },
   ]
 
   return (
@@ -486,14 +488,24 @@ function HomeNav() {
           MD
         </button>
 
+        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
-          {links.map(l => (
-            <a key={l.href} href={l.href}
+          {sections.map(s => (
+            <button key={s.id} onClick={() => scrollToSection(s.id)}
               className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400"
               style={{ color: "rgba(175,195,220,0.65)" }}>
-              {l.label}
-            </a>
+              {s.label}
+            </button>
           ))}
+          <a href="/cv"
+            className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400"
+            style={{ color: "rgba(175,195,220,0.65)" }}>
+            {ht.nav.about}
+          </a>
+        </div>
+
+        {/* Right: lang toggle (always visible) + hamburger (mobile only) */}
+        <div className="flex items-center gap-3">
           <button
             onClick={toggleLang}
             className="text-xs font-mono tracking-[0.14em] px-2.5 py-1 transition-all duration-200 hover:scale-105"
@@ -504,32 +516,26 @@ function HomeNav() {
             }}>
             {lang === "en" ? "IT" : "EN"}
           </button>
+          <button onClick={() => setMenuOpen(p => !p)} className="md:hidden" style={{ color: "#00f5ff" }}>
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-
-        <button onClick={() => setMenuOpen(p => !p)} className="md:hidden" style={{ color: "#00f5ff" }}>
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
       </div>
 
+      {/* Mobile dropdown (no lang toggle here — it's always in the topbar) */}
       {menuOpen && (
         <div className="md:hidden px-6 py-4 flex flex-col gap-5"
           style={{ borderTop: "1px solid rgba(0,245,255,0.08)", background: "rgba(3,6,16,0.97)" }}>
-          {links.map(l => (
-            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
-              className="text-sm tracking-wider uppercase" style={{ color: "rgba(175,195,220,0.7)" }}>
-              {l.label}
-            </a>
+          {sections.map(s => (
+            <button key={s.id} onClick={() => { scrollToSection(s.id); setMenuOpen(false) }}
+              className="text-left text-sm tracking-wider uppercase" style={{ color: "rgba(175,195,220,0.7)" }}>
+              {s.label}
+            </button>
           ))}
-          <button
-            onClick={() => { toggleLang(); setMenuOpen(false) }}
-            className="self-start text-xs font-mono tracking-[0.14em] px-2.5 py-1 transition-all duration-200"
-            style={{
-              color: "#00f5ff",
-              border: "1px solid rgba(0,245,255,0.28)",
-              background: "rgba(0,245,255,0.05)",
-            }}>
-            {lang === "en" ? "IT" : "EN"}
-          </button>
+          <a href="/cv" onClick={() => setMenuOpen(false)}
+            className="text-sm tracking-wider uppercase" style={{ color: "rgba(175,195,220,0.7)" }}>
+            {ht.nav.about}
+          </a>
         </div>
       )}
     </nav>
@@ -650,7 +656,7 @@ function HeroSection() {
 
         {/* CTAs */}
         <div className={`flex flex-wrap justify-center gap-4 transition-all duration-700 delay-500 ${mounted ? "opacity-100" : "opacity-0"}`}>
-          <a href="#servizi"
+          <button onClick={() => scrollToSection("servizi")}
             className="flex items-center gap-2 px-8 py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-105"
             style={{
               background: "rgba(0,245,255,0.08)",
@@ -660,8 +666,8 @@ function HeroSection() {
             }}>
             <span>{ht.hero.cta_services}</span>
             <ArrowRight className="w-4 h-4" />
-          </a>
-          <a href="#contatto"
+          </button>
+          <button onClick={() => scrollToSection("contatto")}
             className="flex items-center gap-2 px-8 py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-105"
             style={{
               background: "rgba(168,85,247,0.08)",
@@ -671,7 +677,7 @@ function HeroSection() {
             }}>
             <span>{ht.hero.cta_contact}</span>
             <Mail className="w-4 h-4" />
-          </a>
+          </button>
         </div>
       </div>
 
@@ -750,11 +756,11 @@ function ServicesSection() {
                     })}
                   </ul>
 
-                  <a href="#contatto"
+                  <button onClick={() => scrollToSection("contatto")}
                     className="flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3"
                     style={{ color: svc.color }}>
                     {ht.services.cta} <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </button>
                 </div>
               )
             })}
@@ -915,11 +921,11 @@ function PricingSection() {
                   ))}
                 </ul>
 
-                <a href="#contatto"
+                <button onClick={() => scrollToSection("contatto")}
                   className="flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-all duration-200 hover:scale-105"
                   style={{ background: `rgba(${pl.rgb},0.1)`, border: `1px solid rgba(${pl.rgb},0.33)`, color: pl.color }}>
                   {ht.pricing.cta} <ArrowRight className="w-4 h-4" />
-                </a>
+                </button>
               </div>
             ))}
           </div>
