@@ -261,10 +261,10 @@ const SERVICE_STATIC = [
 ] as const
 
 const PLAN_STATIC = [
-  { price: "€150", color: "#fbbf24", rgb: "251,191,36", featured: false },
+  { price: "€120", color: "#fbbf24", rgb: "251,191,36", featured: false },
   { price: "da €300", color: "#f0abfc", rgb: "240,171,252", featured: false },
   { price: "da €500", color: "#00f5ff", rgb: "0,245,255", featured: false },
-  { price: "da €1.500", color: "#a855f7", rgb: "168,85,247", featured: true },
+  { price: "da €1.500", color: "#a855f7", rgb: "168,85,247", featured: false },
 ] as const
 
 /* ─────────────────────────────────────────────────────
@@ -960,6 +960,85 @@ function PricingSection() {
 }
 
 /* ─────────────────────────────────────────────────────
+   PORTFOLIO  (hidden — toggle false → true to show)
+───────────────────────────────────────────────────── */
+const PORTFOLIO_ITEMS = [
+  {
+    label: "Sito istituzionale",
+    title: "Dassano",
+    desc: "Sito vetrina personalizzato per un professionista del settore commerciale.",
+    tags: ["Branding", "SEO", "Performance"],
+    href: "https://www.dassano.it",
+    external: true,
+    color: "#00f5ff",
+    rgb: "0,245,255",
+  },
+  {
+    label: "Invito digitale",
+    title: "Festa di compleanno",
+    desc: "Pagina invito interattiva con countdown, dinosauri animati e form di conferma presenza.",
+    tags: ["Animazioni", "Interattivo", "Mobile-first"],
+    href: "/esempi/compleanno.html",
+    external: false,
+    color: "#f0abfc",
+    rgb: "240,171,252",
+  },
+] as const
+
+function PortfolioSection() {
+  const { ref, inView } = useScrollInView()
+  const ht = useHomeLang()
+
+  return (
+    <section id="portfolio" className="py-14 md:py-20 relative">
+      <div className="max-w-5xl mx-auto px-6">
+        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <SectionHeader
+            title={ht.nav.services === "Servizi" ? "Alcuni lavori" : "Recent work"}
+            subtitle={ht.nav.services === "Servizi" ? "Esempi reali di quello che costruisco" : "Real examples of what I build"}
+          />
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {PORTFOLIO_ITEMS.map((item) => (
+              <a
+                key={item.title}
+                href={item.href}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
+                className="group relative rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 hover:scale-[1.02]"
+                style={{
+                  background: `rgba(${item.rgb},0.035)`,
+                  border: `1px solid rgba(${item.rgb},0.18)`,
+                  textDecoration: "none",
+                }}
+              >
+                <div>
+                  <span className="text-xs font-mono tracking-widest uppercase" style={{ color: `rgba(${item.rgb},0.65)` }}>
+                    {item.label}
+                  </span>
+                  <h3 className="text-lg font-semibold mt-1 group-hover:text-white transition-colors" style={{ color: item.color }}>
+                    {item.title}
+                  </h3>
+                  <p className="text-sm mt-2" style={{ color: "rgba(155,175,210,0.7)" }}>{item.desc}</p>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {item.tags.map(tag => (
+                    <span key={tag} className="text-xs px-2.5 py-1 rounded-full font-mono"
+                      style={{ background: `rgba(${item.rgb},0.09)`, border: `1px solid rgba(${item.rgb},0.22)`, color: `rgba(${item.rgb},0.8)` }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <ExternalLink className="absolute top-5 right-5 w-4 h-4 opacity-30 group-hover:opacity-70 transition-opacity" style={{ color: item.color }} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
    CONTACT
 ───────────────────────────────────────────────────── */
 function ContactSection() {
@@ -1161,6 +1240,7 @@ export default function HomePage() {
       <ManifestoSection />
       <WhyMeSection />
       <PricingSection />
+      {false && <PortfolioSection />}
       <ContactSection />
       <HomeFooter />
     </main>
