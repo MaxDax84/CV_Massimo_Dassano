@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
   Linkedin, MapPin, ChevronDown, ExternalLink, Menu, X,
-  Monitor, Wand2, Star, Zap, Code, Smartphone, Search,
+  Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield,
   ArrowRight, Mail,
 } from "lucide-react"
 import { ParticleCanvas } from "@/components/particle-canvas"
@@ -33,9 +33,15 @@ const homeT = {
     },
     services: {
       title: "Cosa posso fare per te",
-      subtitle: "Due percorsi, un obiettivo: una presenza digitale che ti rappresenti davvero",
-      cta: "Parliamone",
+      subtitle: "Tre percorsi, un obiettivo: una presenza digitale che lavori davvero per te",
       list: [
+        {
+          tag: "DIAGNOSI",
+          title: "Analisi del Sito",
+          sub: "Per chi vuole capire cosa non va — prima di agire",
+          body: "Analizzo il tuo sito esistente e ti consegno un report completo: SEO tecnico, UX e conversione, contenuti, privacy GDPR e una stima dell'opportunità di business. Il costo è scalabile da qualsiasi progetto successivo.",
+          features: ["SEO tecnico e visibilità Google", "UX & tasso di conversione", "Privacy & GDPR compliance", "Stima opportunità di business"],
+        },
         {
           tag: "RESTYLING",
           title: "Restyling Sito Esistente",
@@ -74,6 +80,12 @@ const homeT = {
       cta: "Richiedi preventivo",
       note: "I prezzi variano in base a complessità, funzionalità e contenuti. Contattami per un preventivo personalizzato e gratuito.",
       plans: [
+        {
+          name: "DIAGNOSI",
+          tag: "Analisi del Sito",
+          desc: "Report completo del tuo sito: punteggi, criticità e piano d'azione. Scalabile dal progetto successivo.",
+          features: ["SEO tecnico e contenuti", "UX & conversione", "Privacy & GDPR", "Stima opportunità di business", "Scalabile dal progetto successivo"],
+        },
         {
           name: "RESTYLING",
           tag: "Rinnova il Sito",
@@ -132,9 +144,15 @@ const homeT = {
     },
     services: {
       title: "What I can do for you",
-      subtitle: "Two paths, one goal: a digital presence that truly represents you",
-      cta: "Let's talk",
+      subtitle: "Three paths, one goal: a digital presence that truly works for you",
       list: [
+        {
+          tag: "DIAGNOSIS",
+          title: "Website Analysis",
+          sub: "For those who want to understand what's wrong — before acting",
+          body: "I analyze your existing website and deliver a complete report: technical SEO, UX and conversion, content, GDPR privacy and a business opportunity estimate. The cost is deductible from any follow-up project.",
+          features: ["Technical SEO & Google visibility", "UX & conversion rate", "Privacy & GDPR compliance", "Business opportunity estimate"],
+        },
         {
           tag: "RESTYLING",
           title: "Website Restyling",
@@ -173,6 +191,12 @@ const homeT = {
       cta: "Request a quote",
       note: "Prices vary based on complexity, features and content. Contact me for a free personalized quote.",
       plans: [
+        {
+          name: "DIAGNOSIS",
+          tag: "Website Analysis",
+          desc: "Full report on your site: scores, issues and action plan. Deductible from any follow-up project.",
+          features: ["Technical SEO & content", "UX & conversion", "Privacy & GDPR", "Business opportunity estimate", "Deductible from next project"],
+        },
         {
           name: "RESTYLING",
           tag: "Renew Your Site",
@@ -231,12 +255,14 @@ const scrollToSection = (id: string) =>
    STATIC CONFIG (non-translatable)
 ───────────────────────────────────────────────────── */
 const SERVICE_STATIC = [
+  { icon: Search, color: "#fbbf24", rgb: "251,191,36", featureIcons: [Zap, Smartphone, Shield, Star] },
   { icon: Wand2, color: "#a855f7", rgb: "168,85,247", featureIcons: [Star, Wand2, ArrowRight, Zap] },
   { icon: Monitor, color: "#00f5ff", rgb: "0,245,255", featureIcons: [Code, Smartphone, Search, Zap] },
 ] as const
 
 const PLAN_STATIC = [
-  { price: "da €200", color: "#f0abfc", rgb: "240,171,252", featured: false },
+  { price: "€150", color: "#fbbf24", rgb: "251,191,36", featured: false },
+  { price: "da €300", color: "#f0abfc", rgb: "240,171,252", featured: false },
   { price: "da €500", color: "#00f5ff", rgb: "0,245,255", featured: false },
   { price: "da €1.500", color: "#a855f7", rgb: "168,85,247", featured: true },
 ] as const
@@ -697,25 +723,26 @@ function ServicesSection() {
   const { ref, inView } = useScrollInView()
   const card1 = useHoloTilt()
   const card2 = useHoloTilt()
+  const card3 = useHoloTilt()
   const ht = useHomeLang()
 
   const services = ht.services.list.map((s, i) => ({ ...s, ...SERVICE_STATIC[i] }))
-  const tilts = [card1, card2]
+  const tilts = [card1, card2, card3]
 
   return (
     <section id="servizi" className="py-24 relative">
       <div className="absolute inset-0 cyber-grid-dense" style={{ opacity: 0.18 }} />
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.services.title} subtitle={ht.services.subtitle} />
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {services.map((svc, i) => {
               const Icon = svc.icon
               const t = tilts[i]
               return (
                 <div key={i}
                   ref={t.ref}
-                  className="relative rounded-2xl p-8 overflow-hidden cursor-default"
+                  className="relative rounded-2xl p-7 overflow-hidden cursor-default flex flex-col"
                   style={{
                     background: `rgba(${svc.rgb},0.035)`,
                     border: `1px solid rgba(${svc.rgb},0.2)`,
@@ -726,22 +753,22 @@ function ServicesSection() {
                   <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: `2px solid rgba(${svc.rgb},0.58)`, borderLeft: `2px solid rgba(${svc.rgb},0.58)` }} />
                   <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: `2px solid rgba(${svc.rgb},0.58)`, borderRight: `2px solid rgba(${svc.rgb},0.58)` }} />
 
-                  <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 text-xs font-mono tracking-wider"
+                  <div className="inline-flex items-center gap-2 mb-5 px-3 py-1 text-xs font-mono tracking-wider self-start"
                     style={{ background: `rgba(${svc.rgb},0.1)`, border: `1px solid rgba(${svc.rgb},0.28)`, color: svc.color }}>
                     <div className="w-1.5 h-1.5 rounded-full" style={{ background: svc.color, boxShadow: `0 0 6px ${svc.color}` }} />
                     {svc.tag}
                   </div>
 
-                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
                     style={{ background: `rgba(${svc.rgb},0.1)`, border: `1px solid rgba(${svc.rgb},0.22)`, boxShadow: `0 0 22px rgba(${svc.rgb},0.1)` }}>
-                    <Icon className="w-7 h-7" style={{ color: svc.color }} />
+                    <Icon className="w-6 h-6" style={{ color: svc.color }} />
                   </div>
 
-                  <h3 className="text-2xl font-bold text-white mb-2">{svc.title}</h3>
-                  <p className="text-sm font-medium mb-4" style={{ color: svc.color }}>{svc.sub}</p>
-                  <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(145,170,210,0.75)" }}>{svc.body}</p>
+                  <h3 className="text-xl font-bold text-white mb-2">{svc.title}</h3>
+                  <p className="text-sm font-medium mb-3" style={{ color: svc.color }}>{svc.sub}</p>
+                  <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(145,170,210,0.75)" }}>{svc.body}</p>
 
-                  <ul className="space-y-2.5 mb-8">
+                  <ul className="space-y-2.5 mt-auto">
                     {svc.features.map((f, fi) => {
                       const FIcon = svc.featureIcons[fi]
                       return (
@@ -755,12 +782,6 @@ function ServicesSection() {
                       )
                     })}
                   </ul>
-
-                  <button onClick={() => scrollToSection("contatto")}
-                    className="flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3"
-                    style={{ color: svc.color }}>
-                    {ht.services.cta} <ArrowRight className="w-4 h-4" />
-                  </button>
                 </div>
               )
             })}
@@ -878,10 +899,10 @@ function PricingSection() {
     <section id="pricing" className="py-24 relative">
       <div className="absolute inset-0 cyber-grid" style={{ opacity: 0.22 }} />
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.018) 50%, transparent)" }} />
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.pricing.title} subtitle={ht.pricing.subtitle} />
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {plans.map((pl, i) => (
               <div key={i}
                 className="relative rounded-2xl p-7 flex flex-col"
