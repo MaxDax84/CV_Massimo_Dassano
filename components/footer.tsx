@@ -1,6 +1,7 @@
 "use client"
 
 import { Linkedin, MapPin } from "lucide-react"
+import Link from "next/link"
 import { ContactReveal } from "@/components/contact-reveal"
 import { useLanguage } from "@/contexts/language-context"
 
@@ -39,7 +40,14 @@ export function Footer() {
             <MapPin className="w-4 h-4" />
             <span>{t.hero.location}</span>
           </div>
-          <p>© {new Date().getFullYear()} Massimo Dassano. {t.footer.rights}.</p>
+          <div className="flex flex-col items-center md:items-end gap-1">
+            <p>© {new Date().getFullYear()} Massimo Dassano. {t.footer.rights}.</p>
+            <div className="flex items-center gap-3 text-xs">
+              <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+              <span className="opacity-30">·</span>
+              <Link href="/cookie-policy" className="hover:text-primary transition-colors">Cookie Policy</Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
-  Linkedin, MapPin, ChevronDown, ExternalLink, Menu, X,
+  Linkedin, MapPin, ExternalLink, Menu, X,
   Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield,
   ArrowRight, Mail,
 } from "lucide-react"
@@ -707,11 +707,6 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce" style={{ opacity: 0.38 }}>
-        <div className="w-px h-10" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.6))" }} />
-        <ChevronDown className="w-4 h-4" style={{ color: "#00f5ff" }} />
-      </div>
     </section>
   )
 }
