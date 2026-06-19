@@ -40,13 +40,12 @@ export function Footer() {
             <MapPin className="w-4 h-4" />
             <span>{t.hero.location}</span>
           </div>
-          <div className="flex flex-col items-center md:items-end gap-1">
+          <div className="flex items-center gap-3 flex-wrap justify-center md:justify-end">
             <p>© {new Date().getFullYear()} Massimo Dassano. {t.footer.rights}.</p>
-            <div className="flex items-center gap-3 text-xs">
-              <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-              <span className="opacity-30">·</span>
-              <Link href="/cookie-policy" className="hover:text-primary transition-colors">Cookie Policy</Link>
-            </div>
+            <span className="opacity-30">·</span>
+            <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <span className="opacity-30">·</span>
+            <Link href="/cookie-policy" className="hover:text-primary transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>
