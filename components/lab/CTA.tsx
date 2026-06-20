@@ -102,9 +102,9 @@ export default function CTA() {
   };
 
   const inputCls = (err?: string) =>
-    `w-full px-4 py-3 text-sm rounded-xl outline-none transition-all duration-200 bg-white/[0.04] text-[#F2F0EB] placeholder-white/25
-     border ${err ? "border-red-400/50" : "border-white/10"}
-     focus:border-[#E8622A]/60 focus:shadow-[0_0_0_3px_rgba(232,98,42,0.08)]`;
+    `w-full px-4 py-3 text-sm rounded-xl outline-none transition-all duration-200 bg-white/[0.10] text-[#F2F0EB] placeholder-white/40
+     border ${err ? "border-red-400/60" : "border-white/20"}
+     focus:border-[#E8622A]/70 focus:bg-white/[0.14] focus:shadow-[0_0_0_3px_rgba(232,98,42,0.10)]`;
 
   return (
     <section className="relative z-[1] py-32 px-6 border-t border-white/[0.05]">

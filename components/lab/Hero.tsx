@@ -98,8 +98,14 @@ export default function Hero() {
 
   return (
     <>
-      {/* ── Fixed background layers ── */}
-      <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+      {/* ── Fixed background layers — fade in first ── */}
+      <motion.div
+        className="fixed inset-0 z-0 pointer-events-none"
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.4, ease: "easeOut" }}
+      >
         <VideoBackground />
         <div className="absolute inset-0 bg-black/20" />
         {/* Foreground person — decommentare per reintrodurla
@@ -116,22 +122,27 @@ export default function Hero() {
               "linear-gradient(to bottom, #02122cff 0%, #02122cfa 10%, #02122c80 25%, transparent 50%)",
           }}
         />
-      </div>
+      </motion.div>
 
-      {/* ── Scrollable hero content ── */}
-      <div className="relative z-[1] flex flex-col min-h-screen">
+      {/* ── Scrollable hero content — delay rispetto allo sfondo ── */}
+      <motion.div
+        className="relative z-[1] flex flex-col min-h-screen"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
+      >
 
         {/* ── Navbar ── */}
         <nav className="flex justify-between items-center w-full px-6 md:px-12 lg:px-24 py-6 lg:py-8">
-          {/* Logo */}
-          <div className="flex flex-col leading-none">
-            <span className="text-white font-sora font-semibold tracking-wide text-xl lg:text-2xl">
+          {/* Logo — click torna alla homepage */}
+          <a href="/" className="flex flex-col leading-none group">
+            <span className="text-white font-sora font-semibold tracking-wide text-xl lg:text-2xl group-hover:text-white/80 transition-colors duration-200">
               Massimo Dassano
             </span>
             <span className="text-white/50 uppercase tracking-widest text-[0.55rem] lg:text-[0.7rem] mt-0.5">
               Laboratorio
             </span>
-          </div>
+          </a>
 
           {/* Desktop links + lang toggle */}
           <div className="hidden lg:flex items-center space-x-10">
@@ -229,7 +240,7 @@ export default function Hero() {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 last:border-0 font-inter"
+                  className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 font-inter"
                   onClick={() => setMenuOpen(false)}
                 >
                   {l.label}
@@ -237,7 +248,7 @@ export default function Hero() {
               ) : (
                 <button
                   key={l.label}
-                  className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 last:border-0 font-inter text-left cursor-pointer"
+                  className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 font-inter text-left cursor-pointer"
                   onClick={() => {
                     scrollTo(l.href.replace("#", ""));
                     setMenuOpen(false);
@@ -247,6 +258,16 @@ export default function Hero() {
                 </button>
               )
             )}
+            <a
+              href="/"
+              className="flex items-center gap-2 text-white/50 hover:text-white text-sm py-2 font-inter transition-colors duration-200"
+              onClick={() => setMenuOpen(false)}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+              </svg>
+              Homepage
+            </a>
           </div>
         )}
 
@@ -329,7 +350,7 @@ export default function Hero() {
             </svg>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }
