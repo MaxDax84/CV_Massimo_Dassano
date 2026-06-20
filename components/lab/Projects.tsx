@@ -9,6 +9,14 @@ const t = {
     title: "Progetti selezionati",
     projects: [
       {
+        title: "Invito Compleanno",
+        category: "Invito digitale",
+        tag: "Demo",
+        description:
+          "Invito digitale per il primo compleanno di un bambino. Tema dinosauri, banda interattiva e conferma presenza. Esempio di prodotto personalizzabile.",
+        link: "/lab/compleanno",
+      },
+      {
         title: "Marcella Marcone",
         category: "Psicoterapeuta",
         tag: "Restyling",
@@ -25,14 +33,6 @@ const t = {
         link: "https://gelateria-icone.surge.sh/",
       },
       {
-        title: "Dassano",
-        category: "Band musicale",
-        tag: "Immersivo",
-        description:
-          "Sito per band musicale. Focus su immagini, date concerti e ascolto diretto dei brani. Esperienza immersiva, nessun elemento superfluo.",
-        link: "https://www.dassano.it",
-      },
-      {
         title: "Alessandro Marcello",
         category: "Personal Branding Executive",
         tag: "Executive",
@@ -41,44 +41,34 @@ const t = {
         link: "https://www.alessandromarcello.it",
       },
       {
-        title: "Massimo Dassano",
-        category: "Web Agency",
-        tag: "Agency",
+        title: "dassano.it",
+        category: "Band musicale",
+        tag: "Immersivo",
         description:
-          "Il mio sito principale. Restyling e creazione siti per attività locali, con un approccio diretto basato su esperienza corporate applicata al piccolo business.",
-        link: "https://www.massimodassano.it",
-      },
-      {
-        title: "Portale Maternità",
-        category: "Salute & benessere",
-        tag: "Da zero",
-        description:
-          "Piattaforma per professioniste della maternità. Consulenze, gruppi di supporto e servizi online per donne in gravidanza e nel post-partum.",
-        link: "https://portale-maternita.vercel.app/",
-      },
-      {
-        title: "Invito Compleanno",
-        category: "Invito digitale",
-        tag: "Demo",
-        description:
-          "Invito digitale per il primo compleanno di un bambino. Tema dinosauri, banda interattiva e conferma presenza. Esempio di prodotto personalizzabile.",
-        link: "/lab/compleanno",
+          "Sito per band musicale. Focus su immagini, date concerti e ascolto diretto dei brani. Esperienza immersiva, nessun elemento superfluo.",
+        link: "https://www.dassano.it",
       },
     ],
     marquee: [
+      "Invito digitale",
       "Psicoterapia",
       "Gelateria artigianale",
-      "Band musicale",
       "Personal branding executive",
-      "Web agency",
-      "Salute & maternità",
-      "Invito digitale",
+      "Band musicale",
     ],
   },
   en: {
     eyebrow: "Portfolio",
     title: "Selected projects",
     projects: [
+      {
+        title: "Birthday Invitation",
+        category: "Digital invitation",
+        tag: "Demo",
+        description:
+          "Digital birthday invitation for a child's first birthday. Dinosaur theme, interactive band and RSVP. Example of a fully customisable product.",
+        link: "/lab/compleanno",
+      },
       {
         title: "Marcella Marcone",
         category: "Psychotherapist",
@@ -96,14 +86,6 @@ const t = {
         link: "https://gelateria-icone.surge.sh/",
       },
       {
-        title: "Dassano",
-        category: "Music band",
-        tag: "Immersive",
-        description:
-          "Website for a music band. Focus on imagery, concert dates and direct song playback. Immersive experience, no unnecessary elements.",
-        link: "https://www.dassano.it",
-      },
-      {
         title: "Alessandro Marcello",
         category: "Executive Personal Branding",
         tag: "Executive",
@@ -112,38 +94,20 @@ const t = {
         link: "https://www.alessandromarcello.it",
       },
       {
-        title: "Massimo Dassano",
-        category: "Web Agency",
-        tag: "Agency",
+        title: "dassano.it",
+        category: "Music band",
+        tag: "Immersive",
         description:
-          "My main site. Restyling and site creation for local businesses, with a direct approach rooted in corporate experience applied to small business.",
-        link: "https://www.massimodassano.it",
-      },
-      {
-        title: "Portale Maternità",
-        category: "Health & wellness",
-        tag: "From scratch",
-        description:
-          "Platform for maternity professionals. Individual consultations, support groups and online services for women during pregnancy and postpartum.",
-        link: "https://portale-maternita.vercel.app/",
-      },
-      {
-        title: "Birthday Invitation",
-        category: "Digital invitation",
-        tag: "Demo",
-        description:
-          "Digital birthday invitation for a child's first birthday. Dinosaur theme, interactive band and RSVP. Example of a fully customisable product.",
-        link: "/lab/compleanno",
+          "Website for a music band. Focus on imagery, concert dates and direct song playback. Immersive experience, no unnecessary elements.",
+        link: "https://www.dassano.it",
       },
     ],
     marquee: [
+      "Digital invitation",
       "Psychotherapy",
       "Artisan ice cream",
-      "Music band",
       "Executive personal branding",
-      "Web agency",
-      "Health & maternity",
-      "Digital invitation",
+      "Music band",
     ],
   },
 } as const;

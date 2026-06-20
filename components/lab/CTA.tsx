@@ -12,9 +12,12 @@ const translations = {
     type1_label: "Audit del sito",
     type1_sub: "Hai già un sito e vuoi capire cosa non va",
     type1_value: "Audit del sito esistente",
-    type2_label: "Nuovo sito o restyling",
-    type2_sub: "Vuoi costruire da zero o rinnovare quello che hai",
-    type2_value: "Nuovo sito o restyling",
+    type2_label: "Nuovo sito",
+    type2_sub: "Vuoi costruire un sito da zero",
+    type2_value: "Nuovo sito",
+    type3_label: "Restyling del sito",
+    type3_sub: "Hai già un sito e vuoi rinnovarlo",
+    type3_value: "Restyling del sito esistente",
     back: "Indietro",
     name_label: "Nome",
     name_placeholder: "Mario Rossi",
@@ -23,6 +26,7 @@ const translations = {
     msg_label: "Raccontami il progetto",
     msg_placeholder_audit: "Il mio sito è... vorrei capire perché non converte / appare datato...",
     msg_placeholder_new: "Ho bisogno di un sito per... il mio settore è... i miei clienti sono...",
+    msg_placeholder_restyle: "Il mio sito attuale è... vorrei rinnovarlo perché... il mio obiettivo è...",
     submit: "Invia messaggio",
     sending: "Invio in corso...",
     success_title: "Messaggio ricevuto.",
@@ -39,9 +43,12 @@ const translations = {
     type1_label: "Site audit",
     type1_sub: "You already have a site and want to know what's wrong",
     type1_value: "Site audit",
-    type2_label: "New site or restyling",
-    type2_sub: "You want to build from scratch or refresh what you have",
-    type2_value: "New site or restyling",
+    type2_label: "New site",
+    type2_sub: "You want to build a site from scratch",
+    type2_value: "New site",
+    type3_label: "Site restyling",
+    type3_sub: "You already have a site and want to refresh it",
+    type3_value: "Site restyling",
     back: "Back",
     name_label: "Name",
     name_placeholder: "John Smith",
@@ -50,6 +57,7 @@ const translations = {
     msg_label: "Tell me about your project",
     msg_placeholder_audit: "My site is... I'd like to understand why it doesn't convert...",
     msg_placeholder_new: "I need a site for... my industry is... my clients are...",
+    msg_placeholder_restyle: "My current site is... I'd like to refresh it because... my goal is...",
     submit: "Send message",
     sending: "Sending...",
     success_title: "Message received.",
@@ -141,7 +149,7 @@ export default function CTA() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.35 }}
-              className="grid sm:grid-cols-2 gap-4"
+              className="grid sm:grid-cols-3 gap-4"
             >
               <TypeButton
                 label={ht.type1_label}
@@ -162,6 +170,16 @@ export default function CTA() {
                   </svg>
                 }
                 onClick={() => setTipo(ht.type2_value)}
+              />
+              <TypeButton
+                label={ht.type3_label}
+                sub={ht.type3_sub}
+                icon={
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+                    <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                  </svg>
+                }
+                onClick={() => setTipo(ht.type3_value)}
               />
             </motion.div>
           )}
@@ -231,7 +249,7 @@ export default function CTA() {
                   </label>
                   <textarea
                     rows={4}
-                    placeholder={tipo === ht.type1_value ? ht.msg_placeholder_audit : ht.msg_placeholder_new}
+                    placeholder={tipo === ht.type1_value ? ht.msg_placeholder_audit : tipo === ht.type2_value ? ht.msg_placeholder_new : ht.msg_placeholder_restyle}
                     value={form.messaggio}
                     onChange={e => setForm(f => ({ ...f, messaggio: e.target.value }))}
                     className={`${inputCls(errors.messaggio)} resize-none`}

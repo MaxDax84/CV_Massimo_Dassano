@@ -1,19 +1,11 @@
 import type { Metadata } from "next";
-import { Fredoka, Nunito } from "next/font/google";
-
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-fredoka" });
-const nunito = Nunito({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-nunito" });
 
 export const metadata: Metadata = {
-  title: "Compleanno Lorenzo 🦕",
-  description: "Invito al primo compleanno di Lorenzo — tema dinosauri!",
+  title: "🦕 Compleanno di Lorenzo!",
+  description: "Sabato 14 Settembre 2024 · Via Brera 5, Milano · Unisciti a noi per festeggiare!",
   robots: "noindex",
 };
 
 export default function CompleannnoLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className={`${fredoka.variable} ${nunito.variable}`}>
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }
