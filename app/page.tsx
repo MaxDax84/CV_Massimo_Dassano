@@ -490,7 +490,16 @@ function HomeNav() {
     return () => window.removeEventListener("scroll", h)
   }, [])
 
-  const toggleLang = () => setLang(lang === "en" ? "it" : "en")
+  useEffect(() => {
+    const saved = localStorage.getItem("md-lang") as "it" | "en" | null
+    if (saved && saved !== lang) setLang(saved)
+  }, [])
+
+  const toggleLang = () => {
+    const next = lang === "en" ? "it" : "en"
+    setLang(next)
+    localStorage.setItem("md-lang", next)
+  }
 
   const sections = [
     { label: ht.nav.services, id: "servizi" },

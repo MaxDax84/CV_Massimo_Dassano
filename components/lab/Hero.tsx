@@ -2,17 +2,29 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useLabLang } from "@/contexts/lab-lang-context";
 
 const VIDEO_SRC =
   "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_cloud_animation_video.mp4";
-const FG_IMG =
-  "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_foreground_bg.png";
 
-const NAV_LINKS = [
-  { label: "Progetti", href: "#progetti" },
-  { label: "Chi sono", href: "#about" },
-  { label: "Contatti", href: "https://www.massimodassano.it", external: true },
-];
+const t = {
+  it: {
+    badge: "Benvenuto nel Laboratorio",
+    eyebrow: "Restyling e costruzione di siti · Made in Italy",
+    h1: ["Ogni sito dimenticato", "merita di tornare", "a brillare."],
+    cta: "Guarda i progetti",
+    scroll: "Scroll",
+    nav: { projects: "Progetti", about: "Chi sono", contact: "Contatti", talk: "Parliamo" },
+  },
+  en: {
+    badge: "Welcome to the Laboratorio",
+    eyebrow: "Site restyling & building · Made in Italy",
+    h1: ["Every forgotten website", "deserves to shine", "again."],
+    cta: "Explore projects",
+    scroll: "Scroll",
+    nav: { projects: "Projects", about: "About", contact: "Contact", talk: "Let's talk" },
+  },
+} as const;
 
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -24,7 +36,7 @@ function VideoBackground() {
   const v2 = useRef<HTMLVideoElement>(null);
   const rafRef = useRef<number>(0);
   const stateRef = useRef({ active: 1 as 1 | 2, fadeStart: -1 });
-  const BEFORE = 1.5; // seconds before end to start crossfade
+  const BEFORE = 1.5;
 
   useEffect(() => {
     const a = v1.current;
@@ -43,11 +55,11 @@ function VideoBackground() {
           nxt.play().catch(() => {});
           stateRef.current.fadeStart = performance.now();
         }
-        const t = Math.min(1, (performance.now() - stateRef.current.fadeStart) / (BEFORE * 1000));
-        cur.style.opacity = String(1 - t);
-        nxt.style.opacity = String(t);
+        const elapsed = Math.min(1, (performance.now() - stateRef.current.fadeStart) / (BEFORE * 1000));
+        cur.style.opacity = String(1 - elapsed);
+        nxt.style.opacity = String(elapsed);
 
-        if (t >= 1) {
+        if (elapsed >= 1) {
           cur.pause();
           cur.style.opacity = "0";
           nxt.style.opacity = "1";
@@ -76,17 +88,25 @@ function VideoBackground() {
 
 export default function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { lang, toggle } = useLabLang();
+  const ht = t[lang];
+
+  const navLinks = [
+    { label: ht.nav.projects, href: "#progetti" },
+    { label: ht.nav.about, href: "#about" },
+    { label: ht.nav.contact, href: "https://www.massimodassano.it", external: true },
+  ];
 
   return (
     <>
-      {/* ── Fixed background layers (stay put while content scrolls) ── */}
+      {/* ── Fixed background layers ── */}
       <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
         <VideoBackground />
         <div className="absolute inset-0 bg-black/20" />
         {/* Foreground person — decommentare per reintrodurla
         <div
           className="absolute bottom-0 left-0 right-0 h-[80vh] bg-cover bg-bottom"
-          style={{ backgroundImage: `url(${FG_IMG})` }}
+          style={{ backgroundImage: `url(https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_foreground_bg.png)` }}
         />
         */}
         <div className="absolute bottom-0 left-0 right-0 h-[60vh] bg-gradient-to-t from-[#02122c] via-[#02122c]/80 to-transparent" />
@@ -114,9 +134,9 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* Desktop links */}
+          {/* Desktop links + lang toggle */}
           <div className="hidden lg:flex items-center space-x-10">
-            {NAV_LINKS.map((l) =>
+            {navLinks.map((l) =>
               l.external ? (
                 <a
                   key={l.label}
@@ -131,12 +151,23 @@ export default function Hero() {
                 <button
                   key={l.label}
                   onClick={() => scrollTo(l.href.replace("#", ""))}
-                  className="text-white/70 hover:text-white transition-colors duration-300 text-sm font-inter"
+                  className="text-white/70 hover:text-white transition-colors duration-300 text-sm font-inter cursor-pointer"
                 >
                   {l.label}
                 </button>
               )
             )}
+            <button
+              onClick={toggle}
+              className="text-xs font-mono tracking-[0.14em] px-2.5 py-1 transition-all duration-200 hover:scale-105 cursor-pointer"
+              style={{
+                color: "#00f5ff",
+                border: "1px solid rgba(0,245,255,0.28)",
+                background: "rgba(0,245,255,0.05)",
+              }}
+            >
+              {lang === "en" ? "IT" : "EN"}
+            </button>
           </div>
 
           {/* Desktop CTA */}
@@ -146,7 +177,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="group hidden lg:flex items-center space-x-3 text-white text-sm font-inter"
           >
-            <span>Parliamo</span>
+            <span>{ht.nav.talk}</span>
             <span className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
               <svg
                 className="w-4 h-4 text-white group-hover:text-[#050B14] transition-colors duration-300"
@@ -160,28 +191,41 @@ export default function Hero() {
             </span>
           </a>
 
-          {/* Mobile hamburger */}
-          <button
-            className="lg:hidden text-white p-1"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? "Chiudi menu" : "Apri menu"}
-          >
-            {menuOpen ? (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+          {/* Mobile: lang toggle + hamburger */}
+          <div className="lg:hidden flex items-center gap-3">
+            <button
+              onClick={toggle}
+              className="text-xs font-mono tracking-[0.14em] px-2 py-1 cursor-pointer"
+              style={{
+                color: "#00f5ff",
+                border: "1px solid rgba(0,245,255,0.28)",
+                background: "rgba(0,245,255,0.05)",
+              }}
+            >
+              {lang === "en" ? "IT" : "EN"}
+            </button>
+            <button
+              className="text-white p-1 cursor-pointer"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "Chiudi menu" : "Apri menu"}
+            >
+              {menuOpen ? (
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile dropdown */}
         {menuOpen && (
           <div className="lg:hidden absolute top-[72px] left-0 right-0 z-50 bg-[#02122c]/95 backdrop-blur-md border-t border-white/10 px-6 py-6 flex flex-col gap-4">
-            {NAV_LINKS.map((l) =>
+            {navLinks.map((l) =>
               l.external ? (
                 <a
                   key={l.label}
@@ -196,7 +240,7 @@ export default function Hero() {
               ) : (
                 <button
                   key={l.label}
-                  className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 last:border-0 font-inter text-left"
+                  className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 last:border-0 font-inter text-left cursor-pointer"
                   onClick={() => {
                     scrollTo(l.href.replace("#", ""));
                     setMenuOpen(false);
@@ -222,18 +266,18 @@ export default function Hero() {
             >
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               <span className="text-white text-xs font-inter font-medium tracking-[0.25em] uppercase">
-                Benvenuto nel Laboratorio
+                {ht.badge}
               </span>
             </motion.div>
 
-            {/* Eyebrow / subtitle */}
+            {/* Eyebrow */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
               className="text-white/70 uppercase tracking-widest text-[0.7rem] md:text-[0.875rem] font-medium font-inter mb-8"
             >
-              Restyling e costruzione di siti · Made in Italy
+              {ht.eyebrow}
             </motion.p>
 
             {/* H1 */}
@@ -244,9 +288,9 @@ export default function Hero() {
               className="text-white font-sora font-bold leading-[1.08] tracking-tight
                 text-5xl md:text-7xl lg:text-[5rem] mb-8"
             >
-              Ogni sito dimenticato<br className="hidden md:block" />
-              {" "}merita di tornare<br className="hidden md:block" />
-              {" "}a brillare.
+              {ht.h1[0]}<br className="hidden md:block" />
+              {" "}{ht.h1[1]}<br className="hidden md:block" />
+              {" "}{ht.h1[2]}
             </motion.h1>
 
             {/* CTA pill button */}
@@ -259,9 +303,9 @@ export default function Hero() {
                 onClick={() => scrollTo("progetti")}
                 className="group inline-flex items-center pl-6 pr-2 py-2 rounded-full
                   border border-white/20 backdrop-blur-sm text-white text-sm font-inter font-medium
-                  hover:bg-white/5 transition-all duration-300"
+                  hover:bg-white/5 transition-all duration-300 cursor-pointer"
               >
-                <span>Guarda i progetti</span>
+                <span>{ht.cta}</span>
                 <span className="ml-3 w-8 h-8 rounded-full border border-white/30 flex items-center justify-center
                   group-hover:bg-white group-hover:border-white transition-all duration-300">
                   <svg
@@ -282,7 +326,7 @@ export default function Hero() {
         {/* Bottom scroll hint */}
         <div className="flex justify-center pb-8 opacity-40">
           <div className="flex flex-col items-center gap-2">
-            <span className="text-white text-[9px] tracking-[0.35em] uppercase font-inter">Scroll</span>
+            <span className="text-white text-[9px] tracking-[0.35em] uppercase font-inter">{ht.scroll}</span>
             <svg className="w-4 h-4 text-white animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>

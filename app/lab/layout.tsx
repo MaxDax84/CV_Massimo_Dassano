@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
+import { LabLangProvider } from "@/contexts/lab-lang-context";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -21,8 +22,10 @@ export const metadata: Metadata = {
 
 export default function LabLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${sora.variable} ${inter.variable}`}>
-      {children}
-    </div>
+    <LabLangProvider>
+      <div className={`${sora.variable} ${inter.variable}`}>
+        {children}
+      </div>
+    </LabLangProvider>
   );
 }

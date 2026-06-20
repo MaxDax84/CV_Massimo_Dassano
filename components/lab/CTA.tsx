@@ -2,11 +2,70 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLabLang } from "@/contexts/lab-lang-context";
 
-type Tipo = "Audit del sito esistente" | "Nuovo sito o restyling" | "";
+const translations = {
+  it: {
+    eyebrow: "Inizia oggi",
+    title: "Pronto a costruire\no a rinnovare il tuo sito?",
+    subtitle: "Preventivo gratuito · Nessun impegno",
+    type1_label: "Audit del sito",
+    type1_sub: "Hai già un sito e vuoi capire cosa non va",
+    type1_value: "Audit del sito esistente",
+    type2_label: "Nuovo sito o restyling",
+    type2_sub: "Vuoi costruire da zero o rinnovare quello che hai",
+    type2_value: "Nuovo sito o restyling",
+    back: "Indietro",
+    name_label: "Nome",
+    name_placeholder: "Mario Rossi",
+    email_label: "Email",
+    email_placeholder: "mario@esempio.it",
+    msg_label: "Raccontami il progetto",
+    msg_placeholder_audit: "Il mio sito è... vorrei capire perché non converte / appare datato...",
+    msg_placeholder_new: "Ho bisogno di un sito per... il mio settore è... i miei clienti sono...",
+    submit: "Invia messaggio",
+    sending: "Invio in corso...",
+    success_title: "Messaggio ricevuto.",
+    success_sub: "Ti rispondo entro 24–48h.",
+    footer_note: "/lab · vetrina tecnica · massimodassano.it",
+    err_required: "Campo obbligatorio",
+    err_email: "Email non valida",
+    err_send: "Errore nell'invio. Riprova o scrivimi su LinkedIn.",
+  },
+  en: {
+    eyebrow: "Start today",
+    title: "Ready to build\nor refresh your website?",
+    subtitle: "Free quote · No commitment",
+    type1_label: "Site audit",
+    type1_sub: "You already have a site and want to know what's wrong",
+    type1_value: "Site audit",
+    type2_label: "New site or restyling",
+    type2_sub: "You want to build from scratch or refresh what you have",
+    type2_value: "New site or restyling",
+    back: "Back",
+    name_label: "Name",
+    name_placeholder: "John Smith",
+    email_label: "Email",
+    email_placeholder: "john@example.com",
+    msg_label: "Tell me about your project",
+    msg_placeholder_audit: "My site is... I'd like to understand why it doesn't convert...",
+    msg_placeholder_new: "I need a site for... my industry is... my clients are...",
+    submit: "Send message",
+    sending: "Sending...",
+    success_title: "Message received.",
+    success_sub: "I'll reply within 24–48h.",
+    footer_note: "/lab · technical showcase · massimodassano.it",
+    err_required: "Required field",
+    err_email: "Invalid email",
+    err_send: "Send error. Try again or message me on LinkedIn.",
+  },
+} as const;
 
 export default function CTA() {
-  const [tipo, setTipo] = useState<Tipo>("");
+  const { lang } = useLabLang();
+  const ht = translations[lang];
+
+  const [tipo, setTipo] = useState("");
   const [form, setForm] = useState({ nome: "", email: "", messaggio: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
@@ -14,10 +73,10 @@ export default function CTA() {
 
   const validate = () => {
     const e: Record<string, string> = {};
-    if (!form.nome.trim()) e.nome = "Campo obbligatorio";
+    if (!form.nome.trim()) e.nome = ht.err_required;
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      e.email = "Email non valida";
-    if (!form.messaggio.trim()) e.messaggio = "Campo obbligatorio";
+      e.email = ht.err_email;
+    if (!form.messaggio.trim()) e.messaggio = ht.err_required;
     return e;
   };
 
@@ -36,7 +95,7 @@ export default function CTA() {
       if (!res.ok) throw new Error();
       setSent(true);
     } catch {
-      setErrors({ messaggio: "Errore nell'invio. Riprova o scrivimi su LinkedIn." });
+      setErrors({ messaggio: ht.err_send });
     } finally {
       setLoading(false);
     }
@@ -60,13 +119,15 @@ export default function CTA() {
           className="text-center mb-14"
         >
           <span className="text-[#E8622A] text-[10px] tracking-[0.35em] uppercase font-inter">
-            Inizia oggi
+            {ht.eyebrow}
           </span>
           <h2 className="font-sora font-bold text-4xl md:text-5xl text-[#F2F0EB] mt-4 mb-4 leading-tight">
-            Pronto a costruire<br />o a rinnovare il tuo sito?
+            {ht.title.split("\n").map((line, i) => (
+              <React.Fragment key={i}>{line}{i === 0 && <br />}</React.Fragment>
+            ))}
           </h2>
           <p className="text-[#F2F0EB]/45 text-sm font-inter">
-            Preventivo gratuito · Nessun impegno
+            {ht.subtitle}
           </p>
         </motion.div>
 
@@ -82,24 +143,24 @@ export default function CTA() {
               className="grid sm:grid-cols-2 gap-4"
             >
               <TypeButton
-                label="Audit del sito"
-                sub="Hai già un sito e vuoi capire cosa non va"
+                label={ht.type1_label}
+                sub={ht.type1_sub}
                 icon={
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
                     <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>
                   </svg>
                 }
-                onClick={() => setTipo("Audit del sito esistente")}
+                onClick={() => setTipo(ht.type1_value)}
               />
               <TypeButton
-                label="Nuovo sito o restyling"
-                sub="Vuoi costruire da zero o rinnovare quello che hai"
+                label={ht.type2_label}
+                sub={ht.type2_sub}
                 icon={
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
                     <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/>
                   </svg>
                 }
-                onClick={() => setTipo("Nuovo sito o restyling")}
+                onClick={() => setTipo(ht.type2_value)}
               />
             </motion.div>
           )}
@@ -113,16 +174,15 @@ export default function CTA() {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.35 }}
             >
-              {/* Back button + selected type badge */}
               <div className="flex items-center gap-3 mb-6">
                 <button
                   onClick={() => { setTipo(""); setErrors({}); }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/15 bg-white/[0.04] text-white/60 hover:text-white hover:border-white/30 text-xs font-inter transition-all duration-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/15 bg-white/[0.04] text-white/60 hover:text-white hover:border-white/30 text-xs font-inter transition-all duration-200 cursor-pointer"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
                     <path d="M19 12H5M12 5l-7 7 7 7"/>
                   </svg>
-                  Indietro
+                  {ht.back}
                 </button>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#E8622A]/30 bg-[#E8622A]/8 text-[#E8622A] text-xs font-inter">
                   {tipo}
@@ -130,14 +190,13 @@ export default function CTA() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-                {/* Nome */}
                 <div>
                   <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
-                    Nome <span className="text-[#E8622A]">*</span>
+                    {ht.name_label} <span className="text-[#E8622A]">*</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="Mario Rossi"
+                    placeholder={ht.name_placeholder}
                     value={form.nome}
                     onChange={e => setForm(f => ({ ...f, nome: e.target.value }))}
                     className={inputCls(errors.nome)}
@@ -145,14 +204,13 @@ export default function CTA() {
                   {errors.nome && <p className="text-xs mt-1 text-red-400/80">{errors.nome}</p>}
                 </div>
 
-                {/* Email */}
                 <div>
                   <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
-                    Email <span className="text-[#E8622A]">*</span>
+                    {ht.email_label} <span className="text-[#E8622A]">*</span>
                   </label>
                   <input
                     type="email"
-                    placeholder="mario@esempio.it"
+                    placeholder={ht.email_placeholder}
                     value={form.email}
                     onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                     className={inputCls(errors.email)}
@@ -160,18 +218,13 @@ export default function CTA() {
                   {errors.email && <p className="text-xs mt-1 text-red-400/80">{errors.email}</p>}
                 </div>
 
-                {/* Messaggio */}
                 <div>
                   <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
-                    Raccontami il progetto <span className="text-[#E8622A]">*</span>
+                    {ht.msg_label} <span className="text-[#E8622A]">*</span>
                   </label>
                   <textarea
                     rows={4}
-                    placeholder={
-                      tipo === "Audit del sito esistente"
-                        ? "Il mio sito è... vorrei capire perché non converte / appare datato..."
-                        : "Ho bisogno di un sito per... il mio settore è... i miei clienti sono..."
-                    }
+                    placeholder={tipo === ht.type1_value ? ht.msg_placeholder_audit : ht.msg_placeholder_new}
                     value={form.messaggio}
                     onChange={e => setForm(f => ({ ...f, messaggio: e.target.value }))}
                     className={`${inputCls(errors.messaggio)} resize-none`}
@@ -185,9 +238,9 @@ export default function CTA() {
                   className="w-full py-3.5 rounded-xl font-sora font-semibold text-sm text-white
                     bg-[#E8622A] hover:bg-[#F5A45C] transition-all duration-300
                     hover:shadow-[0_0_40px_rgba(232,98,42,0.4)] hover:scale-[1.02]
-                    disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  {loading ? "Invio in corso..." : "Invia messaggio"}
+                  {loading ? ht.sending : ht.submit}
                 </button>
               </form>
             </motion.div>
@@ -204,16 +257,15 @@ export default function CTA() {
             >
               <div className="text-4xl mb-4">✦</div>
               <h3 className="font-sora font-bold text-2xl text-[#F2F0EB] mb-3">
-                Messaggio ricevuto.
+                {ht.success_title}
               </h3>
               <p className="text-[#F2F0EB]/50 text-sm font-inter">
-                Ti rispondo entro 24–48h.
+                {ht.success_sub}
               </p>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Footer note */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -221,7 +273,7 @@ export default function CTA() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-20 text-center text-[#F2F0EB]/18 text-[10px] tracking-[0.4em] uppercase font-inter"
         >
-          /lab · vetrina tecnica · massimodassano.it
+          {ht.footer_note}
         </motion.p>
       </div>
     </section>
@@ -242,7 +294,7 @@ function TypeButton({
         backdrop-blur-md transition-all duration-300
         hover:border-[#E8622A]/40 hover:bg-white/[0.04]
         hover:shadow-[0_0_32px_rgba(232,98,42,0.12)]
-        flex flex-col"
+        flex flex-col cursor-pointer"
     >
       <div className="text-[#E8622A] mb-4 group-hover:scale-110 transition-transform duration-300 origin-left">
         {icon}

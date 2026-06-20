@@ -1,59 +1,121 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLabLang } from "@/contexts/lab-lang-context";
 
-const projects = [
-  {
-    title: "Marcella Marcone",
-    category: "Psicoterapeuta",
-    tag: "Restyling",
-    description:
-      "Restyling completo per uno studio di psicoterapia. Design pulito e rassicurante, navigazione semplificata per mettere a proprio agio chi cerca supporto.",
-    link: "https://marcellamarcone-restyle.vercel.app/",
+const t = {
+  it: {
+    eyebrow: "Portfolio",
+    title: "Progetti selezionati",
+    projects: [
+      {
+        title: "Marcella Marcone",
+        category: "Psicoterapeuta",
+        tag: "Restyling",
+        description:
+          "Restyling completo per uno studio di psicoterapia. Design pulito e rassicurante, navigazione semplificata per mettere a proprio agio chi cerca supporto.",
+        link: "https://marcellamarcone-restyle.vercel.app/",
+      },
+      {
+        title: "Gelateria Icone",
+        category: "Gelateria artigianale",
+        tag: "Da zero",
+        description:
+          'Sito creato da zero per una gelateria artigianale. Palette vivace, menu prodotti in evidenza, ottimizzato mobile per chi cerca "gelateria vicino a me" dal telefono.',
+        link: "https://gelateria-icone.surge.sh/",
+      },
+      {
+        title: "Dassano",
+        category: "Band musicale",
+        tag: "Immersivo",
+        description:
+          "Sito per band musicale. Focus su immagini, date concerti e ascolto diretto dei brani. Esperienza immersiva, nessun elemento superfluo.",
+        link: "https://www.dassano.it",
+      },
+      {
+        title: "Alessandro Marcello",
+        category: "Personal Branding Executive",
+        tag: "Executive",
+        description:
+          "Sito personale da zero per un business leader internazionale. Formato CV digitale elegante, taglio executive, pensato per LinkedIn e networking professionale.",
+        link: "https://www.alessandromarcello.it",
+      },
+      {
+        title: "Massimo Dassano",
+        category: "Web Agency",
+        tag: "Agency",
+        description:
+          "Il mio sito principale. Restyling e creazione siti per attività locali, con un approccio diretto basato su esperienza corporate applicata al piccolo business.",
+        link: "https://www.massimodassano.it",
+      },
+    ],
+    marquee: [
+      "Psicoterapia",
+      "Gelateria artigianale",
+      "Band musicale",
+      "Personal branding executive",
+      "Web agency",
+    ],
   },
-  {
-    title: "Gelateria Icone",
-    category: "Gelateria artigianale",
-    tag: "Da zero",
-    description:
-      'Sito creato da zero per una gelateria artigianale. Palette vivace, menu prodotti in evidenza, ottimizzato mobile per chi cerca "gelateria vicino a me" dal telefono.',
-    link: "https://gelateria-icone.surge.sh/",
+  en: {
+    eyebrow: "Portfolio",
+    title: "Selected projects",
+    projects: [
+      {
+        title: "Marcella Marcone",
+        category: "Psychotherapist",
+        tag: "Restyling",
+        description:
+          "Full restyling for a psychotherapy practice. Clean, reassuring design with simplified navigation to make visitors seeking support feel at ease.",
+        link: "https://marcellamarcone-restyle.vercel.app/",
+      },
+      {
+        title: "Gelateria Icone",
+        category: "Artisan ice cream shop",
+        tag: "From scratch",
+        description:
+          'Built from scratch for an artisan gelateria. Vibrant palette, featured product menu, mobile-optimised for customers searching "ice cream near me" on their phone.',
+        link: "https://gelateria-icone.surge.sh/",
+      },
+      {
+        title: "Dassano",
+        category: "Music band",
+        tag: "Immersive",
+        description:
+          "Website for a music band. Focus on imagery, concert dates and direct song playback. Immersive experience, no unnecessary elements.",
+        link: "https://www.dassano.it",
+      },
+      {
+        title: "Alessandro Marcello",
+        category: "Executive Personal Branding",
+        tag: "Executive",
+        description:
+          "Personal site built from scratch for an international business leader. Elegant digital CV format with an executive look, designed for LinkedIn and professional networking.",
+        link: "https://www.alessandromarcello.it",
+      },
+      {
+        title: "Massimo Dassano",
+        category: "Web Agency",
+        tag: "Agency",
+        description:
+          "My main site. Restyling and site creation for local businesses, with a direct approach rooted in corporate experience applied to small business.",
+        link: "https://www.massimodassano.it",
+      },
+    ],
+    marquee: [
+      "Psychotherapy",
+      "Artisan ice cream",
+      "Music band",
+      "Executive personal branding",
+      "Web agency",
+    ],
   },
-  {
-    title: "Dassano",
-    category: "Band musicale",
-    tag: "Immersivo",
-    description:
-      "Sito per band musicale. Focus su immagini, date concerti e ascolto diretto dei brani. Esperienza immersiva, nessun elemento superfluo.",
-    link: "https://www.dassano.it",
-  },
-  {
-    title: "Alessandro Marcello",
-    category: "Personal Branding Executive",
-    tag: "Executive",
-    description:
-      "Sito personale da zero per un business leader internazionale. Formato CV digitale elegante, taglio executive, pensato per LinkedIn e networking professionale.",
-    link: "https://www.alessandromarcello.it",
-  },
-  {
-    title: "Massimo Dassano",
-    category: "Web Agency",
-    tag: "Agency",
-    description:
-      "Il mio sito principale. Restyling e creazione siti per attività locali, con un approccio diretto basato su esperienza corporate applicata al piccolo business.",
-    link: "https://www.massimodassano.it",
-  },
-];
-
-const marqueeItems = [
-  "Psicoterapia",
-  "Gelateria artigianale",
-  "Band musicale",
-  "Personal branding executive",
-  "Web agency",
-];
+} as const;
 
 export default function Projects() {
+  const { lang } = useLabLang();
+  const ht = t[lang];
+
   return (
     <section className="relative z-[1] py-24">
       <div className="px-6 md:px-12 lg:px-24">
@@ -65,23 +127,23 @@ export default function Projects() {
           className="mb-16"
         >
           <span className="text-[#E8622A] text-[10px] tracking-[0.35em] uppercase font-inter">
-            Portfolio
+            {ht.eyebrow}
           </span>
           <h2 className="font-sora font-bold text-3xl md:text-5xl text-[#F2F0EB] mt-4 leading-tight">
-            Progetti selezionati
+            {ht.title}
           </h2>
         </motion.div>
 
         {/* Row 1 — 2 larger cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-          {projects.slice(0, 2).map((p, i) => (
+          {ht.projects.slice(0, 2).map((p, i) => (
             <ProjectCard key={p.title} project={p} delay={i * 0.08} />
           ))}
         </div>
 
         {/* Row 2 — 3 smaller cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {projects.slice(2).map((p, i) => (
+          {ht.projects.slice(2).map((p, i) => (
             <ProjectCard key={p.title} project={p} delay={(i + 2) * 0.08} />
           ))}
         </div>
@@ -93,7 +155,7 @@ export default function Projects() {
           className="flex w-max py-5 group-hover:[animation-play-state:paused]"
           style={{ animation: "marquee 28s linear infinite" }}
         >
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
+          {[...ht.marquee, ...ht.marquee].map((item, i) => (
             <span key={i} className="inline-flex items-center">
               <span className="text-[#F2F0EB]/45 text-sm font-inter tracking-[0.06em] whitespace-nowrap px-8">
                 {item}
@@ -144,11 +206,7 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
           stroke="currentColor"
           strokeWidth={1.5}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M7 17L17 7M17 7H7M17 7v10"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
         </svg>
       </div>
 
