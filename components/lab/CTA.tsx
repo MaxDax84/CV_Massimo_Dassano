@@ -20,7 +20,9 @@ const translations = {
     type3_value: "Restyling del sito esistente",
     back: "Indietro",
     name_label: "Nome",
-    name_placeholder: "Mario Rossi",
+    name_placeholder: "Mario",
+    surname_label: "Cognome",
+    surname_placeholder: "Rossi",
     email_label: "Email",
     email_placeholder: "mario@esempio.it",
     msg_label: "Raccontami il progetto",
@@ -51,7 +53,9 @@ const translations = {
     type3_value: "Site restyling",
     back: "Back",
     name_label: "Name",
-    name_placeholder: "John Smith",
+    name_placeholder: "John",
+    surname_label: "Last name",
+    surname_placeholder: "Smith",
     email_label: "Email",
     email_placeholder: "john@example.com",
     msg_label: "Tell me about your project",
@@ -74,7 +78,7 @@ export default function CTA() {
   const ht = translations[lang];
 
   const [tipo, setTipo] = useState("");
-  const [form, setForm] = useState({ nome: "", email: "", messaggio: "", _hp: "" });
+  const [form, setForm] = useState({ nome: "", cognome: "", email: "", messaggio: "", _hp: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -82,6 +86,7 @@ export default function CTA() {
   const validate = () => {
     const e: Record<string, string> = {};
     if (!form.nome.trim()) e.nome = ht.err_required;
+    if (!form.cognome.trim()) e.cognome = ht.err_required;
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = ht.err_email;
     if (!form.messaggio.trim()) e.messaggio = ht.err_required;
@@ -219,18 +224,33 @@ export default function CTA() {
                 <input type="text" name="website" tabIndex={-1} aria-hidden="true"
                   value={form._hp} onChange={e => setForm(f => ({ ...f, _hp: e.target.value }))}
                   style={{ position: "absolute", opacity: 0, pointerEvents: "none", height: 0, width: 0 }} />
-                <div>
-                  <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
-                    {ht.name_label} <span className="text-[#E8622A]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder={ht.name_placeholder}
-                    value={form.nome}
-                    onChange={e => setForm(f => ({ ...f, nome: e.target.value }))}
-                    className={inputCls(errors.nome)}
-                  />
-                  {errors.nome && <p className="text-xs mt-1 text-red-400/80">{errors.nome}</p>}
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
+                      {ht.name_label} <span className="text-[#E8622A]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder={ht.name_placeholder}
+                      value={form.nome}
+                      onChange={e => setForm(f => ({ ...f, nome: e.target.value }))}
+                      className={inputCls(errors.nome)}
+                    />
+                    {errors.nome && <p className="text-xs mt-1 text-red-400/80">{errors.nome}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
+                      {ht.surname_label} <span className="text-[#E8622A]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder={ht.surname_placeholder}
+                      value={form.cognome}
+                      onChange={e => setForm(f => ({ ...f, cognome: e.target.value }))}
+                      className={inputCls(errors.cognome)}
+                    />
+                    {errors.cognome && <p className="text-xs mt-1 text-red-400/80">{errors.cognome}</p>}
+                  </div>
                 </div>
 
                 <div>
