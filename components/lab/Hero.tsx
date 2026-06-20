@@ -113,9 +113,14 @@ export default function Hero() {
 
   return (
     <>
-      {/* ── Fixed background layers — always visible, no JS-dependent fade ── */}
-      <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"
-        style={{ background: "linear-gradient(135deg, #02122c 0%, #0a1f4b 100%)" }}>
+      {/* ── Fixed background layers — fade in first ── */}
+      <motion.div
+        className="fixed inset-0 z-0 pointer-events-none"
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.4, ease: "easeOut" }}
+      >
         <VideoBackground />
         <div className="absolute inset-0 bg-black/20" />
         {/* Foreground person — decommentare per reintrodurla
@@ -132,7 +137,7 @@ export default function Hero() {
               "linear-gradient(to bottom, #02122cff 0%, #02122cfa 10%, #02122c80 25%, transparent 50%)",
           }}
         />
-      </div>
+      </motion.div>
 
       {/* ── Navbar fixed — nascosta in scroll-down, visibile in scroll-up ── */}
       <motion.nav
