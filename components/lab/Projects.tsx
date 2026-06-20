@@ -1,0 +1,166 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+const projects = [
+  {
+    title: "Marcella Marcone",
+    category: "Psicoterapeuta",
+    tag: "Restyling",
+    description:
+      "Restyling completo per uno studio di psicoterapia. Design pulito e rassicurante, navigazione semplificata per mettere a proprio agio chi cerca supporto.",
+    link: "https://marcellamarcone-restyle.vercel.app/",
+  },
+  {
+    title: "Gelateria Icone",
+    category: "Gelateria artigianale",
+    tag: "Da zero",
+    description:
+      'Sito creato da zero per una gelateria artigianale. Palette vivace, menu prodotti in evidenza, ottimizzato mobile per chi cerca "gelateria vicino a me" dal telefono.',
+    link: "https://gelateria-icone.surge.sh/",
+  },
+  {
+    title: "Dassano",
+    category: "Band musicale",
+    tag: "Immersivo",
+    description:
+      "Sito per band musicale. Focus su immagini, date concerti e ascolto diretto dei brani. Esperienza immersiva, nessun elemento superfluo.",
+    link: "https://www.dassano.it",
+  },
+  {
+    title: "Alessandro Marcello",
+    category: "Personal Branding Executive",
+    tag: "Executive",
+    description:
+      "Sito personale da zero per un business leader internazionale. Formato CV digitale elegante, taglio executive, pensato per LinkedIn e networking professionale.",
+    link: "https://www.alessandromarcello.it",
+  },
+  {
+    title: "Massimo Dassano",
+    category: "Web Agency",
+    tag: "Agency",
+    description:
+      "Il mio sito principale. Restyling e creazione siti per attività locali, con un approccio diretto basato su esperienza corporate applicata al piccolo business.",
+    link: "https://www.massimodassano.it",
+  },
+];
+
+const marqueeItems = [
+  "Psicoterapia",
+  "Gelateria artigianale",
+  "Band musicale",
+  "Personal branding executive",
+  "Web agency",
+];
+
+export default function Projects() {
+  return (
+    <section className="relative z-[1] py-24">
+      <div className="px-6 md:px-12 lg:px-24">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <span className="text-[#E8622A] text-[10px] tracking-[0.35em] uppercase font-inter">
+            Portfolio
+          </span>
+          <h2 className="font-sora font-bold text-3xl md:text-5xl text-[#F2F0EB] mt-4 leading-tight">
+            Progetti selezionati
+          </h2>
+        </motion.div>
+
+        {/* Row 1 — 2 larger cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+          {projects.slice(0, 2).map((p, i) => (
+            <ProjectCard key={p.title} project={p} delay={i * 0.08} />
+          ))}
+        </div>
+
+        {/* Row 2 — 3 smaller cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {projects.slice(2).map((p, i) => (
+            <ProjectCard key={p.title} project={p} delay={(i + 2) * 0.08} />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Infinite marquee strip ── */}
+      <div className="mt-16 border-t border-white/[0.05] overflow-hidden select-none group">
+        <div
+          className="flex w-max py-5 group-hover:[animation-play-state:paused]"
+          style={{ animation: "marquee 28s linear infinite" }}
+        >
+          {[...marqueeItems, ...marqueeItems].map((item, i) => (
+            <span key={i} className="inline-flex items-center">
+              <span className="text-[#F2F0EB]/45 text-sm font-inter tracking-[0.06em] whitespace-nowrap px-8">
+                {item}
+              </span>
+              <span className="text-[#E8622A]/35 text-[9px]">◆</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+interface Project {
+  title: string;
+  category: string;
+  tag: string;
+  description: string;
+  link: string;
+}
+
+function ProjectCard({ project, delay }: { project: Project; delay: number }) {
+  return (
+    <motion.a
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      className="group block p-7 md:p-8 rounded-2xl border border-white/[0.07] bg-white/[0.025]
+        backdrop-blur-md cursor-pointer
+        transition-[border-color,background-color,box-shadow] duration-300
+        hover:border-[#E8622A]/35 hover:bg-white/[0.04]
+        hover:shadow-[0_0_40px_rgba(232,98,42,0.14)]
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8622A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090E1B]"
+    >
+      <div className="flex items-start justify-between mb-5">
+        <span className="text-[#E8622A] text-[9px] tracking-[0.35em] uppercase font-inter font-medium">
+          {project.tag}
+        </span>
+        <svg
+          className="w-4 h-4 text-white/20 group-hover:text-[#E8622A]/70 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={1.5}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M7 17L17 7M17 7H7M17 7v10"
+          />
+        </svg>
+      </div>
+
+      <h3 className="font-sora font-semibold text-xl text-[#F2F0EB] mb-1 transition-colors group-hover:text-white">
+        {project.title}
+      </h3>
+      <p className="text-[#E8622A]/60 text-[11px] tracking-widest uppercase font-inter mb-5">
+        {project.category}
+      </p>
+      <p className="text-[#F2F0EB]/50 text-sm leading-relaxed">
+        {project.description}
+      </p>
+    </motion.a>
+  );
+}

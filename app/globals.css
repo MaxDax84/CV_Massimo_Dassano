@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-family-sora: var(--font-sora), sans-serif;
+  --font-family-inter: var(--font-inter), Inter, sans-serif;
+}
+
 :root {
   /* Futuristic dark theme - deep navy with cyan accent */
   --background: oklch(0.13 0.02 250);

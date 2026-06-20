@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const { nome, cognome, email, tipo, messaggio } = await req.json()
 
-    if (!nome || !cognome || !email || !messaggio) {
+    if (!nome || !email || !messaggio) {
       return NextResponse.json({ error: "Campi obbligatori mancanti" }, { status: 400 })
     }
 
