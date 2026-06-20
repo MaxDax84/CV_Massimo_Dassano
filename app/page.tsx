@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
@@ -436,20 +436,25 @@ function useHoloTilt(intensity = 11) {
    USE IN VIEW
 ───────────────────────────────────────────────────── */
 function useScrollInView(threshold = 0.1) {
-  const [inView, setInView] = useState(true) // visible in SSR/pre-render so Google reads content
-  const [ready, setReady] = useState(false)  // transitions disabled until after initial hide
+  const [inView, setInView] = useState(true) // visible in SSR so Google reads content
+  const [ready, setReady] = useState(false)  // transitions off until after initial hide
   const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
+
+  // useLayoutEffect fires before the browser paints — hides below-fold elements
+  // without any visible flash (unlike useEffect which fires after paint)
+  useLayoutEffect(() => {
     const el = ref.current
     if (!el) return
-    // Hide below-fold elements instantly (no transition) so there's no visible fade-out on load
     if (el.getBoundingClientRect().top > window.innerHeight) setInView(false)
-    // Enable transitions after the initial hide has rendered
-    const tid = setTimeout(() => setReady(true), 50)
+  }, [])
+
+  useEffect(() => {
+    const tid = setTimeout(() => setReady(true), 100)
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true) }, { threshold })
-    obs.observe(el)
+    if (ref.current) obs.observe(ref.current)
     return () => { clearTimeout(tid); obs.disconnect() }
   }, [threshold])
+
   return { ref, inView, ready }
 }
 
