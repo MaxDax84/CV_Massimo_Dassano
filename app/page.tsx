@@ -436,11 +436,15 @@ function useHoloTilt(intensity = 11) {
    USE IN VIEW
 ───────────────────────────────────────────────────── */
 function useScrollInView(threshold = 0.1) {
-  const [inView, setInView] = useState(false)
+  const [inView, setInView] = useState(true) // visible in SSR/pre-render so Google reads content
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    // After hydration: hide elements that are below the viewport so they can animate in on scroll
+    if (el.getBoundingClientRect().top > window.innerHeight) setInView(false)
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true) }, { threshold })
-    if (ref.current) obs.observe(ref.current)
+    obs.observe(el)
     return () => obs.disconnect()
   }, [threshold])
   return { ref, inView }
@@ -581,9 +585,7 @@ function HomeNav() {
    HERO
 ───────────────────────────────────────────────────── */
 function HeroSection() {
-  const [mounted, setMounted] = useState(false)
   const ht = useHomeLang()
-  useEffect(() => { setMounted(true) }, [])
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden scanlines">
@@ -647,7 +649,7 @@ function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         {/* Status bar */}
-        <div className={`flex justify-center gap-6 mb-10 transition-all duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
+        <div className="flex justify-center gap-6 mb-10">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ boxShadow: "0 0 7px rgba(74,222,128,0.9)" }} />
             <span className="text-xs tracking-[0.22em] uppercase" style={{ color: "rgba(74,222,128,0.9)" }}>{ht.hero.available}</span>
@@ -659,7 +661,7 @@ function HeroSection() {
         </div>
 
         {/* Name with HUD frame */}
-        <div className={`relative inline-block px-8 py-5 mb-5 transition-all duration-700 delay-100 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className="relative inline-block px-8 py-5 mb-5">
           <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.7)", borderLeft: "2px solid rgba(0,245,255,0.7)" }} />
           <div className="absolute top-0 right-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.7)", borderRight: "2px solid rgba(0,245,255,0.7)" }} />
           <div className="absolute bottom-0 left-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.7)", borderLeft: "2px solid rgba(0,245,255,0.7)" }} />
@@ -671,26 +673,26 @@ function HeroSection() {
         </div>
 
         {/* Typing subtitle */}
-        <div className={`text-xl md:text-2xl font-mono mb-7 h-8 transition-all duration-700 delay-200 ${mounted ? "opacity-100" : "opacity-0"}`}
-          style={{ color: "#00f5ff" }}>
-          <TypingText texts={["Web Creator", "Digital Architect", "Web Interior Designer"]} />
+        <div className="text-xl md:text-2xl font-mono mb-7 h-8" style={{ color: "#00f5ff" }}>
+          <span className="sr-only">Web Creator & Web Interior Designer</span>
+          <span aria-hidden="true"><TypingText texts={["Web Creator", "Digital Architect", "Web Interior Designer"]} /></span>
         </div>
 
         {/* Separator */}
-        <div className={`flex items-center justify-center gap-4 mb-8 transition-all duration-700 delay-300 ${mounted ? "opacity-100" : "opacity-0"}`}>
+        <div className="flex items-center justify-center gap-4 mb-8">
           <div className="h-px w-20" style={{ background: "linear-gradient(90deg, transparent, rgba(0,245,255,0.45))" }} />
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00f5ff", boxShadow: "0 0 9px rgba(0,245,255,0.9)" }} />
           <div className="h-px w-20" style={{ background: "linear-gradient(90deg, rgba(0,245,255,0.45), transparent)" }} />
         </div>
 
         {/* Description */}
-        <p className={`text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed transition-all duration-700 delay-400 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+        <p className="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
           style={{ color: "rgba(155,180,215,0.8)" }}>
           {ht.hero.tagline}
         </p>
 
         {/* CTAs */}
-        <div className={`flex flex-wrap justify-center gap-4 transition-all duration-700 delay-500 ${mounted ? "opacity-100" : "opacity-0"}`}>
+        <div className="flex flex-wrap justify-center gap-4">
           <button onClick={() => scrollToSection("servizi")}
             className="flex items-center gap-2 px-8 py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-105"
             style={{
@@ -1231,10 +1233,6 @@ function HomeFooter() {
    PAGE
 ───────────────────────────────────────────────────── */
 export default function HomePage() {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
   return (
     <main style={{ background: "#030610", minHeight: "100vh", color: "#e2e8f0", position: "relative" }}>
       <ParticleCanvas />
