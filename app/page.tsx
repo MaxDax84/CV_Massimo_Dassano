@@ -437,17 +437,20 @@ function useHoloTilt(intensity = 11) {
 ───────────────────────────────────────────────────── */
 function useScrollInView(threshold = 0.1) {
   const [inView, setInView] = useState(true) // visible in SSR/pre-render so Google reads content
+  const [ready, setReady] = useState(false)  // transitions disabled until after initial hide
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    // After hydration: hide elements that are below the viewport so they can animate in on scroll
+    // Hide below-fold elements instantly (no transition) so there's no visible fade-out on load
     if (el.getBoundingClientRect().top > window.innerHeight) setInView(false)
+    // Enable transitions after the initial hide has rendered
+    const tid = setTimeout(() => setReady(true), 50)
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true) }, { threshold })
     obs.observe(el)
-    return () => obs.disconnect()
+    return () => { clearTimeout(tid); obs.disconnect() }
   }, [threshold])
-  return { ref, inView }
+  return { ref, inView, ready }
 }
 
 /* ─────────────────────────────────────────────────────
@@ -726,7 +729,7 @@ function HeroSection() {
    SERVICES
 ───────────────────────────────────────────────────── */
 function ServicesSection() {
-  const { ref, inView } = useScrollInView()
+  const { ref, inView, ready } = useScrollInView()
   const card1 = useHoloTilt()
   const card2 = useHoloTilt()
   const card3 = useHoloTilt()
@@ -739,7 +742,7 @@ function ServicesSection() {
     <section id="servizi" className="py-24 relative">
       <div className="absolute inset-0 cyber-grid-dense" style={{ opacity: 0.18 }} />
       <div className="max-w-6xl mx-auto px-6">
-        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div ref={ref} className={`${ready ? "transition-all duration-700" : ""} ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.services.title} subtitle={ht.services.subtitle} />
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((svc, i) => {
@@ -802,14 +805,14 @@ function ServicesSection() {
    MANIFESTO
 ───────────────────────────────────────────────────── */
 function ManifestoSection() {
-  const { ref, inView } = useScrollInView()
+  const { ref, inView, ready } = useScrollInView()
   const ht = useHomeLang()
 
   return (
     <section className="py-20 relative">
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.018) 50%, transparent)" }} />
       <div className="max-w-4xl mx-auto px-6">
-        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div ref={ref} className={`${ready ? "transition-all duration-700" : ""} ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
 
           {/* Quote block */}
           <div className="relative rounded-2xl px-8 py-10 md:px-14 md:py-12 text-center mb-12"
@@ -851,14 +854,14 @@ function ManifestoSection() {
    WHY ME
 ───────────────────────────────────────────────────── */
 function WhyMeSection() {
-  const { ref, inView } = useScrollInView()
+  const { ref, inView, ready } = useScrollInView()
   const ht = useHomeLang()
 
   return (
     <section className="py-24 relative">
       <div className="absolute inset-0 cyber-grid-dense" style={{ opacity: 0.12 }} />
       <div className="max-w-3xl mx-auto px-6">
-        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div ref={ref} className={`${ready ? "transition-all duration-700" : ""} ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.whyme.title} />
 
           <div className="relative rounded-2xl px-8 py-10 md:px-12"
@@ -896,7 +899,7 @@ function WhyMeSection() {
    PRICING
 ───────────────────────────────────────────────────── */
 function PricingSection() {
-  const { ref, inView } = useScrollInView()
+  const { ref, inView, ready } = useScrollInView()
   const ht = useHomeLang()
 
   const plans = ht.pricing.plans.map((p, i) => ({ ...p, ...PLAN_STATIC[i] }))
@@ -906,7 +909,7 @@ function PricingSection() {
       <div className="absolute inset-0 cyber-grid" style={{ opacity: 0.22 }} />
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.018) 50%, transparent)" }} />
       <div className="max-w-6xl mx-auto px-6">
-        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div ref={ref} className={`${ready ? "transition-all duration-700" : ""} ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.pricing.title} subtitle={ht.pricing.subtitle} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {plans.map((pl, i) => (
@@ -992,13 +995,13 @@ const PORTFOLIO_ITEMS = [
 ] as const
 
 function PortfolioSection() {
-  const { ref, inView } = useScrollInView()
+  const { ref, inView, ready } = useScrollInView()
   const ht = useHomeLang()
 
   return (
     <section id="portfolio" className="py-14 md:py-20 relative">
       <div className="max-w-5xl mx-auto px-6">
-        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div ref={ref} className={`${ready ? "transition-all duration-700" : ""} ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader
             title={ht.nav.services === "Servizi" ? "Alcuni lavori" : "Recent work"}
             subtitle={ht.nav.services === "Servizi" ? "Esempi reali di quello che costruisco" : "Real examples of what I build"}
@@ -1048,7 +1051,7 @@ function PortfolioSection() {
    CONTACT
 ───────────────────────────────────────────────────── */
 function ContactSection() {
-  const { ref, inView } = useScrollInView()
+  const { ref, inView, ready } = useScrollInView()
   const router = useRouter()
   const ht = useHomeLang()
   const [form, setForm] = useState({ nome: "", cognome: "", email: "", tipo: "", messaggio: "" })
@@ -1113,7 +1116,7 @@ function ContactSection() {
     <section id="contatto" className="py-24 relative">
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,245,255,0.035) 0%, transparent 72%)" }} />
       <div className="max-w-xl mx-auto px-6">
-        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div ref={ref} className={`${ready ? "transition-all duration-700" : ""} ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.contact.title} subtitle={ht.contact.subtitle} />
 
           <div className="relative rounded-2xl p-8"
