@@ -32,7 +32,7 @@ export default function GraziePage() {
             Messaggio ricevuto.
           </h1>
           <p className="text-sm leading-relaxed mb-8" style={{ color: "rgba(155,180,215,0.8)" }}>
-            Ti rispondo entro 24–48 ore — nel frattempo puoi dare un&apos;occhiata al mio background.
+            Ti rispondo entro 24–48 ore — nel frattempo puoi dare un&apos;occhiata al laboratorio dei progetti.
           </p>
 
           <Link href="/lab"
