@@ -83,10 +83,12 @@ export default function Hero() {
       <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
         <VideoBackground />
         <div className="absolute inset-0 bg-black/20" />
+        {/* Foreground person — decommentare per reintrodurla
         <div
           className="absolute bottom-0 left-0 right-0 h-[80vh] bg-cover bg-bottom"
           style={{ backgroundImage: `url(${FG_IMG})` }}
         />
+        */}
         <div className="absolute bottom-0 left-0 right-0 h-[60vh] bg-gradient-to-t from-[#02122c] via-[#02122c]/80 to-transparent" />
         <div
           className="absolute inset-0"
