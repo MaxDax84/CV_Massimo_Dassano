@@ -532,11 +532,6 @@ function HomeNav() {
               {s.label}
             </button>
           ))}
-          <a href="/cv"
-            className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400"
-            style={{ color: "rgba(175,195,220,0.65)" }}>
-            {ht.nav.about}
-          </a>
           <a href="/lab"
             className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400 flex items-center gap-1"
             style={{ color: "#00f5ff", border: "1px solid rgba(0,245,255,0.25)", padding: "3px 10px", borderRadius: "4px" }}>
@@ -572,10 +567,6 @@ function HomeNav() {
               {s.label}
             </button>
           ))}
-          <a href="/cv" onClick={() => setMenuOpen(false)}
-            className="text-sm tracking-wider uppercase" style={{ color: "rgba(175,195,220,0.7)" }}>
-            {ht.nav.about}
-          </a>
           <a href="/lab" onClick={() => setMenuOpen(false)}
             className="text-sm tracking-wider uppercase" style={{ color: "#00f5ff" }}>
             /lab — I miei progetti
