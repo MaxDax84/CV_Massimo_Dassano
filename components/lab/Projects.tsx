@@ -41,7 +41,7 @@ const t = {
         link: "https://www.alessandromarcello.it",
       },
       {
-        title: "dassano.it",
+        title: "Dassano.it",
         category: "Band musicale",
         tag: "Immersivo",
         description:
@@ -94,7 +94,7 @@ const t = {
         link: "https://www.alessandromarcello.it",
       },
       {
-        title: "dassano.it",
+        title: "Dassano.it",
         category: "Music band",
         tag: "Immersive",
         description:
