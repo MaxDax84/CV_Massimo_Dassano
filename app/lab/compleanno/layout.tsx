@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import { Baloo_2, Fredoka } from "next/font/google";
+
+const baloo2 = Baloo_2({ subsets: ["latin"], weight: ["400", "600", "700", "800"], variable: "--font-baloo2", display: "swap" });
+const fredokaOne = Fredoka({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-fredoka-one", display: "swap" });
 
 export const metadata: Metadata = {
   title: "🦕 Compleanno di Lorenzo!",
@@ -7,5 +11,9 @@ export const metadata: Metadata = {
 };
 
 export default function CompleannnoLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <div className={`${baloo2.variable} ${fredokaOne.variable}`}>
+      {children}
+    </div>
+  );
 }

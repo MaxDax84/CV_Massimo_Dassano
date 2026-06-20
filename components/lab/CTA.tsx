@@ -74,7 +74,7 @@ export default function CTA() {
   const ht = translations[lang];
 
   const [tipo, setTipo] = useState("");
-  const [form, setForm] = useState({ nome: "", email: "", messaggio: "" });
+  const [form, setForm] = useState({ nome: "", email: "", messaggio: "", _hp: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -215,6 +215,10 @@ export default function CTA() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+                {/* Honeypot — hidden from humans, filled by bots */}
+                <input type="text" name="website" tabIndex={-1} aria-hidden="true"
+                  value={form._hp} onChange={e => setForm(f => ({ ...f, _hp: e.target.value }))}
+                  style={{ position: "absolute", opacity: 0, pointerEvents: "none", height: 0, width: 0 }} />
                 <div>
                   <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
                     {ht.name_label} <span className="text-[#E8622A]">*</span>

@@ -77,12 +77,13 @@ export default function PrivacyPage() {
 
         <Section title="2. Dati Raccolti e Modalità di Raccolta">
           <p>
-            Questo sito non raccoglie dati personali direttamente tramite form o registrazioni. I dati che possono essere trattati sono:
+            Questo sito raccoglie dati personali nelle seguenti modalità:
           </p>
           <ul className="list-none space-y-2 mt-2">
             {[
               "Dati di navigazione: indirizzi IP, tipo di browser, sistema operativo, pagine visitate, durata della visita. Questi dati sono raccolti automaticamente dai sistemi informatici e log dei server.",
-              "Dati di contatto: se decidi di contattarmi tramite email o LinkedIn, trattiamo i dati da te forniti (nome, indirizzo email, contenuto del messaggio) esclusivamente per rispondere alla tua richiesta.",
+              "Dati di contatto via form: il sito dispone di moduli di contatto (nella homepage e nella sezione Laboratorio) tramite i quali è possibile inviare nome, indirizzo email e un messaggio. Questi dati vengono trasmessi via email al titolare tramite il servizio Resend e utilizzati esclusivamente per rispondere alla richiesta.",
+              "Dati di contatto tramite email o LinkedIn: se decidi di contattarmi direttamente, trattiamo i dati da te forniti esclusivamente per rispondere alla tua richiesta.",
               "Dati analitici aggregati: tramite Vercel Analytics vengono raccolte statistiche anonime e aggregate sulle visite al sito, senza identificazione personale dell'utente.",
             ].map((item, i) => (
               <li key={i} className="flex gap-3">
@@ -146,6 +147,7 @@ export default function PrivacyPage() {
           <ul className="list-none space-y-2 mt-2">
             {[
               "Vercel Inc. (hosting e analytics): i servizi di hosting sono forniti da Vercel Inc., con sede negli Stati Uniti. Il trasferimento avviene nel rispetto delle garanzie previste dal GDPR (Standard Contractual Clauses). Vercel Analytics opera in modalità privacy-first, senza raccogliere dati personali identificativi.",
+              "Resend Inc. (invio email): i dati inseriti nei moduli di contatto (nome ed email) vengono trasmessi tramite Resend, un servizio di email transazionale con sede negli Stati Uniti, nel rispetto delle garanzie GDPR applicabili.",
               "Autorità competenti: in caso di richiesta delle autorità giudiziarie o di pubblica sicurezza, i dati potranno essere comunicati nei limiti di legge.",
             ].map((item, i) => (
               <li key={i} className="flex gap-3">

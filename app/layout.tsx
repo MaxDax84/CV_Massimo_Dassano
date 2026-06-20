@@ -126,7 +126,7 @@ export default function RootLayout({
   return (
     <html lang="it">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: "history.scrollRestoration='manual';window.addEventListener('pageshow',function(){window.scrollTo(0,0);setTimeout(function(){window.scrollTo(0,0);},80);});" }} />
+        <script dangerouslySetInnerHTML={{ __html: "history.scrollRestoration='manual';window.addEventListener('pageshow',function(){window.scrollTo(0,0);setTimeout(function(){window.scrollTo(0,0);},80);});(function(){var l=localStorage.getItem('md-lang');if(l==='en')document.documentElement.lang='en';})();" }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -3,9 +3,34 @@ import { NextRequest, NextResponse } from "next/server"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+// Simple in-memory rate limiter: max 3 requests per IP in 10 minutes
+const rateMap = new Map<string, { count: number; resetAt: number }>()
+const LIMIT = 3
+const WINDOW_MS = 10 * 60 * 1000
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateMap.get(ip)
+  if (!entry || now > entry.resetAt) {
+    rateMap.set(ip, { count: 1, resetAt: now + WINDOW_MS })
+    return false
+  }
+  if (entry.count >= LIMIT) return true
+  entry.count++
+  return false
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { nome, cognome, email, tipo, messaggio } = await req.json()
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown"
+    if (isRateLimited(ip)) {
+      return NextResponse.json({ error: "Troppe richieste. Riprova tra qualche minuto." }, { status: 429 })
+    }
+
+    const { nome, cognome, email, tipo, messaggio, _hp } = await req.json()
+
+    // Honeypot: bot fill hidden fields, humans don't
+    if (_hp) return NextResponse.json({ success: true })
 
     if (!nome || !email || !messaggio) {
       return NextResponse.json({ error: "Campi obbligatori mancanti" }, { status: 400 })
@@ -16,11 +41,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Email non valida" }, { status: 400 })
     }
 
+    const nomeCompleto = [nome, cognome].filter(Boolean).join(" ")
+
     await resend.emails.send({
-      from: "Sito Web <onboarding@resend.dev>",
+      from: "Sito Web <noreply@massimodassano.it>",
       to: "massimo.dassano@gmail.com",
       replyTo: email,
-      subject: `Richiesta sito web${tipo ? ` – ${tipo}` : ""} – ${nome} ${cognome}`,
+      subject: `Richiesta sito web${tipo ? ` – ${tipo}` : ""} – ${nomeCompleto}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #f9fafb; border-radius: 8px;">
           <h2 style="color: #111827; margin-bottom: 24px;">Nuova richiesta dal sito</h2>
@@ -28,7 +55,7 @@ export async function POST(req: NextRequest) {
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; width: 140px; font-size: 14px;">Nome</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">${nome} ${cognome}</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">${nomeCompleto}</td>
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280; font-size: 14px;">Email</td>
@@ -48,7 +75,7 @@ export async function POST(req: NextRequest) {
           </div>
 
           <p style="margin-top: 24px; font-size: 12px; color: #9ca3af;">
-            Ricevuto da massimodassano.it · Rispondi direttamente a questa email per contattare ${nome}.
+            Ricevuto da massimodassano.it · Rispondi direttamente a questa email per contattare ${nomeCompleto}.
           </p>
         </div>
       `,

@@ -35,10 +35,10 @@ export default function GraziePage() {
             Ti rispondo entro 24–48 ore — nel frattempo puoi dare un&apos;occhiata al mio background.
           </p>
 
-          <Link href="/cv"
+          <Link href="/lab"
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-all duration-200 hover:gap-3"
             style={{ background: "rgba(0,245,255,0.08)", border: "1px solid rgba(0,245,255,0.3)", color: "#00f5ff" }}>
-            Scopri il mio background
+            Scopri il Laboratorio
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
