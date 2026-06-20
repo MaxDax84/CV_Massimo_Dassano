@@ -95,6 +95,7 @@ export default function Hero() {
 
   useEffect(() => {
     const onScroll = () => {
+      if (window.innerWidth >= 1024) { setNavVisible(true); return; }
       const y = window.scrollY;
       if (y < 80) setNavVisible(true);
       else if (y < lastScrollY.current) setNavVisible(true);
