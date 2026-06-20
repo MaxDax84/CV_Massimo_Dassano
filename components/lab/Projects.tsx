@@ -48,6 +48,22 @@ const t = {
           "Il mio sito principale. Restyling e creazione siti per attività locali, con un approccio diretto basato su esperienza corporate applicata al piccolo business.",
         link: "https://www.massimodassano.it",
       },
+      {
+        title: "Portale Maternità",
+        category: "Salute & benessere",
+        tag: "Da zero",
+        description:
+          "Piattaforma per professioniste della maternità. Consulenze, gruppi di supporto e servizi online per donne in gravidanza e nel post-partum.",
+        link: "https://portale-maternita.vercel.app/",
+      },
+      {
+        title: "Invito Compleanno",
+        category: "Invito digitale",
+        tag: "Demo",
+        description:
+          "Invito digitale per il primo compleanno di un bambino. Tema dinosauri, banda interattiva e conferma presenza. Esempio di prodotto personalizzabile.",
+        link: "/lab/compleanno",
+      },
     ],
     marquee: [
       "Psicoterapia",
@@ -55,6 +71,8 @@ const t = {
       "Band musicale",
       "Personal branding executive",
       "Web agency",
+      "Salute & maternità",
+      "Invito digitale",
     ],
   },
   en: {
@@ -101,6 +119,22 @@ const t = {
           "My main site. Restyling and site creation for local businesses, with a direct approach rooted in corporate experience applied to small business.",
         link: "https://www.massimodassano.it",
       },
+      {
+        title: "Portale Maternità",
+        category: "Health & wellness",
+        tag: "From scratch",
+        description:
+          "Platform for maternity professionals. Individual consultations, support groups and online services for women during pregnancy and postpartum.",
+        link: "https://portale-maternita.vercel.app/",
+      },
+      {
+        title: "Birthday Invitation",
+        category: "Digital invitation",
+        tag: "Demo",
+        description:
+          "Digital birthday invitation for a child's first birthday. Dinosaur theme, interactive band and RSVP. Example of a fully customisable product.",
+        link: "/lab/compleanno",
+      },
     ],
     marquee: [
       "Psychotherapy",
@@ -108,6 +142,8 @@ const t = {
       "Music band",
       "Executive personal branding",
       "Web agency",
+      "Health & maternity",
+      "Digital invitation",
     ],
   },
 } as const;
@@ -178,11 +214,12 @@ interface Project {
 }
 
 function ProjectCard({ project, delay }: { project: Project; delay: number }) {
+  const isInternal = project.link.startsWith("/");
   return (
     <motion.a
       href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={isInternal ? undefined : "_blank"}
+      rel={isInternal ? undefined : "noopener noreferrer"}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02 }}
