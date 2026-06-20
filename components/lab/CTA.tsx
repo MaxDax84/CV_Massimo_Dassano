@@ -177,7 +177,13 @@ export default function CTA() {
             >
               <div className="flex items-center gap-3 mb-6">
                 <button
-                  onClick={() => { setTipo(""); setErrors({}); }}
+                  onClick={() => {
+                    setTipo("");
+                    setErrors({});
+                    setTimeout(() => {
+                      document.getElementById("contatto")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 20);
+                  }}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/15 bg-white/[0.04] text-white/60 hover:text-white hover:border-white/30 text-xs font-inter transition-all duration-200 cursor-pointer"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
