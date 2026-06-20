@@ -42,6 +42,9 @@ function VideoBackground() {
     const a = v1.current;
     const b = v2.current;
     if (!a || !b) return;
+    // Forza muted via property (React non sempre imposta l'attributo HTML su <video>)
+    a.muted = true;
+    b.muted = true;
 
     function tick() {
       const { active, fadeStart } = stateRef.current;
@@ -78,7 +81,7 @@ function VideoBackground() {
   const cls = "absolute inset-0 w-full h-full object-cover";
   return (
     <div className="absolute inset-0">
-      <video ref={v1} src={VIDEO_SRC} muted playsInline preload="auto"
+      <video ref={v1} src={VIDEO_SRC} muted playsInline autoPlay preload="auto"
         className={cls} style={{ opacity: 1 }} />
       <video ref={v2} src={VIDEO_SRC} muted playsInline preload="auto"
         className={cls} style={{ opacity: 0 }} />
@@ -230,13 +233,8 @@ export default function Hero() {
         </motion.div>
       )}
 
-      {/* ── Scrollable hero content — delay rispetto allo sfondo ── */}
-      <motion.div
-        className="relative z-[1] flex flex-col min-h-screen pt-24"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
-      >
+      {/* ── Scrollable hero content ── */}
+      <div className="relative z-[1] flex flex-col min-h-screen pt-24">
 
         {/* ── Hero content ── */}
         <div className="flex-grow flex items-center justify-center text-center mt-12 lg:mt-20 px-6 md:px-12 lg:px-24">
@@ -317,7 +315,7 @@ export default function Hero() {
             </svg>
           </div>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }
