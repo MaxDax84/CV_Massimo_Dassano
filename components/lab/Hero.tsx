@@ -93,7 +93,6 @@ export default function Hero() {
 
   const navLinks = [
     { label: ht.nav.projects, href: "#progetti" },
-    { label: ht.nav.about, href: "#about" },
     { label: ht.nav.contact, href: "https://www.massimodassano.it", external: true },
   ];
 
