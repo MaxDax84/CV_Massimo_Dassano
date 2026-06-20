@@ -70,7 +70,7 @@ const homeT = {
       p2_pre: "Ora costruisco siti web. Ma con una prospettiva che la maggior parte dei web designer non ha: so cosa guarda davvero un decision maker quando apre un sito. So cosa lo convince e cosa lo perde. So che ",
       p2_highlight: "un sito bello che non converte è un costo, non un investimento.",
       p3: "Lavoro con professionisti e piccole imprese che vogliono una presenza digitale che lavori per loro — non solo una che sembri professionale. Da remoto, ovunque.",
-      cta: "Scopri i miei progetti →",
+      cta: "Scopri il Laboratorio →",
     },
     pricing: {
       title: "Investimento",
@@ -181,7 +181,7 @@ const homeT = {
       p2_pre: "Now I build websites. But with a perspective most web designers don't have: I know what a decision-maker really looks at when they open a site. I know what convinces them and what loses them. I know that ",
       p2_highlight: "a beautiful site that doesn't convert is a cost, not an investment.",
       p3: "I work with professionals and small businesses who want a digital presence that works for them — not just one that looks professional. Remotely, from anywhere.",
-      cta: "Discover my projects →",
+      cta: "Explore the Laboratorio →",
     },
     pricing: {
       title: "Investment",
@@ -531,7 +531,7 @@ function HomeNav() {
           <a href="/lab"
             className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400 flex items-center gap-1"
             style={{ color: "#00f5ff", border: "1px solid rgba(0,245,255,0.25)", padding: "3px 10px", borderRadius: "4px" }}>
-            /lab
+            Laboratorio
           </a>
         </div>
 

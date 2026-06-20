@@ -110,7 +110,7 @@ export default function Hero() {
               Massimo Dassano
             </span>
             <span className="text-white/50 uppercase tracking-widest text-[0.55rem] lg:text-[0.7rem] mt-0.5">
-              LAB
+              Laboratorio
             </span>
           </div>
 
@@ -222,7 +222,7 @@ export default function Hero() {
             >
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               <span className="text-white text-xs font-inter font-medium tracking-[0.25em] uppercase">
-                Benvenuto nel Lab
+                Benvenuto nel Laboratorio
               </span>
             </motion.div>
 
