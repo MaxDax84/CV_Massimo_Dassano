@@ -93,7 +93,7 @@ export default function Hero() {
 
   const navLinks = [
     { label: ht.nav.projects, href: "#progetti" },
-    { label: ht.nav.contact, href: "https://www.massimodassano.it", external: true },
+    { label: ht.nav.contact, href: "#contatto" },
   ];
 
   return (
@@ -170,11 +170,9 @@ export default function Hero() {
           </div>
 
           {/* Desktop CTA */}
-          <a
-            href="https://www.massimodassano.it"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group hidden lg:flex items-center space-x-3 text-white text-sm font-inter"
+          <button
+            onClick={() => scrollTo("contatto")}
+            className="group hidden lg:flex items-center space-x-3 text-white text-sm font-inter cursor-pointer"
           >
             <span>{ht.nav.talk}</span>
             <span className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
@@ -188,7 +186,7 @@ export default function Hero() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
               </svg>
             </span>
-          </a>
+          </button>
 
           {/* Mobile: lang toggle + hamburger */}
           <div className="lg:hidden flex items-center gap-3">

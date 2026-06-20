@@ -10,6 +10,7 @@ export default function LabPage() {
       <Hero />
       <div id="progetti" />
       <Projects />
+      <div id="contatto" />
       <CTA />
     </main>
   );
