@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function LabPage() {
   return (
-    <main className="bg-[#090E1B] min-h-screen overflow-x-hidden">
+    <main className="bg-[#090E1B] min-h-screen overflow-x-clip">
       <CustomCursor />
       <Hero />
       <div id="progetti" />
