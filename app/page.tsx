@@ -70,7 +70,7 @@ const homeT = {
       p2_pre: "Ora costruisco siti web. Ma con una prospettiva che la maggior parte dei web designer non ha: so cosa guarda davvero un decision maker quando apre un sito. So cosa lo convince e cosa lo perde. So che ",
       p2_highlight: "un sito bello che non converte è un costo, non un investimento.",
       p3: "Lavoro con professionisti e piccole imprese che vogliono una presenza digitale che lavori per loro — non solo una che sembri professionale. Da remoto, ovunque.",
-      cta: "Scopri il mio background",
+      cta: "Scopri i miei progetti →",
     },
     pricing: {
       title: "Investimento",
@@ -181,7 +181,7 @@ const homeT = {
       p2_pre: "Now I build websites. But with a perspective most web designers don't have: I know what a decision-maker really looks at when they open a site. I know what convinces them and what loses them. I know that ",
       p2_highlight: "a beautiful site that doesn't convert is a cost, not an investment.",
       p3: "I work with professionals and small businesses who want a digital presence that works for them — not just one that looks professional. Remotely, from anywhere.",
-      cta: "Discover my background",
+      cta: "Discover my projects →",
     },
     pricing: {
       title: "Investment",
@@ -528,6 +528,11 @@ function HomeNav() {
             style={{ color: "rgba(175,195,220,0.65)" }}>
             {ht.nav.about}
           </a>
+          <a href="/lab"
+            className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400 flex items-center gap-1"
+            style={{ color: "#00f5ff", border: "1px solid rgba(0,245,255,0.25)", padding: "3px 10px", borderRadius: "4px" }}>
+            /lab
+          </a>
         </div>
 
         {/* Right: lang toggle (always visible) + hamburger (mobile only) */}
@@ -561,6 +566,10 @@ function HomeNav() {
           <a href="/cv" onClick={() => setMenuOpen(false)}
             className="text-sm tracking-wider uppercase" style={{ color: "rgba(175,195,220,0.7)" }}>
             {ht.nav.about}
+          </a>
+          <a href="/lab" onClick={() => setMenuOpen(false)}
+            className="text-sm tracking-wider uppercase" style={{ color: "#00f5ff" }}>
+            /lab — I miei progetti
           </a>
         </div>
       )}
@@ -867,7 +876,7 @@ function WhyMeSection() {
             </div>
 
             <div className="mt-8 pt-6" style={{ borderTop: "1px solid rgba(0,245,255,0.08)" }}>
-              <Link href="/cv"
+              <Link href="/lab"
                 className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3"
                 style={{ color: "#00f5ff" }}>
                 {ht.whyme.cta}
