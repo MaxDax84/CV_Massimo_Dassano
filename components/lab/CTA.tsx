@@ -131,6 +131,7 @@ export default function CTA() {
           </p>
         </motion.div>
 
+        <motion.div layout transition={{ duration: 0.4, ease: "easeInOut" }} style={{ overflow: "hidden" }}>
         <AnimatePresence mode="wait">
           {/* Step 1 — choose type */}
           {!tipo && (
@@ -265,6 +266,7 @@ export default function CTA() {
             </motion.div>
           )}
         </AnimatePresence>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
