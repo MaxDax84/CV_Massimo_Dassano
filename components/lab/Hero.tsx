@@ -88,8 +88,22 @@ function VideoBackground() {
 
 export default function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const { lang, toggle } = useLabLang();
   const ht = t[lang];
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 80) setNavVisible(true);
+      else if (y < lastScrollY.current) setNavVisible(true);
+      else setNavVisible(false);
+      lastScrollY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navLinks = [
     { label: ht.nav.projects, href: "#progetti" },
@@ -124,152 +138,106 @@ export default function Hero() {
         />
       </motion.div>
 
+      {/* ── Navbar fixed — nascosta in scroll-down, visibile in scroll-up ── */}
+      <motion.nav
+        className="fixed top-0 left-0 right-0 z-[60] flex justify-between items-center px-6 md:px-12 lg:px-24 py-5 lg:py-6 transition-colors duration-300"
+        style={{ background: "rgba(2,18,44,0.85)", backdropFilter: "blur(12px)" }}
+        animate={{ y: navVisible ? 0 : -100 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        {/* Logo — click torna alla homepage */}
+        <a href="/" className="flex flex-col leading-none group">
+          <span className="text-white font-sora font-semibold tracking-wide text-xl lg:text-2xl group-hover:text-white/80 transition-colors duration-200">
+            Massimo Dassano
+          </span>
+          <span className="text-white/50 uppercase tracking-widest text-[0.55rem] lg:text-[0.7rem] mt-0.5">
+            Laboratorio
+          </span>
+        </a>
+
+        {/* Desktop links + lang toggle */}
+        <div className="hidden lg:flex items-center space-x-10">
+          {navLinks.map((l) => (
+            <button key={l.label} onClick={() => scrollTo(l.href.replace("#", ""))}
+              className="text-white/70 hover:text-white transition-colors duration-300 text-sm font-inter cursor-pointer">
+              {l.label}
+            </button>
+          ))}
+          <button onClick={toggle}
+            className="text-xs font-mono tracking-[0.14em] px-2.5 py-1 transition-all duration-200 hover:scale-105 cursor-pointer"
+            style={{ color: "#00f5ff", border: "1px solid rgba(0,245,255,0.28)", background: "rgba(0,245,255,0.05)" }}>
+            {lang === "en" ? "IT" : "EN"}
+          </button>
+        </div>
+
+        {/* Desktop CTA */}
+        <button onClick={() => scrollTo("contatto")}
+          className="group hidden lg:flex items-center space-x-3 text-white text-sm font-inter cursor-pointer">
+          <span>{ht.nav.talk}</span>
+          <span className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
+            <svg className="w-4 h-4 text-white group-hover:text-[#050B14] transition-colors duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </span>
+        </button>
+
+        {/* Mobile: lang toggle + hamburger */}
+        <div className="lg:hidden flex items-center gap-3">
+          <button onClick={toggle}
+            className="text-xs font-mono tracking-[0.14em] px-2 py-1 cursor-pointer"
+            style={{ color: "#00f5ff", border: "1px solid rgba(0,245,255,0.28)", background: "rgba(0,245,255,0.05)" }}>
+            {lang === "en" ? "IT" : "EN"}
+          </button>
+          <button className="text-white p-1 cursor-pointer"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? "Chiudi menu" : "Apri menu"}>
+            {menuOpen ? (
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+        </div>
+      </motion.nav>
+
+      {/* Mobile dropdown — fixed, segue la navbar */}
+      {menuOpen && (
+        <motion.div
+          className="lg:hidden fixed top-[72px] left-0 right-0 z-[59] bg-[#02122c]/97 backdrop-blur-md border-t border-white/10 px-6 py-6 flex flex-col gap-4"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {navLinks.map((l) => (
+            <button key={l.label}
+              className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 font-inter text-left cursor-pointer"
+              onClick={() => { scrollTo(l.href.replace("#", "")); setMenuOpen(false); }}>
+              {l.label}
+            </button>
+          ))}
+          <a href="/"
+            className="flex items-center gap-2 text-white/50 hover:text-white text-sm py-2 font-inter transition-colors duration-200"
+            onClick={() => setMenuOpen(false)}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+              <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+            Homepage
+          </a>
+        </motion.div>
+      )}
+
       {/* ── Scrollable hero content — delay rispetto allo sfondo ── */}
       <motion.div
-        className="relative z-[1] flex flex-col min-h-screen"
+        className="relative z-[1] flex flex-col min-h-screen pt-24"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
       >
-
-        {/* ── Navbar ── */}
-        <nav className="flex justify-between items-center w-full px-6 md:px-12 lg:px-24 py-6 lg:py-8">
-          {/* Logo — click torna alla homepage */}
-          <a href="/" className="flex flex-col leading-none group">
-            <span className="text-white font-sora font-semibold tracking-wide text-xl lg:text-2xl group-hover:text-white/80 transition-colors duration-200">
-              Massimo Dassano
-            </span>
-            <span className="text-white/50 uppercase tracking-widest text-[0.55rem] lg:text-[0.7rem] mt-0.5">
-              Laboratorio
-            </span>
-          </a>
-
-          {/* Desktop links + lang toggle */}
-          <div className="hidden lg:flex items-center space-x-10">
-            {navLinks.map((l) =>
-              l.external ? (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/70 hover:text-white transition-colors duration-300 text-sm font-inter"
-                >
-                  {l.label}
-                </a>
-              ) : (
-                <button
-                  key={l.label}
-                  onClick={() => scrollTo(l.href.replace("#", ""))}
-                  className="text-white/70 hover:text-white transition-colors duration-300 text-sm font-inter cursor-pointer"
-                >
-                  {l.label}
-                </button>
-              )
-            )}
-            <button
-              onClick={toggle}
-              className="text-xs font-mono tracking-[0.14em] px-2.5 py-1 transition-all duration-200 hover:scale-105 cursor-pointer"
-              style={{
-                color: "#00f5ff",
-                border: "1px solid rgba(0,245,255,0.28)",
-                background: "rgba(0,245,255,0.05)",
-              }}
-            >
-              {lang === "en" ? "IT" : "EN"}
-            </button>
-          </div>
-
-          {/* Desktop CTA */}
-          <button
-            onClick={() => scrollTo("contatto")}
-            className="group hidden lg:flex items-center space-x-3 text-white text-sm font-inter cursor-pointer"
-          >
-            <span>{ht.nav.talk}</span>
-            <span className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
-              <svg
-                className="w-4 h-4 text-white group-hover:text-[#050B14] transition-colors duration-300"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-              </svg>
-            </span>
-          </button>
-
-          {/* Mobile: lang toggle + hamburger */}
-          <div className="lg:hidden flex items-center gap-3">
-            <button
-              onClick={toggle}
-              className="text-xs font-mono tracking-[0.14em] px-2 py-1 cursor-pointer"
-              style={{
-                color: "#00f5ff",
-                border: "1px solid rgba(0,245,255,0.28)",
-                background: "rgba(0,245,255,0.05)",
-              }}
-            >
-              {lang === "en" ? "IT" : "EN"}
-            </button>
-            <button
-              className="text-white p-1 cursor-pointer"
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label={menuOpen ? "Chiudi menu" : "Apri menu"}
-            >
-              {menuOpen ? (
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </nav>
-
-        {/* Mobile dropdown */}
-        {menuOpen && (
-          <div className="lg:hidden absolute top-[72px] left-0 right-0 z-50 bg-[#02122c]/95 backdrop-blur-md border-t border-white/10 px-6 py-6 flex flex-col gap-4">
-            {navLinks.map((l) =>
-              l.external ? (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 font-inter"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {l.label}
-                </a>
-              ) : (
-                <button
-                  key={l.label}
-                  className="text-white/80 hover:text-white text-base py-2 border-b border-white/10 font-inter text-left cursor-pointer"
-                  onClick={() => {
-                    scrollTo(l.href.replace("#", ""));
-                    setMenuOpen(false);
-                  }}
-                >
-                  {l.label}
-                </button>
-              )
-            )}
-            <a
-              href="/"
-              className="flex items-center gap-2 text-white/50 hover:text-white text-sm py-2 font-inter transition-colors duration-200"
-              onClick={() => setMenuOpen(false)}
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
-                <path d="M19 12H5M12 5l-7 7 7 7"/>
-              </svg>
-              Homepage
-            </a>
-          </div>
-        )}
 
         {/* ── Hero content ── */}
         <div className="flex-grow flex items-center justify-center text-center mt-12 lg:mt-20 px-6 md:px-12 lg:px-24">
