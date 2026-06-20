@@ -9,14 +9,6 @@ const t = {
     title: "Progetti selezionati",
     projects: [
       {
-        title: "Invito Compleanno",
-        category: "Invito digitale",
-        tag: "Demo",
-        description:
-          "Invito digitale per il primo compleanno di un bambino. Tema dinosauri, banda interattiva e conferma presenza. Esempio di prodotto personalizzabile.",
-        link: "/lab/compleanno",
-      },
-      {
         title: "Marcella Marcone",
         category: "Psicoterapeuta",
         tag: "Restyling",
@@ -31,6 +23,14 @@ const t = {
         description:
           'Sito creato da zero per una gelateria artigianale. Palette vivace, menu prodotti in evidenza, ottimizzato mobile per chi cerca "gelateria vicino a me" dal telefono.',
         link: "https://gelateria-icone.surge.sh/",
+      },
+      {
+        title: "Invito Compleanno",
+        category: "Invito digitale",
+        tag: "Demo",
+        description:
+          "Invito digitale per il primo compleanno di un bambino. Tema dinosauri, banda interattiva e conferma presenza. Esempio di prodotto personalizzabile.",
+        link: "/lab/compleanno",
       },
       {
         title: "Alessandro Marcello",
@@ -62,14 +62,6 @@ const t = {
     title: "Selected projects",
     projects: [
       {
-        title: "Birthday Invitation",
-        category: "Digital invitation",
-        tag: "Demo",
-        description:
-          "Digital birthday invitation for a child's first birthday. Dinosaur theme, interactive band and RSVP. Example of a fully customisable product.",
-        link: "/lab/compleanno",
-      },
-      {
         title: "Marcella Marcone",
         category: "Psychotherapist",
         tag: "Restyling",
@@ -84,6 +76,14 @@ const t = {
         description:
           'Built from scratch for an artisan gelateria. Vibrant palette, featured product menu, mobile-optimised for customers searching "ice cream near me" on their phone.',
         link: "https://gelateria-icone.surge.sh/",
+      },
+      {
+        title: "Birthday Invitation",
+        category: "Digital invitation",
+        tag: "Demo",
+        description:
+          "Digital birthday invitation for a child's first birthday. Dinosaur theme, interactive band and RSVP. Example of a fully customisable product.",
+        link: "/lab/compleanno",
       },
       {
         title: "Alessandro Marcello",
