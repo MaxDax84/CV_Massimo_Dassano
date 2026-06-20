@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 const NOME = "Lorenzo";
-const DATA = "Sabato 17 Ottobre 2026";
+const DATA = "Sabato 14 Settembre 2024";
 const ORA = "16:00";
 const INDIRIZZO = "Via Brera 5, 20121 Milano (MI)";
 const MAPS_URL = "https://maps.google.com/?q=Via+Brera+5,+Milano";
@@ -162,7 +162,7 @@ export default function CompleannnoPage() {
             Ci sei?
           </h2>
           <p className="text-green-100 text-sm mb-6">
-            Facci sapere entro il 10 Ottobre!
+            Facci sapere entro il 7 Settembre!
           </p>
           {rsvpInviato ? (
             <div className="py-6">
