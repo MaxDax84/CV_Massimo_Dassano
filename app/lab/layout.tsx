@@ -24,10 +24,12 @@ export const metadata: Metadata = {
 export default function LabLayout({ children }: { children: React.ReactNode }) {
   return (
     <LabLangProvider>
-      <div className={`${sora.variable} ${inter.variable}`} style={{ animation: "labFadeIn 0.8s ease-out" }}>
-        <style>{`@keyframes labFadeIn { from { opacity: 0 } to { opacity: 1 } }`}</style>
+      <div className={`${sora.variable} ${inter.variable}`}>
         <LabBackground />
-        {children}
+        <div style={{ animation: "labFadeIn 0.7s ease-out" }}>
+          <style>{`@keyframes labFadeIn { from { opacity: 0 } to { opacity: 1 } }`}</style>
+          {children}
+        </div>
       </div>
     </LabLangProvider>
   );
