@@ -70,7 +70,7 @@ function VideoBackground() {
   const cls = "absolute inset-0 w-full h-full object-cover";
   return (
     <div className="absolute inset-0">
-      <video ref={v1} src={VIDEO_SRC} muted playsInline preload="auto"
+      <video ref={v1} src={VIDEO_SRC} muted playsInline preload="auto" poster="/lab-hero-poster.jpg"
         className={cls} style={{ opacity: 1 }} />
       <video ref={v2} src={VIDEO_SRC} muted playsInline preload="auto"
         className={cls} style={{ opacity: 0 }} />
@@ -83,19 +83,8 @@ export default function LabBackground() {
     <div
       className="fixed inset-0 z-0 pointer-events-none"
       aria-hidden="true"
-      style={{
-        background: "linear-gradient(135deg, #02122c 0%, #071d3f 25%, #0d2a5a 50%, #071d3f 75%, #02122c 100%)",
-        backgroundSize: "400% 400%",
-        animation: "labBgFlow 14s ease infinite",
-      }}
+      style={{ background: "#02122c" }}
     >
-      <style>{`
-        @keyframes labBgFlow {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-      `}</style>
       <VideoBackground />
       <div className="absolute inset-0 bg-black/20" />
       <div className="absolute bottom-0 left-0 right-0 h-[60vh] bg-gradient-to-t from-[#02122c] via-[#02122c]/80 to-transparent" />
