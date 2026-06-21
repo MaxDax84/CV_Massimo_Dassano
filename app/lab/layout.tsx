@@ -26,8 +26,11 @@ export default function LabLayout({ children }: { children: React.ReactNode }) {
     <LabLangProvider>
       <div className={`${sora.variable} ${inter.variable}`}>
         <LabBackground />
+        <style>{`
+          @keyframes labFadeIn { from { opacity: 0 } to { opacity: 1 } }
+          body { background-color: #02122c; }
+        `}</style>
         <div style={{ animation: "labFadeIn 0.7s ease-out" }}>
-          <style>{`@keyframes labFadeIn { from { opacity: 0 } to { opacity: 1 } }`}</style>
           {children}
         </div>
       </div>
