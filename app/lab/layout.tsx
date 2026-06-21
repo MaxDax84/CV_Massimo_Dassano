@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
 import { LabLangProvider } from "@/contexts/lab-lang-context";
 import PageTransition from "@/components/lab/PageTransition";
+import LabBackground from "@/components/lab/LabBackground";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function LabLayout({ children }: { children: React.ReactNode }) {
     <LabLangProvider>
       <div className={`${sora.variable} ${inter.variable}`}>
         <PageTransition />
+        <LabBackground />
         {children}
       </div>
     </LabLangProvider>
