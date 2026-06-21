@@ -76,7 +76,6 @@ const homeT = {
       title: "Investimento",
       subtitle: "Prezzi indicativi. Ogni progetto è unico — preventivo sempre gratuito e senza impegno.",
       featured_badge: "PIÙ SCELTO",
-      vat: "IVA esclusa",
       cta: "Richiedi preventivo",
       note: "I prezzi variano in base a complessità, funzionalità e contenuti. Contattami per un preventivo personalizzato e gratuito.",
       plans: [
@@ -187,7 +186,6 @@ const homeT = {
       title: "Investment",
       subtitle: "Indicative prices. Every project is unique — quote always free and without commitment.",
       featured_badge: "MOST POPULAR",
-      vat: "VAT excl.",
       cta: "Request a quote",
       note: "Prices vary based on complexity, features and content. Contact me for a free personalized quote.",
       plans: [
@@ -261,10 +259,10 @@ const SERVICE_STATIC = [
 ] as const
 
 const PLAN_STATIC = [
-  { price: "€120", color: "#fbbf24", rgb: "251,191,36", featured: false },
-  { price: "da €300", color: "#f0abfc", rgb: "240,171,252", featured: false },
-  { price: "da €500", color: "#00f5ff", rgb: "0,245,255", featured: false },
-  { price: "da €1.500", color: "#a855f7", rgb: "168,85,247", featured: false },
+  { price: "€120", color: "#fbbf24", rgb: "251,191,36", featured: false, hidden: false },
+  { price: "da €300", color: "#f0abfc", rgb: "240,171,252", featured: false, hidden: false },
+  { price: "da €500", color: "#00f5ff", rgb: "0,245,255", featured: false, hidden: false },
+  { price: "da €1.500", color: "#a855f7", rgb: "168,85,247", featured: false, hidden: true },
 ] as const
 
 /* ─────────────────────────────────────────────────────
@@ -897,7 +895,7 @@ function PricingSection() {
   const { ref, inView } = useScrollInView()
   const ht = useHomeLang()
 
-  const plans = ht.pricing.plans.map((p, i) => ({ ...p, ...PLAN_STATIC[i] }))
+  const plans = ht.pricing.plans.map((p, i) => ({ ...p, ...PLAN_STATIC[i] })).filter(pl => !pl.hidden)
 
   return (
     <section id="pricing" className="py-24 relative">
@@ -906,7 +904,7 @@ function PricingSection() {
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.pricing.title} subtitle={ht.pricing.subtitle} />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {plans.map((pl, i) => (
               <div key={i}
                 className="relative rounded-2xl p-7 flex flex-col"
@@ -931,7 +929,6 @@ function PricingSection() {
 
                 <div className="mb-6">
                   <div className="text-3xl font-black" style={{ color: pl.color, textShadow: `0 0 22px rgba(${pl.rgb},0.4)` }}>{pl.price}</div>
-                  <div className="text-xs mt-1" style={{ color: "rgba(120,145,185,0.7)" }}>{ht.pricing.vat}</div>
                 </div>
 
                 <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(145,170,210,0.72)" }}>{pl.desc}</p>
