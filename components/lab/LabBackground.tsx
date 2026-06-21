@@ -6,51 +6,18 @@ const VIDEO_SRC =
   "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_cloud_animation_video.mp4";
 
 function VideoBackground({ onPlaying }: { onPlaying: () => void }) {
-  const v1 = useRef<HTMLVideoElement>(null);
-  const v2 = useRef<HTMLVideoElement>(null);
-  const rafRef = useRef<number>(0);
-  const stateRef = useRef({ active: 1 as 1 | 2, fadeStart: -1 });
-  const BEFORE = 1.5;
+  const vRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const a = v1.current;
-    const b = v2.current;
-    if (!a || !b) return;
-    a.muted = true;
-    b.muted = true;
+    const v = vRef.current;
+    if (!v) return;
+    v.muted = true;
 
-    a.addEventListener("playing", onPlaying, { once: true });
+    v.addEventListener("playing", onPlaying, { once: true });
 
-    function tick() {
-      const { active, fadeStart } = stateRef.current;
-      const cur = active === 1 ? a! : b!;
-      const nxt = active === 1 ? b! : a!;
+    const tryPlay = () => { v.play().catch(() => {}); };
 
-      const dur = cur.duration;
-      if (!isNaN(dur) && dur > 0 && dur - cur.currentTime <= BEFORE) {
-        if (fadeStart < 0) {
-          nxt.currentTime = 0;
-          nxt.play().catch(() => {});
-          stateRef.current.fadeStart = performance.now();
-        }
-        const elapsed = Math.min(1, (performance.now() - stateRef.current.fadeStart) / (BEFORE * 1000));
-        cur.style.opacity = String(1 - elapsed);
-        nxt.style.opacity = String(elapsed);
-
-        if (elapsed >= 1) {
-          cur.pause();
-          cur.style.opacity = "0";
-          nxt.style.opacity = "1";
-          stateRef.current = { active: active === 1 ? 2 : 1, fadeStart: -1 };
-        }
-      }
-
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    const tryPlay = () => { a.play().catch(() => {}); };
-
-    const playPromise = a.play();
+    const playPromise = v.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {
         document.addEventListener("touchstart", tryPlay, { once: true, passive: true });
@@ -58,22 +25,24 @@ function VideoBackground({ onPlaying }: { onPlaying: () => void }) {
       });
     }
 
-    rafRef.current = requestAnimationFrame(tick);
     return () => {
-      cancelAnimationFrame(rafRef.current);
-      a.removeEventListener("playing", onPlaying);
+      v.removeEventListener("playing", onPlaying);
       document.removeEventListener("touchstart", tryPlay);
       document.removeEventListener("scroll", tryPlay);
     };
   }, [onPlaying]);
 
-  const cls = "absolute inset-0 w-full h-full object-cover";
   return (
     <div className="absolute inset-0">
-      <video ref={v1} src={VIDEO_SRC} muted playsInline preload="auto"
-        className={cls} style={{ opacity: 1 }} />
-      <video ref={v2} src={VIDEO_SRC} muted playsInline preload="auto"
-        className={cls} style={{ opacity: 0 }} />
+      <video
+        ref={vRef}
+        src={VIDEO_SRC}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
     </div>
   );
 }
