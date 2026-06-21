@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
 import { LabLangProvider } from "@/contexts/lab-lang-context";
-import PageTransition from "@/components/lab/PageTransition";
 import LabBackground from "@/components/lab/LabBackground";
 
 const sora = Sora({
@@ -25,8 +24,8 @@ export const metadata: Metadata = {
 export default function LabLayout({ children }: { children: React.ReactNode }) {
   return (
     <LabLangProvider>
-      <div className={`${sora.variable} ${inter.variable}`}>
-        <PageTransition />
+      <div className={`${sora.variable} ${inter.variable}`} style={{ animation: "labFadeIn 0.8s ease-out" }}>
+        <style>{`@keyframes labFadeIn { from { opacity: 0 } to { opacity: 1 } }`}</style>
         <LabBackground />
         {children}
       </div>
