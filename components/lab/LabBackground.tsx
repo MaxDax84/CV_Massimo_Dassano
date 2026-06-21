@@ -46,9 +46,25 @@ function VideoBackground() {
       rafRef.current = requestAnimationFrame(tick);
     }
 
-    a.play().catch(() => {});
+    const tryPlay = () => {
+      a.play().catch(() => {});
+    };
+
+    const playPromise = a.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // autoplay bloccato (es. iOS Low Power Mode): riprova al primo tocco o scroll
+        document.addEventListener("touchstart", tryPlay, { once: true, passive: true });
+        document.addEventListener("scroll", tryPlay, { once: true, passive: true });
+      });
+    }
+
     rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      document.removeEventListener("touchstart", tryPlay);
+      document.removeEventListener("scroll", tryPlay);
+    };
   }, []);
 
   const cls = "absolute inset-0 w-full h-full object-cover";
