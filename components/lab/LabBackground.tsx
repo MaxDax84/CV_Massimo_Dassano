@@ -8,6 +8,7 @@ const VIDEO_SRC =
 function VideoBackground() {
   const v1 = useRef<HTMLVideoElement>(null);
   const v2 = useRef<HTMLVideoElement>(null);
+  const posterRef = useRef<HTMLImageElement>(null);
   const rafRef = useRef<number>(0);
   const stateRef = useRef({ active: 1 as 1 | 2, fadeStart: -1 });
   const BEFORE = 1.5;
@@ -15,9 +16,19 @@ function VideoBackground() {
   useEffect(() => {
     const a = v1.current;
     const b = v2.current;
+    const poster = posterRef.current;
     if (!a || !b) return;
     a.muted = true;
     b.muted = true;
+
+    // Quando il video renderizza davvero il primo frame, fade-out morbido del poster
+    const onPlaying = () => {
+      if (poster) {
+        poster.style.transition = "opacity 0.6s ease";
+        poster.style.opacity = "0";
+      }
+    };
+    a.addEventListener("playing", onPlaying);
 
     function tick() {
       const { active, fadeStart } = stateRef.current;
@@ -46,14 +57,11 @@ function VideoBackground() {
       rafRef.current = requestAnimationFrame(tick);
     }
 
-    const tryPlay = () => {
-      a.play().catch(() => {});
-    };
+    const tryPlay = () => { a.play().catch(() => {}); };
 
     const playPromise = a.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {
-        // autoplay bloccato (es. iOS Low Power Mode): riprova al primo tocco o scroll
         document.addEventListener("touchstart", tryPlay, { once: true, passive: true });
         document.addEventListener("scroll", tryPlay, { once: true, passive: true });
       });
@@ -62,6 +70,7 @@ function VideoBackground() {
     rafRef.current = requestAnimationFrame(tick);
     return () => {
       cancelAnimationFrame(rafRef.current);
+      a.removeEventListener("playing", onPlaying);
       document.removeEventListener("touchstart", tryPlay);
       document.removeEventListener("scroll", tryPlay);
     };
@@ -70,10 +79,18 @@ function VideoBackground() {
   const cls = "absolute inset-0 w-full h-full object-cover";
   return (
     <div className="absolute inset-0">
-      <video ref={v1} src={VIDEO_SRC} muted playsInline preload="auto" poster="/lab-hero-poster.jpg"
+      <video ref={v1} src={VIDEO_SRC} muted playsInline preload="auto"
         className={cls} style={{ opacity: 1 }} />
       <video ref={v2} src={VIDEO_SRC} muted playsInline preload="auto"
         className={cls} style={{ opacity: 0 }} />
+      {/* Poster sopra i video — scompare con fade solo quando il video renderizza il primo frame */}
+      <img
+        ref={posterRef}
+        src="/lab-hero-poster.jpg"
+        className={cls}
+        style={{ opacity: 1 }}
+        alt=""
+      />
     </div>
   );
 }
