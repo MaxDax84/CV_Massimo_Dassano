@@ -112,6 +112,9 @@ const t = {
   },
 } as const;
 
+/* Thumbnail preview per la card compleanno — stesse immagini usate nella pagina /lab/compleanno */
+const FESTA_THUMBNAILS = new Set(["Invito Compleanno", "Birthday Invitation"]);
+
 export default function Projects() {
   const { lang } = useLabLang();
   const ht = t[lang];
@@ -177,8 +180,64 @@ interface Project {
   link: string;
 }
 
+function FestaThumbnail() {
+  const id = "festa-dino-tile";
+  return (
+    <div
+      className="rounded-xl mb-5 overflow-hidden relative flex items-center justify-center"
+      style={{ height: "110px", background: "#FFF8F0" }}
+    >
+      {/* Tiled dino pattern — same images used in /lab/compleanno */}
+      <svg
+        aria-hidden="true"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.32 }}
+      >
+        <defs>
+          <pattern id={id} width="72" height="72" patternUnits="userSpaceOnUse">
+            <image href="/compleanno/dino-max.png" x="0"  y="6"  width="28" height="28" />
+            <image href="/compleanno/dino-ele.png" x="38" y="2"  width="22" height="22" />
+            <image href="/compleanno/dino-edo.png" x="42" y="40" width="20" height="20" />
+            <image href="/compleanno/dino-max.png" x="4"  y="44" width="18" height="18" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#${id})`} />
+      </svg>
+      {/* Garland triangles — same colours as the party page */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 300 28"
+        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "28px", opacity: 0.55 }}
+      >
+        <path d="M-5 4 Q75 1 150 10 Q225 18 305 4" stroke="#C8A850" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+        <polygon points="22,3 34,3 28,22"  fill="#F4A8C7"/>
+        <polygon points="57,2 69,2 63,20"  fill="#F5D47E"/>
+        <polygon points="92,3 104,3 98,21" fill="#7EAD7A"/>
+        <polygon points="127,6 139,6 133,24" fill="#E8916A"/>
+        <polygon points="162,9 174,9 168,26" fill="#8DCFCA"/>
+        <polygon points="197,11 209,11 203,26" fill="#C9AEDE"/>
+        <polygon points="232,9 244,9 238,25" fill="#F4A8C7"/>
+        <polygon points="265,5 277,5 271,22" fill="#F5D47E"/>
+      </svg>
+      {/* Centered emoji */}
+      <span
+        style={{
+          fontSize: "2.6rem",
+          position: "relative",
+          zIndex: 1,
+          filter: "drop-shadow(0 2px 6px rgba(93,58,26,0.14))",
+          lineHeight: 1,
+        }}
+      >
+        🦕
+      </span>
+    </div>
+  );
+}
+
 function ProjectCard({ project, delay }: { project: Project; delay: number }) {
   const isInternal = project.link.startsWith("/");
+  const hasFestaThumbnail = FESTA_THUMBNAILS.has(project.title);
+
   return (
     <motion.a
       href={project.link}
@@ -196,6 +255,8 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
         hover:shadow-[0_0_40px_rgba(232,98,42,0.14)]
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8622A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090E1B]"
     >
+      {hasFestaThumbnail && <FestaThumbnail />}
+
       <div className="flex items-start justify-between mb-5">
         <span className="text-[#E8622A] text-[9px] tracking-[0.35em] uppercase font-inter font-medium">
           {project.tag}
