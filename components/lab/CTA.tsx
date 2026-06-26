@@ -139,7 +139,7 @@ export default function CTA() {
               <React.Fragment key={i}>{line}{i === 0 && <br />}</React.Fragment>
             ))}
           </h2>
-          <p className="text-[#F2F0EB]/45 text-sm font-inter">
+          <p className="text-[#F2F0EB]/70 text-sm font-inter">
             {ht.subtitle}
           </p>
         </motion.div>
@@ -226,7 +226,7 @@ export default function CTA() {
                   style={{ position: "absolute", opacity: 0, pointerEvents: "none", height: 0, width: 0 }} />
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
+                    <label className="block text-xs font-medium mb-1.5 text-white/70 font-inter tracking-wide">
                       {ht.name_label} <span className="text-[#E8622A]">*</span>
                     </label>
                     <input
@@ -239,7 +239,7 @@ export default function CTA() {
                     {errors.nome && <p className="text-xs mt-1 text-red-400/80">{errors.nome}</p>}
                   </div>
                   <div>
-                    <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
+                    <label className="block text-xs font-medium mb-1.5 text-white/70 font-inter tracking-wide">
                       {ht.surname_label} <span className="text-[#E8622A]">*</span>
                     </label>
                     <input
@@ -254,7 +254,7 @@ export default function CTA() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
+                  <label className="block text-xs font-medium mb-1.5 text-white/70 font-inter tracking-wide">
                     {ht.email_label} <span className="text-[#E8622A]">*</span>
                   </label>
                   <input
@@ -268,7 +268,7 @@ export default function CTA() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium mb-1.5 text-white/50 font-inter tracking-wide">
+                  <label className="block text-xs font-medium mb-1.5 text-white/70 font-inter tracking-wide">
                     {ht.msg_label} <span className="text-[#E8622A]">*</span>
                   </label>
                   <textarea
@@ -308,7 +308,7 @@ export default function CTA() {
               <h3 className="font-sora font-bold text-2xl text-[#F2F0EB] mb-3">
                 {ht.success_title}
               </h3>
-              <p className="text-[#F2F0EB]/50 text-sm font-inter">
+              <p className="text-[#F2F0EB]/70 text-sm font-inter">
                 {ht.success_sub}
               </p>
             </motion.div>
@@ -321,7 +321,7 @@ export default function CTA() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 text-center text-[#F2F0EB]/18 text-[10px] tracking-[0.4em] uppercase font-inter"
+          className="mt-20 text-center text-[#F2F0EB]/45 text-[10px] tracking-[0.4em] uppercase font-inter"
         >
           {ht.footer_note}
         </motion.p>
@@ -352,7 +352,7 @@ function TypeButton({
       <div className="font-sora font-semibold text-[#F2F0EB] text-base mb-2 group-hover:text-white transition-colors">
         {label}
       </div>
-      <div className="text-[#F2F0EB]/40 text-xs font-inter leading-relaxed">
+      <div className="text-[#F2F0EB]/65 text-xs font-inter leading-relaxed">
         {sub}
       </div>
     </motion.button>

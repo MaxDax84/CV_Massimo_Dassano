@@ -220,15 +220,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Bottom scroll hint */}
-        <div className="flex justify-center pb-8 opacity-40">
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-white text-[9px] tracking-[0.35em] uppercase font-inter">{ht.scroll}</span>
-            <svg className="w-4 h-4 text-white animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-        </div>
       </div>
     </>
   );

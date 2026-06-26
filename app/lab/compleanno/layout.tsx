@@ -12,8 +12,14 @@ export const metadata: Metadata = {
 
 export default function CompleannnoLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${baloo2.variable} ${fredokaOne.variable}`}>
-      {children}
-    </div>
+    <>
+      <style>{`
+        #lab-background { display: none !important; }
+        body { background-color: #FFF8F0 !important; }
+      `}</style>
+      <div className={`${baloo2.variable} ${fredokaOne.variable}`}>
+        {children}
+      </div>
+    </>
   );
 }

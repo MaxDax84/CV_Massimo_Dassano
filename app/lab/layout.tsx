@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
 import { LabLangProvider } from "@/contexts/lab-lang-context";
 import LabBackground from "@/components/lab/LabBackground";
+import LabContentWrapper from "@/components/lab/LabContentWrapper";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -26,13 +27,10 @@ export default function LabLayout({ children }: { children: React.ReactNode }) {
     <LabLangProvider>
       <div className={`${sora.variable} ${inter.variable}`}>
         <LabBackground />
-        <style>{`
-          @keyframes labFadeIn { from { opacity: 0 } to { opacity: 1 } }
-          body { background-color: #02122c; }
-        `}</style>
-        <div style={{ animation: "labFadeIn 0.7s ease-out" }}>
+        <style>{`body { background-color: #000; }`}</style>
+        <LabContentWrapper>
           {children}
-        </div>
+        </LabContentWrapper>
       </div>
     </LabLangProvider>
   );

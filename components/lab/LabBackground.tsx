@@ -2,76 +2,111 @@
 
 import { useEffect, useRef } from "react";
 
-const VIDEO_SRC =
-  "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_cloud_animation_video.mp4";
-const POSTER_SRC = "/lab-hero-poster.jpg";
+const VIDEO_SRC   = "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_cloud_animation_video.mp4";
+const TRIM_END    = 0.5;   // seconds to cut from the end
+const CROSSFADE   = 900;   // crossfade duration in ms
 
 export default function LabBackground() {
-  const vRef = useRef<HTMLVideoElement>(null);
+  const vARef     = useRef<HTMLVideoElement>(null);
+  const vBRef     = useRef<HTMLVideoElement>(null);
+  const activeRef = useRef<"A" | "B">("A");
+  const fadingRef = useRef(false);
 
   useEffect(() => {
-    const v = vRef.current;
-    if (!v) return;
-    v.muted = true;
-    let mounted = true;
+    const vA = vARef.current;
+    const vB = vBRef.current;
+    if (!vA || !vB) return;
 
-    const tryPlay = () => { v.play().catch(() => {}); };
+    vA.muted = true;
+    vB.muted = true;
 
-    const p = v.play();
-    if (p !== undefined) {
-      p.catch(() => {
-        if (!mounted) return;
-        // iOS: defer autoplay to first user gesture
-        document.addEventListener("touchstart", tryPlay, { once: true, passive: true });
-        document.addEventListener("scroll", tryPlay, { once: true, passive: true });
-      });
-    }
+    // Tell LabContentWrapper the video has started
+    const notifyPlaying = () => {
+      document.dispatchEvent(new CustomEvent("lab:video-playing"));
+    };
+    vA.addEventListener("playing", notifyPlaying, { once: true });
 
-    // Re-play when tab becomes visible again (iOS pauses video in background)
+    const tryPlay = () => vA.play().catch(() => {});
+    tryPlay();
+    document.addEventListener("touchstart",  tryPlay, { once: true, passive: true });
+    document.addEventListener("pointerdown", tryPlay, { once: true, passive: true });
+
     const onVisibility = () => {
-      if (!document.hidden && v.paused) tryPlay();
+      const cur = activeRef.current === "A" ? vA : vB;
+      if (!document.hidden && cur.paused) cur.play().catch(() => {});
     };
     document.addEventListener("visibilitychange", onVisibility);
 
+    // Crossfade: fade out current, fade in next
+    const crossfade = () => {
+      if (fadingRef.current) return;
+      fadingRef.current = true;
+
+      const cur  = activeRef.current === "A" ? vA : vB;
+      const next = activeRef.current === "A" ? vB : vA;
+
+      next.currentTime = 0;
+      next.play().catch(() => {});
+
+      cur.style.transition  = `opacity ${CROSSFADE}ms ease-in-out`;
+      next.style.transition = `opacity ${CROSSFADE}ms ease-in-out`;
+      cur.style.opacity     = "0";
+      next.style.opacity    = "1";
+
+      setTimeout(() => {
+        cur.pause();
+        cur.currentTime  = 0;
+        cur.style.transition = "";
+        activeRef.current    = activeRef.current === "A" ? "B" : "A";
+        fadingRef.current    = false;
+      }, CROSSFADE + 50);
+    };
+
+    const onTimeUpdate = () => {
+      const cur = activeRef.current === "A" ? vA : vB;
+      if (!cur.duration || fadingRef.current) return;
+      if (cur.duration - cur.currentTime <= TRIM_END + CROSSFADE / 1000) {
+        crossfade();
+      }
+    };
+
+    vA.addEventListener("timeupdate", onTimeUpdate);
+    vB.addEventListener("timeupdate", onTimeUpdate);
+
     return () => {
-      mounted = false;
-      document.removeEventListener("touchstart", tryPlay);
-      document.removeEventListener("scroll", tryPlay);
+      vA.removeEventListener("playing",    notifyPlaying);
+      vA.removeEventListener("timeupdate", onTimeUpdate);
+      vB.removeEventListener("timeupdate", onTimeUpdate);
+      document.removeEventListener("touchstart",       tryPlay);
+      document.removeEventListener("pointerdown",      tryPlay);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 
+  const base: React.CSSProperties = {
+    position: "absolute",
+    top: 0, left: 0,
+    width: "100%", height: "100%",
+    objectFit: "cover",
+    display: "block",
+  };
+
   return (
     <div
-      className="fixed inset-0 z-0 pointer-events-none"
+      id="lab-background"
       aria-hidden="true"
-      style={{ background: "#02122c" }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: "none",
+        background: "#000",
+        width: "100%",
+        height: "100%",
+      }}
     >
-      {/*
-        poster= on the video element itself: browser renders poster and video
-        at identical dimensions via the same element — zero layout shift when
-        playback starts, no separate <img> with different object-position.
-      */}
-      <video
-        ref={vRef}
-        src={VIDEO_SRC}
-        poster={POSTER_SRC}
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      {/* Overlay gradients */}
-      <div className="absolute inset-0 bg-black/20" />
-      <div className="absolute bottom-0 left-0 right-0 h-[60vh] bg-gradient-to-t from-[#02122c] via-[#02122c]/80 to-transparent" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, #02122cff 0%, #02122cfa 10%, #02122c80 25%, transparent 50%)",
-        }}
-      />
+      <video ref={vARef} src={VIDEO_SRC} autoPlay muted playsInline preload="auto" style={{ ...base, opacity: 1 }} />
+      <video ref={vBRef} src={VIDEO_SRC}        muted playsInline preload="auto" style={{ ...base, opacity: 0 }} />
     </div>
   );
 }

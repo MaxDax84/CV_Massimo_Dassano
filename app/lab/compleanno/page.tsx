@@ -5,12 +5,12 @@ import Link from "next/link";
 
 /* ── Dettagli festeggiato ── */
 const NOME        = "Lorenzo";
-const DATA_LABEL  = "14 Settembre 2024";
-const DATA_FULL   = "Sabato 14 Settembre 2024";
+const DATA_LABEL  = "17 Maggio 2027";
+const DATA_FULL   = "Domenica 17 Maggio 2027";
 const ORA         = "16:00";
 const INDIRIZZO1  = "Via Brera 5";
 const INDIRIZZO2  = "20121 Milano (MI)";
-const PARTY_DATE  = new Date("2024-09-14T16:00:00");
+const PARTY_DATE  = new Date("2027-05-17T16:00:00");
 const MAPS_QUERY  = "Via+Brera+5,+20121+Milano+MI+Italia";
 
 /* immagini dino (in /public/compleanno/) */
@@ -361,7 +361,7 @@ export default function CompleannnoPage() {
 
       {/* ── Background dino pattern ── */}
       <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-        style={{ position:"fixed",inset:0,width:"100%",height:"100%",zIndex:-1,pointerEvents:"none",opacity:0.55,filter:"blur(0.5px)" }}>
+        style={{ position:"fixed",inset:0,width:"100%",height:"100%",zIndex:0,pointerEvents:"none",opacity:0.55,filter:"blur(0.5px)" }}>
         <defs>
           <pattern id="dp" width="480" height="480" patternUnits="userSpaceOnUse">
             <g transform="rotate(-8, 43, 46)"><image href={IMG_RUFY}  x="5"   y="8"   width="76" height="76" opacity="0.55"/></g>
