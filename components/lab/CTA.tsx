@@ -207,14 +207,14 @@ export default function CTA() {
                       document.getElementById("contatto")?.scrollIntoView({ behavior: "smooth", block: "start" });
                     }, 20);
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/15 bg-white/[0.04] text-white/60 hover:text-white hover:border-white/30 text-xs font-inter transition-all duration-200 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/40 bg-white/[0.22] text-white/85 hover:text-white hover:border-white/60 hover:bg-white/[0.30] text-xs font-inter transition-all duration-200 cursor-pointer"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
                     <path d="M19 12H5M12 5l-7 7 7 7"/>
                   </svg>
                   {ht.back}
                 </button>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#E8622A]/30 bg-[#E8622A]/8 text-[#E8622A] text-xs font-inter">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#E8622A]/70 bg-[#E8622A]/25 text-[#E8622A] text-xs font-inter">
                   {tipo}
                 </span>
               </div>
@@ -340,10 +340,10 @@ function TypeButton({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="group text-left p-6 rounded-2xl border border-white/[0.07] bg-white/[0.025]
+      className="group text-left p-6 rounded-2xl border border-white/[0.35] bg-white/[0.18]
         backdrop-blur-md transition-all duration-300
-        hover:border-[#E8622A]/40 hover:bg-white/[0.04]
-        hover:shadow-[0_0_32px_rgba(232,98,42,0.12)]
+        hover:border-[#E8622A]/60 hover:bg-white/[0.26]
+        hover:shadow-[0_0_32px_rgba(232,98,42,0.20)]
         flex flex-col cursor-pointer"
     >
       <div className="text-[#E8622A] mb-4 group-hover:scale-110 transition-transform duration-300 origin-left">
