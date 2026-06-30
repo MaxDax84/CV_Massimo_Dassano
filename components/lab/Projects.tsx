@@ -14,7 +14,7 @@ const t = {
         tag: "Restyling",
         description:
           "Restyling completo per uno studio di psicoterapia. Design pulito e rassicurante, navigazione semplificata per mettere a proprio agio chi cerca supporto.",
-        link: "https://marcellamarcone-restyle.vercel.app/",
+        link: "https://www.marcellamarcone.it",
       },
       {
         title: "Gelateria Icone",
@@ -67,7 +67,7 @@ const t = {
         tag: "Restyling",
         description:
           "Full restyling for a psychotherapy practice. Clean, reassuring design with simplified navigation to make visitors seeking support feel at ease.",
-        link: "https://marcellamarcone-restyle.vercel.app/",
+        link: "https://www.marcellamarcone.it",
       },
       {
         title: "Gelateria Icone",
