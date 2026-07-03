@@ -1,5 +1,6 @@
 import { Resend } from "resend"
 import { NextRequest, NextResponse } from "next/server"
+import { appendLeadRow } from "@/lib/google-sheets"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -80,6 +81,19 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     })
+
+    try {
+      await appendLeadRow([
+        new Date().toISOString(),
+        nomeCompleto,
+        email,
+        tipo || "Non specificato",
+        messaggio,
+        "Da valutare",
+      ])
+    } catch (sheetError) {
+      console.error("Errore log lead su Google Sheet:", sheetError)
+    }
 
     return NextResponse.json({ success: true })
   } catch (error) {
