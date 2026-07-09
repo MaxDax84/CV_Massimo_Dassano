@@ -112,7 +112,7 @@ const homeT = {
       items: [
         {
           q: "Quanto costa un sito web?",
-          a: "Dipende da complessità, numero di pagine e funzionalità richieste. I prezzi indicativi qui sopra vanno da poche centinaia di euro per una diagnosi a qualche migliaio per un sito multi-pagina completo. Il preventivo è sempre gratuito e senza impegno, dopo una prima chiacchierata sul progetto.",
+          a: "Dipende da complessità della struttura. Il numero di pagine non è un vincolo, conta soprattutto il tipo di funzionalità e le integrazioni con strumenti esterni. I prezzi indicativi qui sopra vanno da poche centinaia di euro per una diagnosi a qualche migliaio per un sito completo con integrazioni esterne. Il preventivo è sempre gratuito e senza impegno, dopo una prima chiacchierata sul progetto.",
         },
         {
           q: "Quanto tempo serve per realizzare un sito?",
@@ -261,7 +261,7 @@ const homeT = {
       items: [
         {
           q: "How much does a website cost?",
-          a: "It depends on complexity, number of pages and required features. The indicative prices above range from a few hundred euros for a diagnosis to a few thousand for a complete multi-page site. The quote is always free and with no commitment, after an initial chat about your project.",
+          a: "It depends on the complexity of the structure. The number of pages isn't a constraint — what matters most is the type of features and integrations with external tools. The indicative prices above range from a few hundred euros for a diagnosis to a few thousand for a complete site with external integrations. The quote is always free and with no commitment, after an initial chat about your project.",
         },
         {
           q: "How long does it take to build a website?",

@@ -48,6 +48,14 @@ const t = {
           "Sito per band musicale. Focus su immagini, date concerti e ascolto diretto dei brani. Esperienza immersiva, nessun elemento superfluo.",
         link: "https://www.dassano.it",
       },
+      {
+        title: "Olistic Studio",
+        category: "Riflessologia e Massoterapia",
+        tag: "Restyling",
+        description:
+          "Restyling completo per uno studio di riflessologia e massoterapia a Milano. Design elegante ispirato alla natura, percorsi di trattamento organizzati per obiettivo, caroselli automatici e SEO tecnico ottimizzato per la ricerca locale.",
+        link: "https://www.olisticstudio.com",
+      },
     ],
     marquee: [
       "Invito digitale",
@@ -55,6 +63,7 @@ const t = {
       "Gelateria artigianale",
       "Personal branding executive",
       "Band musicale",
+      "Riflessologia e massoterapia",
     ],
   },
   en: {
@@ -101,6 +110,14 @@ const t = {
           "Website for a music band. Focus on imagery, concert dates and direct song playback. Immersive experience, no unnecessary elements.",
         link: "https://www.dassano.it",
       },
+      {
+        title: "Olistic Studio",
+        category: "Reflexology & Massage Therapy",
+        tag: "Restyling",
+        description:
+          "Full restyling for a reflexology and massage therapy studio in Milan. Nature-inspired elegant design, treatment paths organized by goal, automatic carousels and technical SEO optimized for local search.",
+        link: "https://www.olisticstudio.com",
+      },
     ],
     marquee: [
       "Digital invitation",
@@ -108,6 +125,7 @@ const t = {
       "Artisan ice cream",
       "Executive personal branding",
       "Music band",
+      "Reflexology & massage",
     ],
   },
 } as const;
@@ -141,8 +159,8 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Row 2 — 3 smaller cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Row 2+ — remaining smaller cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {ht.projects.slice(2).map((p, i) => (
             <ProjectCard key={p.title} project={p} delay={(i + 2) * 0.08} />
           ))}
@@ -214,10 +232,10 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
       </div>
 
       <h3 className="font-sora font-semibold text-xl text-[#F2F0EB] mb-1 transition-colors group-hover:text-white">
-        {project.title}
+        {project.category}
       </h3>
       <p className="text-[#E8622A]/80 text-[11px] tracking-widest uppercase font-inter mb-5">
-        {project.category}
+        {project.title}
       </p>
       <p className="text-[#F2F0EB]/75 text-sm leading-relaxed">
         {project.description}
