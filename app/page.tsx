@@ -23,6 +23,7 @@ const homeT = {
       services: "Servizi",
       about: "Chi sono",
       pricing: "Prezzi",
+      faq: "FAQ",
       contact: "Contatti",
     },
     hero: {
@@ -172,6 +173,7 @@ const homeT = {
       services: "Services",
       about: "About me",
       pricing: "Pricing",
+      faq: "FAQ",
       contact: "Contact",
     },
     hero: {
@@ -581,6 +583,7 @@ function HomeNav() {
     { label: ht.nav.services, id: "servizi" },
     { label: ht.nav.about, id: "chi-sono" },
     { label: ht.nav.pricing, id: "pricing" },
+    { label: ht.nav.faq, id: "faq" },
     { label: ht.nav.contact, id: "contatto" },
   ]
 
