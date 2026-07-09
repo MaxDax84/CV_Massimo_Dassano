@@ -749,8 +749,8 @@ function HeroSection() {
 
         {/* Typing subtitle */}
         <div className="text-xl md:text-2xl font-mono mb-7 h-8" style={{ color: "#00f5ff" }}>
-          <span className="sr-only">Web Creator & Web Interior Designer</span>
-          <span aria-hidden="true"><TypingText texts={["Web Creator", "Digital Architect", "Web Interior Designer"]} /></span>
+          <span className="sr-only">Digital Growth Partner per piccole imprese</span>
+          <span aria-hidden="true"><TypingText texts={["Digital Growth Partner", "Web Creator", "Digital Architect"]} /></span>
         </div>
 
         {/* Separator */}
@@ -1342,7 +1342,7 @@ function HomeFooter() {
       <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <span className="text-xl font-black" style={{ color: "#00f5ff", textShadow: "0 0 14px rgba(0,245,255,0.65)" }}>MD</span>
-          <span className="text-sm" style={{ color: "rgba(120,145,185,0.6)" }}>Massimo Dassano — Web Creator</span>
+          <span className="text-sm" style={{ color: "rgba(120,145,185,0.6)" }}>Massimo Dassano — Digital Growth Partner</span>
         </div>
         <div className="flex flex-wrap items-center gap-4 justify-center md:justify-end">
           <Link href="/cv" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>

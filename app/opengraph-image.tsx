@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Massimo Dassano — Web Creator & Web Interior Designer'
+export const alt = 'Massimo Dassano — Digital Growth Partner per piccole imprese'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -78,7 +78,7 @@ export default function Image() {
           border: '1px solid rgba(0,245,255,0.3)',
           background: 'rgba(0,245,255,0.07)',
         }}>
-          WEB CREATOR · ITALIA
+          DIGITAL GROWTH PARTNER · ITALIA
         </div>
 
         {/* Name */}
@@ -100,7 +100,7 @@ export default function Image() {
           marginBottom: 32,
           letterSpacing: '0.02em',
         }}>
-          Web Interior Designer
+          per piccole imprese
         </div>
 
         {/* Divider */}

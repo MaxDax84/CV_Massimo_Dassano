@@ -13,7 +13,7 @@ const BASE_URL = 'https://massimodassano.it'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Massimo Dassano | Web Creator & Web Interior Designer',
+    default: 'Massimo Dassano | Digital Growth Partner per piccole imprese',
     template: '%s | Massimo Dassano',
   },
   description:
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: BASE_URL,
     siteName: 'Massimo Dassano',
-    title: 'Massimo Dassano | Web Creator & Web Interior Designer',
+    title: 'Massimo Dassano | Digital Growth Partner per piccole imprese',
     description:
       'Siti web personalizzati, restyling, landing page e manutenzione. Niente template — ogni progetto è unico, pensato per te.',
     locale: 'it_IT',
@@ -60,13 +60,13 @@ export const metadata: Metadata = {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Massimo Dassano — Web Creator & Web Interior Designer, Milano',
+        alt: 'Massimo Dassano — Digital Growth Partner per piccole imprese, Milano',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Massimo Dassano | Web Creator & Web Interior Designer',
+    title: 'Massimo Dassano | Digital Growth Partner per piccole imprese',
     description:
       'Siti web personalizzati, restyling, landing page e manutenzione. Niente template — ogni progetto è unico.',
     images: ['/opengraph-image'],
@@ -97,7 +97,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Massimo Dassano',
-    jobTitle: 'Web Creator & Web Designer Freelance',
+    jobTitle: 'Digital Growth Partner per piccole imprese',
     url: BASE_URL,
     address: {
       '@type': 'PostalAddress',
@@ -111,7 +111,7 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Massimo Dassano — Web Creator',
+    name: 'Massimo Dassano — Digital Growth Partner',
     description: 'Creazione siti web personalizzati, restyling e landing page',
     url: BASE_URL,
     areaServed: 'Italia',
