@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s | Massimo Dassano',
   },
   description:
-    'Creo siti web personalizzati da zero, restyling di siti esistenti, landing page e manutenzione siti web. Niente template, niente pacchetti fissi: ogni progetto è unico, curato personalmente e pensato per te.',
+    'Creo siti web personalizzati, restyling e landing page a Milano. Niente template: ogni progetto è unico, curato personalmente e su misura per te.',
   keywords: [
     'Massimo Dassano',
     'web creator',
