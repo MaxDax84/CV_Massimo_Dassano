@@ -6,7 +6,7 @@ import Link from "next/link"
 import {
   Linkedin, MapPin, ExternalLink, Menu, X,
   Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield,
-  ArrowRight, Mail,
+  ArrowRight, Mail, ChevronDown,
 } from "lucide-react"
 import { ParticleCanvas } from "@/components/particle-canvas"
 import { ContactReveal } from "@/components/contact-reveal"
@@ -102,6 +102,45 @@ const homeT = {
           tag: "Sito Completo",
           desc: "Per aziende e brand che vogliono un sito multi-pagina completo con funzionalità avanzate.",
           features: ["Blog / CMS integrato", "Analytics & tracking", "SEO avanzato", "Ottimizzazione performance", "Consegna in 3–4 settimane"],
+        },
+      ],
+    },
+    faq: {
+      tag: "FAQ",
+      title: "Domande frequenti",
+      subtitle: "Le domande che mi vengono fatte più spesso, con risposte oneste",
+      items: [
+        {
+          q: "Quanto costa un sito web?",
+          a: "Dipende da complessità, numero di pagine e funzionalità richieste. I prezzi indicativi qui sopra vanno da poche centinaia di euro per una diagnosi a qualche migliaio per un sito multi-pagina completo. Il preventivo è sempre gratuito e senza impegno, dopo una prima chiacchierata sul progetto.",
+        },
+        {
+          q: "Quanto tempo serve per realizzare un sito?",
+          a: "Per una presenza online essenziale (10+ pagine), circa 1 settimana. Per un sito completo con funzionalità avanzate, 3-4 settimane. Un restyling dipende da quanto contenuto va migrato. Ti do sempre una stima realistica prima di iniziare, non una promessa generica.",
+        },
+        {
+          q: "Usi WordPress, Wix o altri costruttori di siti?",
+          a: "No. Scrivo codice su misura (React/Next.js), senza template né page builder. Questo significa più lavoro iniziale rispetto a un builder, ma un sito più veloce, più personalizzabile e senza i limiti di un tema preconfezionato.",
+        },
+        {
+          q: "Potrò modificare i testi o le foto da solo dopo la consegna?",
+          a: "Onestamente: dipende da come è costruito il sito. Essendo codice su misura e non un builder drag-and-drop, le modifiche autonome non sono immediate come su Wix o WordPress. Per questo, se ti serve aggiornare spesso i contenuti, ne parliamo prima e valutiamo insieme la soluzione più adatta — inclusa la possibilità di un piccolo pannello di modifica per i contenuti che cambiano più spesso, o un supporto continuativo per le modifiche.",
+        },
+        {
+          q: "Chi si occupa di dominio, hosting e messa online?",
+          a: "Me ne occupo io, dall'acquisto del dominio (se non ne hai già uno) al deploy finale. Di solito uso Vercel, una piattaforma professionale veloce e sicura — non dovrai preoccuparti di aspetti tecnici.",
+        },
+        {
+          q: "Il sito sarà ottimizzato per Google (SEO)?",
+          a: "Sì, di base: meta tag, dati strutturati, sitemap, velocità di caricamento e header di sicurezza sono già parte del lavoro, non un extra. Per una strategia SEO più approfondita (parole chiave, contenuti mirati) se ne parla a parte.",
+        },
+        {
+          q: "Cosa serve da parte mia per iniziare?",
+          a: "Un'idea di cosa vuoi comunicare, i tuoi contenuti (testi, foto, loghi se li hai) e qualche riferimento di stile che ti piace. Se non hai tutto pronto, non è un problema: costruiamo insieme anche quella parte.",
+        },
+        {
+          q: "Lavori solo con clienti a Milano?",
+          a: "No, lavoro da remoto con professionisti e piccole imprese ovunque in Italia (e non solo). Le chiamate e i confronti si fanno online, senza problemi di distanza.",
         },
       ],
     },
@@ -212,6 +251,45 @@ const homeT = {
           tag: "Complete Website",
           desc: "For companies and brands who want a complete multi-page site with advanced features.",
           features: ["Blog / CMS integrated", "Analytics & tracking", "Advanced SEO", "Performance optimization", "Delivery in 3–4 weeks"],
+        },
+      ],
+    },
+    faq: {
+      tag: "FAQ",
+      title: "Frequently Asked Questions",
+      subtitle: "The questions I get asked most often, with honest answers",
+      items: [
+        {
+          q: "How much does a website cost?",
+          a: "It depends on complexity, number of pages and required features. The indicative prices above range from a few hundred euros for a diagnosis to a few thousand for a complete multi-page site. The quote is always free and with no commitment, after an initial chat about your project.",
+        },
+        {
+          q: "How long does it take to build a website?",
+          a: "For an essential online presence (10+ pages), about 1 week. For a complete site with advanced features, 3-4 weeks. A restyling depends on how much content needs to be migrated. I always give you a realistic estimate before starting, not a generic promise.",
+        },
+        {
+          q: "Do you use WordPress, Wix or other website builders?",
+          a: "No. I write custom code (React/Next.js), with no templates or page builders. This means more upfront work compared to a builder, but a faster, more customizable site without the limits of a pre-packaged theme.",
+        },
+        {
+          q: "Will I be able to edit text or photos myself after delivery?",
+          a: "Honestly: it depends on how the site is built. Since it's custom code rather than a drag-and-drop builder, self-service edits aren't as immediate as on Wix or WordPress. If you need to update content often, we discuss this upfront and find the right solution together — including a small content-editing panel for what changes most often, or ongoing support for edits.",
+        },
+        {
+          q: "Who handles the domain, hosting and going live?",
+          a: "I do, from buying the domain (if you don't have one yet) to the final deploy. I usually use Vercel, a fast and secure professional platform — you won't need to worry about the technical side.",
+        },
+        {
+          q: "Will the site be optimized for Google (SEO)?",
+          a: "Yes, by default: meta tags, structured data, sitemap, loading speed and security headers are already part of the work, not an extra. For a deeper SEO strategy (keywords, targeted content) we discuss it separately.",
+        },
+        {
+          q: "What do I need to provide to get started?",
+          a: "An idea of what you want to communicate, your content (text, photos, logos if you have them) and a few style references you like. If you don't have everything ready, that's not a problem — we build that part together too.",
+        },
+        {
+          q: "Do you only work with clients in Milan?",
+          a: "No, I work remotely with professionals and small businesses anywhere in Italy (and beyond). Calls and discussions happen online, distance is never an issue.",
         },
       ],
     },
@@ -501,6 +579,7 @@ function HomeNav() {
 
   const sections = [
     { label: ht.nav.services, id: "servizi" },
+    { label: ht.nav.about, id: "chi-sono" },
     { label: ht.nav.pricing, id: "pricing" },
     { label: ht.nav.contact, id: "contatto" },
   ]
@@ -526,11 +605,11 @@ function HomeNav() {
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {sections.map(s => (
-            <button key={s.id} onClick={() => scrollToSection(s.id)}
+            <a key={s.id} href={`#${s.id}`} onClick={(e) => { e.preventDefault(); scrollToSection(s.id) }}
               className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400"
               style={{ color: "rgba(175,195,220,0.65)" }}>
               {s.label}
-            </button>
+            </a>
           ))}
           <a href="/lab"
             className="text-xs tracking-[0.12em] uppercase transition-colors duration-200 hover:text-cyan-400 flex items-center gap-1"
@@ -562,10 +641,10 @@ function HomeNav() {
         <div className="md:hidden px-6 py-4 flex flex-col gap-5"
           style={{ borderTop: "1px solid rgba(0,245,255,0.08)", background: "rgba(3,6,16,0.97)" }}>
           {sections.map(s => (
-            <button key={s.id} onClick={() => { scrollToSection(s.id); setMenuOpen(false) }}
+            <a key={s.id} href={`#${s.id}`} onClick={(e) => { e.preventDefault(); scrollToSection(s.id); setMenuOpen(false) }}
               className="text-left text-sm tracking-wider uppercase" style={{ color: "rgba(175,195,220,0.7)" }}>
               {s.label}
-            </button>
+            </a>
           ))}
           <a href="/lab" onClick={() => setMenuOpen(false)}
             className="text-sm tracking-wider uppercase" style={{ color: "#00f5ff" }}>
@@ -689,7 +768,7 @@ function HeroSection() {
 
         {/* CTAs */}
         <div className="flex flex-wrap justify-center gap-4">
-          <button onClick={() => scrollToSection("servizi")}
+          <a href="#servizi" onClick={(e) => { e.preventDefault(); scrollToSection("servizi") }}
             className="flex items-center gap-2 px-8 py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-105"
             style={{
               background: "rgba(0,245,255,0.08)",
@@ -699,7 +778,7 @@ function HeroSection() {
             }}>
             <span>{ht.hero.cta_services}</span>
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </a>
           <button onClick={() => scrollToSection("contatto")}
             className="flex items-center gap-2 px-8 py-3.5 font-semibold text-sm transition-all duration-300 hover:scale-105"
             style={{
@@ -851,7 +930,7 @@ function WhyMeSection() {
   const ht = useHomeLang()
 
   return (
-    <section className="py-24 relative">
+    <section id="chi-sono" className="py-24 relative">
       <div className="absolute inset-0 cyber-grid-dense" style={{ opacity: 0.12 }} />
       <div className="max-w-3xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -1032,6 +1111,66 @@ function PortfolioSection() {
                 <ExternalLink className="absolute top-5 right-5 w-4 h-4 opacity-30 group-hover:opacity-70 transition-opacity" style={{ color: item.color }} />
               </a>
             ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
+   FAQ
+───────────────────────────────────────────────────── */
+function FAQSection() {
+  const { ref, inView } = useScrollInView()
+  const ht = useHomeLang()
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: ht.faq.items.map(item => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  }
+
+  return (
+    <section id="faq" className="py-24 relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <div className="max-w-3xl mx-auto px-6">
+        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <SectionHeader title={ht.faq.title} subtitle={ht.faq.subtitle} />
+
+          <div className="space-y-3">
+            {ht.faq.items.map((item, i) => {
+              const isOpen = openIndex === i
+              return (
+                <div key={i} className="rounded-xl overflow-hidden"
+                  style={{ background: "rgba(0,245,255,0.022)", border: "1px solid rgba(0,245,255,0.11)" }}>
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    className="w-full flex items-center justify-between gap-4 text-left px-6 py-4 transition-colors duration-200 hover:text-cyan-400"
+                    style={{ color: "rgba(225,235,250,0.92)" }}>
+                    <span className="text-sm font-semibold">{item.q}</span>
+                    <ChevronDown
+                      className="w-4 h-4 flex-shrink-0 transition-transform duration-300"
+                      style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", color: "#00f5ff" }}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>
+                      {item.a}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -1238,6 +1377,7 @@ export default function HomePage() {
       <WhyMeSection />
       <PricingSection />
       {false && <PortfolioSection />}
+      <FAQSection />
       <ContactSection />
       <HomeFooter />
     </main>
