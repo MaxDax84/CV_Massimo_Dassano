@@ -27,13 +27,13 @@ const homeT = {
     },
     hero: {
       available: "DISPONIBILE",
-      tagline: "Creo siti web personalizzati che trasformano la tua identità digitale. Che tu parta da zero o voglia rinnovare quello che hai, costruiamo qualcosa di cui andare fieri.",
+      tagline: "Aiuto piccole imprese e professionisti a crescere online, con siti pensati per portare clienti — non solo per essere belli da vedere. Che tu parta da zero o voglia rinnovare quello che hai, costruiamo una presenza digitale che lavora per te.",
       cta_services: "Scopri i servizi",
       cta_contact: "Contattami",
     },
     services: {
       title: "Cosa posso fare per te",
-      subtitle: "Tre percorsi, un obiettivo: una presenza digitale che lavori davvero per te",
+      subtitle: "Tre percorsi, un obiettivo: una presenza digitale che fa crescere la tua attività",
       list: [
         {
           tag: "DIAGNOSI",
@@ -45,14 +45,14 @@ const homeT = {
         {
           tag: "RESTYLING",
           title: "Restyling Sito Esistente",
-          sub: "Per chi ha un sito che non li rappresenta più",
+          sub: "Per chi ha un sito che non porta più clienti come dovrebbe",
           body: "Il tuo sito ha qualche anno? Il design sembra datato? Analizziamo quello che hai, manteniamo ciò che funziona e trasformiamo il resto in qualcosa di moderno ed efficace. Prima di toccare una riga di codice, ti mostro un mockup del nuovo design costruito sui tuoi contenuti reali, così vedi il risultato prima di impegnarti.",
           features: ["Analisi del sito attuale", "Nuovo design moderno", "Migrazione completa dei contenuti", "Ottimizzazione performance"],
         },
         {
           tag: "EX NOVO",
           title: "Sito Web da Zero",
-          sub: "Per chi non ha ancora una presenza online",
+          sub: "Per chi vuole iniziare a farsi trovare online dai clienti giusti",
           body: "Partiamo da un foglio bianco e costruiamo insieme la tua identità digitale. Design personalizzato, struttura pensata per i tuoi obiettivi, ottimizzato per convertire visitatori in clienti. Nessun tema preimpostato: colori, font e struttura vengono scelti in base al tuo settore e a chi vuoi raggiungere, non pescati da un catalogo.",
           features: ["Design custom su misura", "Mobile-first & responsive", "SEO ottimizzato", "Veloce, sicuro e ottimizzato per tutti i dispositivi"],
         },
@@ -176,13 +176,13 @@ const homeT = {
     },
     hero: {
       available: "AVAILABLE",
-      tagline: "I build custom websites that transform your digital identity. Whether you're starting from scratch or want to refresh what you have, let's create something to be proud of.",
+      tagline: "I help small businesses and professionals grow online, with websites built to bring in customers — not just to look good. Whether you're starting from scratch or want to refresh what you have, let's build a digital presence that works for you.",
       cta_services: "Explore services",
       cta_contact: "Contact me",
     },
     services: {
       title: "What I can do for you",
-      subtitle: "Three paths, one goal: a digital presence that truly works for you",
+      subtitle: "Three paths, one goal: a digital presence that grows your business",
       list: [
         {
           tag: "DIAGNOSIS",
@@ -194,14 +194,14 @@ const homeT = {
         {
           tag: "RESTYLING",
           title: "Website Restyling",
-          sub: "For those with a site that no longer represents them",
+          sub: "For those whose site no longer brings in customers the way it should",
           body: "Your website is a few years old? The design looks dated? We analyze what you have, keep what works, and transform the rest into something modern and effective. Before touching a line of code, I'll show you a mockup of the new design built on your real content, so you see the result before committing.",
           features: ["Current site analysis", "New modern design", "Full content migration", "Performance optimization"],
         },
         {
           tag: "FROM SCRATCH",
           title: "Website from Scratch",
-          sub: "For those who don't yet have an online presence",
+          sub: "For those who want to start getting found online by the right customers",
           body: "We start from a blank page and build your digital identity together. Custom design, structure tailored to your goals, optimized to turn visitors into clients. No preset themes: colors, fonts and structure are chosen based on your industry and audience, not picked from a catalog.",
           features: ["Custom design", "Mobile-first & responsive", "SEO optimized", "Fast, secure and optimized for all devices"],
         },
