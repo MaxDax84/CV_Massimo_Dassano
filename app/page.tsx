@@ -463,6 +463,9 @@ function useHoloTilt(intensity = 11) {
     const el = ref.current
     if (!el) return
 
+    // Solo desktop: mouse preciso + vero hover. Su touch/mobile le card restano fisse e piatte.
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return
+
     let isTouching = false
     let springTimer: ReturnType<typeof setTimeout>
 
