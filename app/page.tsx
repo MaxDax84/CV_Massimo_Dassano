@@ -1375,42 +1375,55 @@ function ContactSection() {
 function HomeFooter() {
   const ht = useHomeLang()
 
+  const linkStyle = { color: "rgba(130,155,195,0.55)" }
+  const labelStyle = { color: "rgba(0,245,255,0.45)" }
+
   return (
-    <footer className="py-10" style={{ borderTop: "1px solid rgba(0,245,255,0.07)", background: "rgba(0,0,0,0.25)" }}>
+    <footer className="py-12" style={{ borderTop: "1px solid rgba(0,245,255,0.07)", background: "rgba(0,0,0,0.25)" }}>
       <div className="max-w-5xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between gap-8 mb-8">
-          <div className="flex items-center gap-4">
-            <span className="text-xl font-black" style={{ color: "#00f5ff", textShadow: "0 0 14px rgba(0,245,255,0.65)" }}>MD</span>
-            <span className="text-sm" style={{ color: "rgba(120,145,185,0.6)" }}>Massimo Dassano — Digital Growth Partner</span>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 mb-10">
+          <div>
+            <span className="text-xl font-black block mb-2" style={{ color: "#00f5ff", textShadow: "0 0 14px rgba(0,245,255,0.65)" }}>MD</span>
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(120,145,185,0.6)" }}>
+              Massimo Dassano<br />Digital Growth Partner
+            </p>
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-3">
-            <Link href="/servizi/creazione-siti-web" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-              Creazione Siti Web
-            </Link>
-            <Link href="/servizi/restyling-sito-web" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-              Restyling Sito Web
-            </Link>
-            <Link href="/servizi/landing-page" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-              Landing Page
-            </Link>
-            <Link href="/servizi/manutenzione-sito-web" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-              Manutenzione Sito Web
-            </Link>
-            <Link href="/servizi/audit-digitale" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-              Audit Digitale
-            </Link>
+          <div>
+            <div className="text-xs font-mono tracking-[0.2em] uppercase mb-3" style={labelStyle}>Servizi</div>
+            <div className="flex flex-col gap-2.5">
+              <Link href="/servizi/creazione-siti-web" className="text-xs transition-colors hover:text-cyan-400 w-fit" style={linkStyle}>
+                Creazione Siti Web
+              </Link>
+              <Link href="/servizi/restyling-sito-web" className="text-xs transition-colors hover:text-cyan-400 w-fit" style={linkStyle}>
+                Restyling Sito Web
+              </Link>
+              <Link href="/servizi/landing-page" className="text-xs transition-colors hover:text-cyan-400 w-fit" style={linkStyle}>
+                Landing Page
+              </Link>
+              <Link href="/servizi/manutenzione-sito-web" className="text-xs transition-colors hover:text-cyan-400 w-fit" style={linkStyle}>
+                Manutenzione Sito Web
+              </Link>
+              <Link href="/servizi/audit-digitale" className="text-xs transition-colors hover:text-cyan-400 w-fit" style={linkStyle}>
+                Audit Digitale
+              </Link>
+            </div>
+          </div>
+          <div>
+            <div className="text-xs font-mono tracking-[0.2em] uppercase mb-3" style={labelStyle}>Studio</div>
+            <div className="flex flex-col gap-2.5">
+              <Link href="/cv" className="text-xs transition-colors hover:text-cyan-400 w-fit" style={linkStyle}>
+                {ht.footer.cv_link}
+              </Link>
+              <Link href="/privacy" className="text-xs transition-colors hover:text-cyan-400 w-fit" style={linkStyle}>
+                Privacy Policy
+              </Link>
+              <Link href="/cookie-policy" className="text-xs transition-colors hover:text-cyan-400 w-fit" style={linkStyle}>
+                Cookie Policy
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-4 justify-center md:justify-end pt-6" style={{ borderTop: "1px solid rgba(0,245,255,0.05)" }}>
-          <Link href="/cv" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-            {ht.footer.cv_link}
-          </Link>
-          <Link href="/privacy" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-            Privacy Policy
-          </Link>
-          <Link href="/cookie-policy" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
-            Cookie Policy
-          </Link>
+        <div className="text-center pt-6" style={{ borderTop: "1px solid rgba(0,245,255,0.05)" }}>
           <span className="text-xs" style={{ color: "rgba(100,120,160,0.45)" }}>
             © {new Date().getFullYear()} Massimo Dassano
           </span>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X, Home } from "lucide-react"
+import { Menu, X, ArrowUpRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useLanguage } from "@/contexts/language-context"
 import { LanguageSwitcher } from "@/components/language-switcher"
@@ -66,10 +66,10 @@ export function Navigation() {
           {isOnCv && (
             <Link
               href="/"
-              className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors px-3 py-1.5 border border-border/50 rounded-md hover:border-primary/30"
+              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors px-3 py-1.5 border border-border/50 rounded-md hover:border-primary/30"
             >
-              <Home className="w-3 h-3" />
-              <span>Home</span>
+              <span>massimodassano.it</span>
+              <ArrowUpRight className="w-3 h-3" />
             </Link>
           )}
           <a
@@ -100,8 +100,8 @@ export function Navigation() {
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              <Home className="w-3.5 h-3.5" />
-              Home
+              massimodassano.it
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           )}
           {navItems.map((item) => (
