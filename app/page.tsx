@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
   Linkedin, MapPin, ExternalLink, Menu, X,
-  Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield,
+  Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield, Target,
   ArrowRight, Mail, ChevronDown,
 } from "lucide-react"
 import { ParticleCanvas } from "@/components/particle-canvas"
@@ -34,7 +34,7 @@ const homeT = {
     },
     services: {
       title: "Cosa posso fare per te",
-      subtitle: "Tre percorsi, un obiettivo: una presenza digitale che fa crescere la tua attività",
+      subtitle: "Quattro percorsi, un obiettivo: una presenza digitale che fa crescere la tua attività",
       list: [
         {
           tag: "DIAGNOSI",
@@ -42,6 +42,13 @@ const homeT = {
           sub: "Per chi vuole capire cosa non va — prima di agire",
           body: "Analizzo il tuo sito esistente e ti consegno un report completo: SEO tecnico, UX e conversione, contenuti, privacy GDPR e una stima dell'opportunità di business. Il report include un punteggio per ogni area, le criticità più urgenti da risolvere e un piano d'azione concreto, utile anche se poi decidi di non proseguire con me. Il costo è scalabile da qualsiasi progetto successivo.",
           features: ["SEO tecnico e visibilità Google", "UX & tasso di conversione", "Privacy & GDPR compliance", "Stima opportunità di business"],
+        },
+        {
+          tag: "LANDING PAGE",
+          title: "Landing Page Personalizzata",
+          sub: "Per chi vuole una pagina singola, veloce ed efficace",
+          body: "Non sempre serve un sito intero. A volte basta una pagina pensata per un solo obiettivo: prenotare, iscriversi, comprare. Perfetta per lanciare un prodotto, promuovere un evento o sostenere una campagna pubblicitaria, con consegna in pochi giorni.",
+          features: ["Un solo obiettivo di conversione", "Design su misura per la campagna", "Ottimizzata per Google/Meta Ads", "Consegna in pochi giorni"],
         },
         {
           tag: "RESTYLING",
@@ -85,6 +92,12 @@ const homeT = {
           tag: "Analisi del Sito",
           desc: "Report completo del tuo sito: punteggi, criticità e piano d'azione. Scalabile dal progetto successivo.",
           features: ["SEO tecnico e contenuti", "UX & conversione", "Privacy & GDPR", "Stima opportunità di business", "Scalabile dal progetto successivo"],
+        },
+        {
+          name: "LANDING PAGE",
+          tag: "Pagina Singola",
+          desc: "Una pagina su misura, pensata per un obiettivo preciso: prenotazioni, iscrizioni, campagne pubblicitarie.",
+          features: ["Un solo obiettivo di conversione", "Design su misura per la campagna", "Ottimizzata per Ads", "Consegna in pochi giorni"],
         },
         {
           name: "RESTYLING",
@@ -184,7 +197,7 @@ const homeT = {
     },
     services: {
       title: "What I can do for you",
-      subtitle: "Three paths, one goal: a digital presence that grows your business",
+      subtitle: "Four paths, one goal: a digital presence that grows your business",
       list: [
         {
           tag: "DIAGNOSIS",
@@ -192,6 +205,13 @@ const homeT = {
           sub: "For those who want to understand what's wrong — before acting",
           body: "I analyze your existing website and deliver a complete report: technical SEO, UX and conversion, content, GDPR privacy and a business opportunity estimate. The report includes a score for each area, the most urgent issues to fix and a concrete action plan, useful even if you decide not to move forward with me. The cost is deductible from any follow-up project.",
           features: ["Technical SEO & Google visibility", "UX & conversion rate", "Privacy & GDPR compliance", "Business opportunity estimate"],
+        },
+        {
+          tag: "LANDING PAGE",
+          title: "Custom Landing Page",
+          sub: "For those who want one fast, focused page",
+          body: "You don't always need a whole website. Sometimes one page built around a single goal is enough: book, sign up, buy. Perfect for launching a product, promoting an event, or supporting an ad campaign, delivered in just a few days.",
+          features: ["One conversion goal", "Custom design matched to the campaign", "Optimized for Google/Meta Ads", "Delivered in a few days"],
         },
         {
           tag: "RESTYLING",
@@ -235,6 +255,12 @@ const homeT = {
           tag: "Website Analysis",
           desc: "Full report on your site: scores, issues and action plan. Deductible from any follow-up project.",
           features: ["Technical SEO & content", "UX & conversion", "Privacy & GDPR", "Business opportunity estimate", "Deductible from next project"],
+        },
+        {
+          name: "LANDING PAGE",
+          tag: "Single Page",
+          desc: "A custom-built page focused on one precise goal: bookings, sign-ups, ad campaigns.",
+          features: ["One conversion goal", "Custom design matched to the campaign", "Optimized for Ads", "Delivered in a few days"],
         },
         {
           name: "RESTYLING",
@@ -333,16 +359,18 @@ const scrollToSection = (id: string) =>
    STATIC CONFIG (non-translatable)
 ───────────────────────────────────────────────────── */
 const SERVICE_STATIC = [
-  { icon: Search, color: "#fbbf24", rgb: "251,191,36", featureIcons: [Zap, Smartphone, Shield, Star] },
-  { icon: Wand2, color: "#a855f7", rgb: "168,85,247", featureIcons: [Star, Wand2, ArrowRight, Zap] },
-  { icon: Monitor, color: "#00f5ff", rgb: "0,245,255", featureIcons: [Code, Smartphone, Search, Zap] },
+  { icon: Search, color: "#fbbf24", rgb: "251,191,36", featureIcons: [Zap, Smartphone, Shield, Star], href: "/servizi/audit-digitale" },
+  { icon: Target, color: "#f0abfc", rgb: "240,171,252", featureIcons: [Target, Wand2, Zap, ArrowRight], href: "/servizi/landing-page" },
+  { icon: Wand2, color: "#a855f7", rgb: "168,85,247", featureIcons: [Star, Wand2, ArrowRight, Zap], href: "/servizi/restyling-sito-web" },
+  { icon: Monitor, color: "#00f5ff", rgb: "0,245,255", featureIcons: [Code, Smartphone, Search, Zap], href: "/servizi/creazione-siti-web" },
 ] as const
 
 const PLAN_STATIC = [
   { price: "€120", color: "#fbbf24", rgb: "251,191,36", featured: false, hidden: false },
-  { price: "da €300", color: "#f0abfc", rgb: "240,171,252", featured: false, hidden: false },
+  { price: "da €200", color: "#f0abfc", rgb: "240,171,252", featured: false, hidden: false },
+  { price: "da €300", color: "#a855f7", rgb: "168,85,247", featured: false, hidden: false },
   { price: "da €500", color: "#00f5ff", rgb: "0,245,255", featured: false, hidden: false },
-  { price: "da €1.500", color: "#a855f7", rgb: "168,85,247", featured: false, hidden: true },
+  { price: "da €1.500", color: "#4ade80", rgb: "74,222,128", featured: false, hidden: true },
 ] as const
 
 /* ─────────────────────────────────────────────────────
@@ -808,10 +836,11 @@ function ServicesSection() {
   const card1 = useHoloTilt()
   const card2 = useHoloTilt()
   const card3 = useHoloTilt()
+  const card4 = useHoloTilt()
   const ht = useHomeLang()
 
   const services = ht.services.list.map((s, i) => ({ ...s, ...SERVICE_STATIC[i] }))
-  const tilts = [card1, card2, card3]
+  const tilts = [card1, card2, card3, card4]
 
   return (
     <section id="servizi" className="py-24 relative">
@@ -819,7 +848,7 @@ function ServicesSection() {
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.services.title} subtitle={ht.services.subtitle} />
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {services.map((svc, i) => {
               const Icon = svc.icon
               const t = tilts[i]
@@ -866,6 +895,12 @@ function ServicesSection() {
                       )
                     })}
                   </ul>
+
+                  <Link href={svc.href}
+                    className="inline-flex items-center gap-2 mt-5 text-sm font-semibold transition-all duration-200 hover:gap-3 w-fit"
+                    style={{ color: svc.color }}>
+                    Scopri di più <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               )
             })}
@@ -986,7 +1021,7 @@ function PricingSection() {
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <SectionHeader title={ht.pricing.title} subtitle={ht.pricing.subtitle} />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {plans.map((pl, i) => (
               <div key={i}
                 className="relative rounded-2xl p-7 flex flex-col"
@@ -1341,13 +1376,32 @@ function HomeFooter() {
   const ht = useHomeLang()
 
   return (
-    <footer className="py-8" style={{ borderTop: "1px solid rgba(0,245,255,0.07)", background: "rgba(0,0,0,0.25)" }}>
-      <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <span className="text-xl font-black" style={{ color: "#00f5ff", textShadow: "0 0 14px rgba(0,245,255,0.65)" }}>MD</span>
-          <span className="text-sm" style={{ color: "rgba(120,145,185,0.6)" }}>Massimo Dassano — Digital Growth Partner</span>
+    <footer className="py-10" style={{ borderTop: "1px solid rgba(0,245,255,0.07)", background: "rgba(0,0,0,0.25)" }}>
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between gap-8 mb-8">
+          <div className="flex items-center gap-4">
+            <span className="text-xl font-black" style={{ color: "#00f5ff", textShadow: "0 0 14px rgba(0,245,255,0.65)" }}>MD</span>
+            <span className="text-sm" style={{ color: "rgba(120,145,185,0.6)" }}>Massimo Dassano — Digital Growth Partner</span>
+          </div>
+          <div className="flex flex-wrap gap-x-8 gap-y-3">
+            <Link href="/servizi/creazione-siti-web" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
+              Creazione Siti Web
+            </Link>
+            <Link href="/servizi/restyling-sito-web" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
+              Restyling Sito Web
+            </Link>
+            <Link href="/servizi/landing-page" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
+              Landing Page
+            </Link>
+            <Link href="/servizi/manutenzione-sito-web" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
+              Manutenzione Sito Web
+            </Link>
+            <Link href="/servizi/audit-digitale" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
+              Audit Digitale
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-wrap items-center gap-4 justify-center md:justify-end">
+        <div className="flex flex-wrap items-center gap-4 justify-center md:justify-end pt-6" style={{ borderTop: "1px solid rgba(0,245,255,0.05)" }}>
           <Link href="/cv" className="text-xs transition-colors hover:text-cyan-400" style={{ color: "rgba(130,155,195,0.55)" }}>
             {ht.footer.cv_link}
           </Link>
