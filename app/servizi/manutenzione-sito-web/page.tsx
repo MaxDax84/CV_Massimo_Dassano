@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     "aggiornamento sito web",
     "assistenza sito web",
     "supporto sito web",
+    "gestione sito web",
+    "website maintenance service",
+    "website support",
+    "website updates",
+    "managed website",
   ],
   alternates: { canonical: URL },
   openGraph: {

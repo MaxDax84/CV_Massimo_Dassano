@@ -13,7 +13,12 @@ export const metadata: Metadata = {
     "rifacimento sito web",
     "ristrutturazione sito web",
     "rinnovo sito web",
+    "modernizzare sito web",
     "sito web datato",
+    "website redesign",
+    "website makeover",
+    "website refresh",
+    "redesign sito web",
   ],
   alternates: { canonical: URL },
   openGraph: {

@@ -14,6 +14,11 @@ export const metadata: Metadata = {
     "audit SEO",
     "analisi SEO sito",
     "report sito web",
+    "website audit",
+    "digital audit",
+    "SEO audit",
+    "website analysis report",
+    "website performance audit",
   ],
   alternates: { canonical: URL },
   openGraph: {

@@ -14,6 +14,10 @@ export const metadata: Metadata = {
     "landing page conversione",
     "pagina di atterraggio",
     "landing page pubblicità",
+    "landing page design",
+    "custom landing page",
+    "high-converting landing page",
+    "landing page for campaigns",
   ],
   alternates: { canonical: URL },
   openGraph: {
