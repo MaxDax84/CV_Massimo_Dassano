@@ -22,7 +22,7 @@ const t = {
         tag: "Da zero",
         description:
           'Sito creato da zero per una gelateria artigianale. Palette vivace, menu prodotti in evidenza, ottimizzato mobile per chi cerca "gelateria vicino a me" dal telefono.',
-        link: "https://gelateria-icone.surge.sh/",
+        link: "https://gelateriaiconebydaniela.it/",
       },
       {
         title: "Invito Compleanno",
@@ -84,7 +84,7 @@ const t = {
         tag: "From scratch",
         description:
           'Built from scratch for an artisan gelateria. Vibrant palette, featured product menu, mobile-optimised for customers searching "ice cream near me" on their phone.',
-        link: "https://gelateria-icone.surge.sh/",
+        link: "https://gelateriaiconebydaniela.it/",
       },
       {
         title: "Birthday Invitation",

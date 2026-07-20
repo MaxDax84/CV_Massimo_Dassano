@@ -784,7 +784,7 @@ function HeroSection() {
         {/* Typing subtitle */}
         <div className="text-xl md:text-2xl font-mono mb-7 h-8" style={{ color: "#00f5ff" }}>
           <span className="sr-only">Digital Growth Partner per piccole imprese</span>
-          <span aria-hidden="true"><TypingText texts={["Digital Growth Partner", "Web Creator", "Digital Architect"]} /></span>
+          <span aria-hidden="true"><TypingText texts={["Digital Growth Partner", "Web Designer"]} /></span>
         </div>
 
         {/* Separator */}
