@@ -107,6 +107,14 @@ export default function LabBackground() {
     >
       <video ref={vARef} src={VIDEO_SRC} autoPlay muted playsInline preload="auto" style={{ ...base, opacity: 1 }} />
       <video ref={vBRef} src={VIDEO_SRC}        muted playsInline preload="auto" style={{ ...base, opacity: 0 }} />
+      {/* Patina scura: il video è troppo luminoso per leggere bene il testo bianco sopra */}
+      <div
+        style={{
+          ...base,
+          background:
+            "linear-gradient(180deg, rgba(2,6,14,0.72) 0%, rgba(2,6,14,0.5) 20%, rgba(2,6,14,0.56) 80%, rgba(2,6,14,0.75) 100%)",
+        }}
+      />
     </div>
   );
 }

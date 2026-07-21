@@ -15,6 +15,7 @@ const t = {
         description:
           "Restyling completo per uno studio di psicoterapia. Design pulito e rassicurante, navigazione semplificata per mettere a proprio agio chi cerca supporto.",
         link: "https://www.marcellamarcone.it",
+        logo: "/lab/logos/marcellamarcone.png",
       },
       {
         title: "Gelateria Icone",
@@ -23,6 +24,7 @@ const t = {
         description:
           'Sito creato da zero per una gelateria artigianale. Palette vivace, menu prodotti in evidenza, ottimizzato mobile per chi cerca "gelateria vicino a me" dal telefono.',
         link: "https://gelateriaiconebydaniela.it/",
+        logo: "/lab/logos/gelateriaicone.png",
       },
       {
         title: "Invito Compleanno",
@@ -31,6 +33,7 @@ const t = {
         description:
           "Invito digitale per il primo compleanno di un bambino. Tema dinosauri, banda interattiva e conferma presenza. Esempio di prodotto personalizzabile.",
         link: "/lab/compleanno",
+        logo: null,
       },
       {
         title: "Alessandro Marcello",
@@ -39,6 +42,7 @@ const t = {
         description:
           "Sito personale da zero per un business leader internazionale. Formato CV digitale elegante, taglio executive, pensato per LinkedIn e networking professionale.",
         link: "https://www.alessandromarcello.it",
+        logo: "/lab/logos/alessandromarcello.png",
       },
       {
         title: "Dassano.it",
@@ -47,6 +51,7 @@ const t = {
         description:
           "Sito per band musicale. Focus su immagini, date concerti e ascolto diretto dei brani. Esperienza immersiva, nessun elemento superfluo.",
         link: "https://www.dassano.it",
+        logo: "/lab/logos/dassano.svg",
       },
       {
         title: "Olistic Studio",
@@ -55,6 +60,7 @@ const t = {
         description:
           "Restyling completo per uno studio di riflessologia e massoterapia a Milano. Design elegante ispirato alla natura, percorsi di trattamento organizzati per obiettivo, caroselli automatici e SEO tecnico ottimizzato per la ricerca locale.",
         link: "https://www.olisticstudio.com",
+        logo: "/lab/logos/olisticstudio.png",
       },
     ],
     marquee: [
@@ -77,6 +83,7 @@ const t = {
         description:
           "Full restyling for a psychotherapy practice. Clean, reassuring design with simplified navigation to make visitors seeking support feel at ease.",
         link: "https://www.marcellamarcone.it",
+        logo: "/lab/logos/marcellamarcone.png",
       },
       {
         title: "Gelateria Icone",
@@ -85,6 +92,7 @@ const t = {
         description:
           'Built from scratch for an artisan gelateria. Vibrant palette, featured product menu, mobile-optimised for customers searching "ice cream near me" on their phone.',
         link: "https://gelateriaiconebydaniela.it/",
+        logo: "/lab/logos/gelateriaicone.png",
       },
       {
         title: "Birthday Invitation",
@@ -93,6 +101,7 @@ const t = {
         description:
           "Digital birthday invitation for a child's first birthday. Dinosaur theme, interactive band and RSVP. Example of a fully customisable product.",
         link: "/lab/compleanno",
+        logo: null,
       },
       {
         title: "Alessandro Marcello",
@@ -101,6 +110,7 @@ const t = {
         description:
           "Personal site built from scratch for an international business leader. Elegant digital CV format with an executive look, designed for LinkedIn and professional networking.",
         link: "https://www.alessandromarcello.it",
+        logo: "/lab/logos/alessandromarcello.png",
       },
       {
         title: "Dassano.it",
@@ -109,6 +119,7 @@ const t = {
         description:
           "Website for a music band. Focus on imagery, concert dates and direct song playback. Immersive experience, no unnecessary elements.",
         link: "https://www.dassano.it",
+        logo: "/lab/logos/dassano.svg",
       },
       {
         title: "Olistic Studio",
@@ -117,6 +128,7 @@ const t = {
         description:
           "Full restyling for a reflexology and massage therapy studio in Milan. Nature-inspired elegant design, treatment paths organized by goal, automatic carousels and technical SEO optimized for local search.",
         link: "https://www.olisticstudio.com",
+        logo: "/lab/logos/olisticstudio.png",
       },
     ],
     marquee: [
@@ -193,6 +205,7 @@ interface Project {
   tag: string;
   description: string;
   link: string;
+  logo: string | null;
 }
 
 function ProjectCard({ project, delay }: { project: Project; delay: number }) {
@@ -231,9 +244,18 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
         </svg>
       </div>
 
-      <h3 className="font-sora font-semibold text-xl text-[#F2F0EB] mb-1 transition-colors group-hover:text-white">
-        {project.category}
-      </h3>
+      <div className="flex items-center gap-3 mb-1">
+        {project.logo && (
+          <img
+            src={project.logo}
+            alt={`Logo ${project.title}`}
+            className="w-9 h-9 rounded-lg object-cover border border-white/10 bg-white/5 shrink-0"
+          />
+        )}
+        <h3 className="font-sora font-semibold text-xl text-[#F2F0EB] transition-colors group-hover:text-white">
+          {project.category}
+        </h3>
+      </div>
       <p className="text-[#E8622A]/80 text-[11px] tracking-widest uppercase font-inter mb-5">
         {project.title}
       </p>

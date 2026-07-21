@@ -22,7 +22,6 @@ const homeT = {
     nav: {
       services: "Servizi",
       about: "Chi sono",
-      pricing: "Prezzi",
       faq: "FAQ",
       contact: "Contatti",
     },
@@ -80,45 +79,6 @@ const homeT = {
       p3: "Lavoro con professionisti e piccole imprese che vogliono una presenza digitale che lavori per loro — non solo una che sembri professionale. Da remoto, ovunque.",
       cta: "Scopri il Laboratorio",
     },
-    pricing: {
-      title: "Investimento",
-      subtitle: "Prezzi indicativi. Ogni progetto è unico — preventivo sempre gratuito e senza impegno.",
-      featured_badge: "PIÙ SCELTO",
-      cta: "Richiedi preventivo",
-      note: "I prezzi variano in base a complessità, funzionalità e contenuti. Contattami per un preventivo personalizzato e gratuito.",
-      plans: [
-        {
-          name: "DIAGNOSI",
-          tag: "Analisi del Sito",
-          desc: "Report completo del tuo sito: punteggi, criticità e piano d'azione. Scalabile dal progetto successivo.",
-          features: ["SEO tecnico e contenuti", "UX & conversione", "Privacy & GDPR", "Stima opportunità di business", "Scalabile dal progetto successivo"],
-        },
-        {
-          name: "LANDING PAGE",
-          tag: "Pagina Singola",
-          desc: "Una pagina su misura, pensata per un obiettivo preciso: prenotazioni, iscrizioni, campagne pubblicitarie.",
-          features: ["Un solo obiettivo di conversione", "Design su misura per la campagna", "Ottimizzata per Ads", "Consegna in pochi giorni"],
-        },
-        {
-          name: "RESTYLING",
-          tag: "Rinnova il Sito",
-          desc: "Hai già un sito ma non ti rappresenta più? Lo analizziamo, trasformiamo e ottimizziamo.",
-          features: ["Analisi del sito esistente", "Nuovo design moderno", "Migrazione dei contenuti", "Ottimizzazione performance", "SEO refresh"],
-        },
-        {
-          name: "STARTER",
-          tag: "Presenza Online",
-          desc: "Per professionisti e piccole realtà che vogliono una presenza online pulita ed efficace.",
-          features: ["10+ pagine create insieme", "Design su misura", "Mobile-first & responsive", "SEO base", "Consegna in 1 settimana"],
-        },
-        {
-          name: "BUSINESS",
-          tag: "Sito Completo",
-          desc: "Per aziende e brand che vogliono un sito multi-pagina completo con funzionalità avanzate.",
-          features: ["Blog / CMS integrato", "Analytics & tracking", "SEO avanzato", "Ottimizzazione performance", "Consegna in 3–4 settimane"],
-        },
-      ],
-    },
     faq: {
       tag: "FAQ",
       title: "Domande frequenti",
@@ -126,7 +86,7 @@ const homeT = {
       items: [
         {
           q: "Quanto costa un sito web?",
-          a: "Dipende da complessità della struttura. Il numero di pagine non è un vincolo, conta soprattutto il tipo di funzionalità e le integrazioni con strumenti esterni. I prezzi indicativi qui sopra vanno da poche centinaia di euro per una diagnosi a qualche migliaio per un sito completo con integrazioni esterne. Il preventivo è sempre gratuito e senza impegno, dopo una prima chiacchierata sul progetto.",
+          a: "Dipende da complessità della struttura. Il numero di pagine non è un vincolo, conta soprattutto il tipo di funzionalità e le integrazioni con strumenti esterni. I prezzi indicativamente vanno da poche centinaia di euro per una diagnosi a qualche migliaio per un sito completo con integrazioni esterne. Il preventivo è sempre gratuito e senza impegno, dopo una prima chiacchierata sul progetto.",
         },
         {
           q: "Quanto tempo serve per realizzare un sito?",
@@ -185,7 +145,6 @@ const homeT = {
     nav: {
       services: "Services",
       about: "About me",
-      pricing: "Pricing",
       faq: "FAQ",
       contact: "Contact",
     },
@@ -243,45 +202,6 @@ const homeT = {
       p3: "I work with professionals and small businesses who want a digital presence that works for them — not just one that looks professional. Remotely, from anywhere.",
       cta: "Explore the Laboratorio",
     },
-    pricing: {
-      title: "Investment",
-      subtitle: "Indicative prices. Every project is unique — quote always free and without commitment.",
-      featured_badge: "MOST POPULAR",
-      cta: "Request a quote",
-      note: "Prices vary based on complexity, features and content. Contact me for a free personalized quote.",
-      plans: [
-        {
-          name: "DIAGNOSIS",
-          tag: "Website Analysis",
-          desc: "Full report on your site: scores, issues and action plan. Deductible from any follow-up project.",
-          features: ["Technical SEO & content", "UX & conversion", "Privacy & GDPR", "Business opportunity estimate", "Deductible from next project"],
-        },
-        {
-          name: "LANDING PAGE",
-          tag: "Single Page",
-          desc: "A custom-built page focused on one precise goal: bookings, sign-ups, ad campaigns.",
-          features: ["One conversion goal", "Custom design matched to the campaign", "Optimized for Ads", "Delivered in a few days"],
-        },
-        {
-          name: "RESTYLING",
-          tag: "Renew Your Site",
-          desc: "Already have a site but it no longer represents you? We analyze, transform and optimize it.",
-          features: ["Existing site analysis", "New modern design", "Content migration", "Performance optimization", "SEO refresh"],
-        },
-        {
-          name: "STARTER",
-          tag: "Online Presence",
-          desc: "For professionals and small businesses who want a clean and effective online presence.",
-          features: ["10+ pages built together", "Custom design", "Mobile-first & responsive", "Basic SEO", "Delivery in 1 week"],
-        },
-        {
-          name: "BUSINESS",
-          tag: "Complete Website",
-          desc: "For companies and brands who want a complete multi-page site with advanced features.",
-          features: ["Blog / CMS integrated", "Analytics & tracking", "Advanced SEO", "Performance optimization", "Delivery in 3–4 weeks"],
-        },
-      ],
-    },
     faq: {
       tag: "FAQ",
       title: "Frequently Asked Questions",
@@ -289,7 +209,7 @@ const homeT = {
       items: [
         {
           q: "How much does a website cost?",
-          a: "It depends on the complexity of the structure. The number of pages isn't a constraint — what matters most is the type of features and integrations with external tools. The indicative prices above range from a few hundred euros for a diagnosis to a few thousand for a complete site with external integrations. The quote is always free and with no commitment, after an initial chat about your project.",
+          a: "It depends on the complexity of the structure. The number of pages isn't a constraint — what matters most is the type of features and integrations with external tools. Indicative prices range from a few hundred euros for a diagnosis to a few thousand for a complete site with external integrations. The quote is always free and with no commitment, after an initial chat about your project.",
         },
         {
           q: "How long does it take to build a website?",
@@ -363,14 +283,6 @@ const SERVICE_STATIC = [
   { icon: Target, color: "#f0abfc", rgb: "240,171,252", featureIcons: [Target, Wand2, Zap, ArrowRight], href: "/servizi/landing-page" },
   { icon: Wand2, color: "#a855f7", rgb: "168,85,247", featureIcons: [Star, Wand2, ArrowRight, Zap], href: "/servizi/restyling-sito-web" },
   { icon: Monitor, color: "#00f5ff", rgb: "0,245,255", featureIcons: [Code, Smartphone, Search, Zap], href: "/servizi/creazione-siti-web" },
-] as const
-
-const PLAN_STATIC = [
-  { price: "€120", color: "#fbbf24", rgb: "251,191,36", featured: false, hidden: false },
-  { price: "da €200", color: "#f0abfc", rgb: "240,171,252", featured: false, hidden: false },
-  { price: "da €300", color: "#a855f7", rgb: "168,85,247", featured: false, hidden: false },
-  { price: "da €500", color: "#00f5ff", rgb: "0,245,255", featured: false, hidden: false },
-  { price: "da €1.500", color: "#4ade80", rgb: "74,222,128", featured: false, hidden: true },
 ] as const
 
 /* ─────────────────────────────────────────────────────
@@ -613,7 +525,6 @@ function HomeNav() {
   const sections = [
     { label: ht.nav.services, id: "servizi" },
     { label: ht.nav.about, id: "chi-sono" },
-    { label: ht.nav.pricing, id: "pricing" },
     { label: ht.nav.faq, id: "faq" },
     { label: ht.nav.contact, id: "contatto" },
   ]
@@ -1009,78 +920,6 @@ function WhyMeSection() {
 }
 
 /* ─────────────────────────────────────────────────────
-   PRICING
-───────────────────────────────────────────────────── */
-function PricingSection() {
-  const { ref, inView } = useScrollInView()
-  const ht = useHomeLang()
-
-  const plans = ht.pricing.plans.map((p, i) => ({ ...p, ...PLAN_STATIC[i] })).filter(pl => !pl.hidden)
-
-  return (
-    <section id="pricing" className="py-24 relative">
-      <div className="absolute inset-0 cyber-grid" style={{ opacity: 0.22 }} />
-      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.018) 50%, transparent)" }} />
-      <div className="max-w-6xl mx-auto px-6">
-        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <SectionHeader title={ht.pricing.title} subtitle={ht.pricing.subtitle} />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {plans.map((pl, i) => (
-              <div key={i}
-                className="relative rounded-2xl p-7 flex flex-col"
-                style={{
-                  background: pl.featured ? `rgba(${pl.rgb},0.06)` : `rgba(${pl.rgb},0.025)`,
-                  border: pl.featured ? `1px solid rgba(${pl.rgb},0.42)` : `1px solid rgba(${pl.rgb},0.17)`,
-                  boxShadow: pl.featured ? `0 0 45px rgba(${pl.rgb},0.12), 0 0 90px rgba(${pl.rgb},0.06)` : "none",
-                }}>
-                {pl.featured && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-0.5 text-xs font-mono font-bold"
-                    style={{ background: `rgba(${pl.rgb},0.18)`, border: `1px solid rgba(${pl.rgb},0.48)`, color: pl.color }}>
-                    {ht.pricing.featured_badge}
-                  </div>
-                )}
-                <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: `2px solid rgba(${pl.rgb},0.48)`, borderLeft: `2px solid rgba(${pl.rgb},0.48)` }} />
-                <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: `2px solid rgba(${pl.rgb},0.48)`, borderRight: `2px solid rgba(${pl.rgb},0.48)` }} />
-
-                <div className="mb-5">
-                  <span className="text-xs font-mono tracking-[0.28em]" style={{ color: pl.color }}>{pl.name}</span>
-                  <h3 className="text-lg font-bold text-white mt-1">{pl.tag}</h3>
-                </div>
-
-                <div className="mb-6">
-                  <div className="text-3xl font-black" style={{ color: pl.color, textShadow: `0 0 22px rgba(${pl.rgb},0.4)` }}>{pl.price}</div>
-                </div>
-
-                <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(145,170,210,0.72)" }}>{pl.desc}</p>
-
-                <ul className="space-y-2.5 flex-1 mb-8">
-                  {pl.features.map((f, fi) => (
-                    <li key={fi} className="flex items-start gap-2.5 text-sm" style={{ color: "rgba(195,215,240,0.82)" }}>
-                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
-                        style={{ background: pl.color, boxShadow: `0 0 6px rgba(${pl.rgb},0.6)` }} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <button onClick={() => scrollToSection("contatto")}
-                  className="flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-all duration-200 hover:scale-105"
-                  style={{ background: `rgba(${pl.rgb},0.1)`, border: `1px solid rgba(${pl.rgb},0.33)`, color: pl.color }}>
-                  {ht.pricing.cta} <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-xs mt-8 max-w-lg mx-auto" style={{ color: "rgba(110,135,175,0.6)" }}>
-            {ht.pricing.note}
-          </p>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ─────────────────────────────────────────────────────
    PORTFOLIO  (hidden — toggle false → true to show)
 ───────────────────────────────────────────────────── */
 const PORTFOLIO_ITEMS = [
@@ -1448,7 +1287,6 @@ export default function HomePage() {
       <ServicesSection />
       <ManifestoSection />
       <WhyMeSection />
-      <PricingSection />
       {false && <PortfolioSection />}
       <FAQSection />
       <ContactSection />
