@@ -26,7 +26,6 @@ const homeT = {
       contact: "Contatti",
     },
     hero: {
-      available: "DISPONIBILE",
       tagline: "Aiuto piccole imprese e professionisti a crescere online, con siti pensati per portare clienti — non solo per essere belli da vedere. Che tu parta da zero o voglia rinnovare quello che hai, costruiamo una presenza digitale che lavora per te.",
       cta_services: "Scopri i servizi",
       cta_contact: "Contattami",
@@ -34,6 +33,7 @@ const homeT = {
     services: {
       title: "Cosa posso fare per te",
       subtitle: "Quattro percorsi, un obiettivo: una presenza digitale che fa crescere la tua attività",
+      cta_preventivo: "Richiedi un preventivo",
       list: [
         {
           tag: "DIAGNOSI",
@@ -149,7 +149,6 @@ const homeT = {
       contact: "Contact",
     },
     hero: {
-      available: "AVAILABLE",
       tagline: "I help small businesses and professionals grow online, with websites built to bring in customers — not just to look good. Whether you're starting from scratch or want to refresh what you have, let's build a digital presence that works for you.",
       cta_services: "Explore services",
       cta_contact: "Contact me",
@@ -157,6 +156,7 @@ const homeT = {
     services: {
       title: "What I can do for you",
       subtitle: "Four paths, one goal: a digital presence that grows your business",
+      cta_preventivo: "Request a quote",
       list: [
         {
           tag: "DIAGNOSIS",
@@ -671,10 +671,6 @@ function HeroSection() {
         {/* Status bar */}
         <div className="flex justify-center gap-6 mb-10">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ boxShadow: "0 0 7px rgba(74,222,128,0.9)" }} />
-            <span className="text-xs tracking-[0.22em] uppercase" style={{ color: "rgba(74,222,128,0.9)" }}>{ht.hero.available}</span>
-          </div>
-          <div className="hidden sm:flex items-center gap-2">
             <MapPin className="w-3 h-3" style={{ color: "rgba(0,245,255,0.65)" }} />
             <span className="text-xs tracking-[0.22em] uppercase" style={{ color: "rgba(0,245,255,0.65)" }}>MILANO, IT</span>
           </div>
@@ -810,11 +806,22 @@ function ServicesSection() {
                     })}
                   </ul>
 
-                  <Link href={svc.href}
-                    className="inline-flex items-center gap-2 mt-5 text-sm font-semibold transition-all duration-200 hover:gap-3 w-fit"
-                    style={{ color: svc.color }}>
-                    Scopri di più <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                  <div className="flex flex-wrap items-center gap-4 mt-5">
+                    <Link href={svc.href}
+                      className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3 w-fit"
+                      style={{ color: svc.color }}>
+                      Scopri di più <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                    <button onClick={() => scrollToSection("contatto")}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold transition-all duration-200 hover:scale-105 w-fit"
+                      style={{
+                        background: `rgba(${svc.rgb},0.1)`,
+                        border: `1px solid rgba(${svc.rgb},0.35)`,
+                        color: svc.color,
+                      }}>
+                      {ht.services.cta_preventivo}
+                    </button>
+                  </div>
                 </div>
               )
             })}
