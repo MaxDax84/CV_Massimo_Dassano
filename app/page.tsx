@@ -8,6 +8,7 @@ import {
   Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield, Target,
   ArrowRight, Mail, ChevronDown,
 } from "lucide-react"
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion"
 import { ParticleCanvas } from "@/components/particle-canvas"
 import { ContactReveal } from "@/components/contact-reveal"
 import { useLanguage } from "@/contexts/language-context"
@@ -117,6 +118,10 @@ const homeT = {
           a: "No, lavoro da remoto con professionisti e piccole imprese ovunque in Italia (e non solo). Le chiamate e i confronti si fanno online, senza problemi di distanza.",
         },
       ],
+    },
+    reviews: {
+      title: "Cosa dicono i miei clienti",
+      subtitle: "Voci reali di chi ha lavorato con me",
     },
     contact: {
       title: "Parliamone",
@@ -240,6 +245,10 @@ const homeT = {
           a: "No, I work remotely with professionals and small businesses anywhere in Italy (and beyond). Calls and discussions happen online, distance is never an issue.",
         },
       ],
+    },
+    reviews: {
+      title: "What my clients say",
+      subtitle: "Real feedback from people I've worked with",
     },
     contact: {
       title: "Let's talk",
@@ -1066,6 +1075,146 @@ function FAQSection() {
 }
 
 /* ─────────────────────────────────────────────────────
+   REVIEWS
+   Recensioni reali, non tradotte (contenuto fattuale, come
+   COMPANIES in ExperienceSection) — solo il titolo/sottotitolo
+   della sezione passano per homeT.
+───────────────────────────────────────────────────── */
+const REVIEWS = [
+  {
+    name: "Paolo T.",
+    source: "olisticstudio.it",
+    text: "Grandissima professionalità e passione, ma soprattutto assistenza e consigli ragionati e mirati per arrivare all'obiettivo prefissato. Una persona speciale come pochissime, super consigliata. Un encomio speciale per la rapidità.",
+  },
+  {
+    name: "Alessandro M.",
+    source: "alessandromarcello.it",
+    text: "Sito executive personale realizzato con grande maestria. Il design è sobrio ed elegante, perfetto per trasmettere professionalità e competenza a un pubblico di alto livello. La navigazione è fluida e i contenuti sono presentati in modo strategico. Molto soddisfatto del risultato finale.",
+  },
+  {
+    name: "Gianfranco D.",
+    source: "dassano.it",
+    text: "È stato realizzato un sito web meraviglioso: elegante, velocissimo e facilissimo da navigare. Ogni esigenza è stata capita al volo, con una cura per i dettagli e una precisione davvero fuori dal comune. L'esperienza di navigazione è fluida e senza alcun difetto. Consigliatissimo!",
+  },
+  {
+    name: "Marcella M.",
+    source: "marcellamarcone.it",
+    text: "Un'esperienza fantastica dal primo all'ultimo giorno. Grande disponibilità, puntualità e un'attenzione maniacale a ogni singolo particolare. Il risultato finale è un sito web su misura semplicemente impeccabile sotto ogni punto di vista. Il miglior investimento fatto per la mia attività!",
+  },
+] as const
+
+function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
+  return (
+    <div
+      className="relative shrink-0 w-[300px] sm:w-[360px] rounded-2xl p-6 select-none"
+      style={{ background: "rgba(0,245,255,0.03)", border: "1px solid rgba(0,245,255,0.14)" }}
+    >
+      <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.5)", borderLeft: "2px solid rgba(0,245,255,0.5)" }} />
+      <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.5)", borderRight: "2px solid rgba(0,245,255,0.5)" }} />
+
+      <div className="flex gap-1 mb-4">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} className="w-4 h-4" style={{ color: "#00f5ff", fill: "#00f5ff" }} />
+        ))}
+      </div>
+
+      <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(200,220,245,0.85)" }}>
+        &ldquo;{review.text}&rdquo;
+      </p>
+
+      <div className="pt-4" style={{ borderTop: "1px solid rgba(0,245,255,0.1)" }}>
+        <div className="text-sm font-semibold text-white">{review.name}</div>
+        <div className="text-xs font-mono mt-0.5" style={{ color: "rgba(0,245,255,0.55)" }}>{review.source}</div>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Marquee infinito trascinabile: scorre lento in autoplay, il drag lo sposta
+ * a velocità naturale (1:1 col puntatore) in entrambe le direzioni, e al
+ * rilascio l'autoplay riprende usando la direzione dell'ultimo movimento
+ * (velocity.x in onDragEnd), non necessariamente quella di partenza.
+ */
+function ReviewsCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+  const direction = useRef(1) // 1 = scorrimento verso sinistra (default), -1 = verso destra
+  const unitWidth = useRef(0)
+  const isDragging = useRef(false)
+
+  useEffect(() => {
+    const measure = () => {
+      if (trackRef.current) unitWidth.current = trackRef.current.scrollWidth / 4
+    }
+    measure()
+    window.addEventListener("resize", measure)
+    return () => window.removeEventListener("resize", measure)
+  }, [])
+
+  const wrap = (v: number) => {
+    const u = unitWidth.current
+    if (!u) return v
+    let out = v % u
+    if (out > 0) out -= u
+    return out
+  }
+
+  useAnimationFrame((_, delta) => {
+    if (isDragging.current || !unitWidth.current) return
+    const speed = 26 // px/s — scorrimento volutamente lento
+    x.set(wrap(x.get() - direction.current * speed * (delta / 1000)))
+  })
+
+  return (
+    <div
+      className="overflow-hidden"
+      style={{
+        WebkitMaskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)",
+        maskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)",
+      }}
+    >
+      <motion.div
+        ref={trackRef}
+        className="flex gap-6 w-max cursor-grab active:cursor-grabbing"
+        style={{ x }}
+        drag="x"
+        dragMomentum={false}
+        onDragStart={() => { isDragging.current = true }}
+        onDragEnd={(_, info) => {
+          isDragging.current = false
+          if (info.velocity.x > 40) direction.current = -1
+          else if (info.velocity.x < -40) direction.current = 1
+          x.set(wrap(x.get()))
+        }}
+      >
+        {Array.from({ length: 4 }).flatMap((_, copy) =>
+          REVIEWS.map((r, i) => <ReviewCard key={`${copy}-${i}`} review={r} />)
+        )}
+      </motion.div>
+    </div>
+  )
+}
+
+function ReviewsSection() {
+  const { ref, inView } = useScrollInView()
+  const ht = useHomeLang()
+
+  return (
+    <section id="recensioni" className="py-24 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6">
+        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <SectionHeader title={ht.reviews.title} subtitle={ht.reviews.subtitle} />
+        </div>
+      </div>
+      <div className={`transition-all duration-700 delay-150 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <ReviewsCarousel />
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────────────
    CONTACT
 ───────────────────────────────────────────────────── */
 function ContactSection() {
@@ -1296,6 +1445,7 @@ export default function HomePage() {
       <WhyMeSection />
       {false && <PortfolioSection />}
       <FAQSection />
+      <ReviewsSection />
       <ContactSection />
       <HomeFooter />
     </main>
