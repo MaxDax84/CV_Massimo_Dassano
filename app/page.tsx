@@ -1084,25 +1084,25 @@ const REVIEWS = [
   {
     name: "Paolo T.",
     source: "olisticstudio.com",
-    href: "https://olisticstudio.com",
+    href: "https://www.olisticstudio.com",
     text: "Grandissima professionalità e passione, ma soprattutto assistenza e consigli ragionati e mirati per arrivare all'obiettivo prefissato. Una persona speciale come pochissime, super consigliata. Un encomio speciale per la rapidità.",
   },
   {
     name: "Alessandro M.",
     source: "alessandromarcello.it",
-    href: "https://alessandromarcello.it",
+    href: "https://www.alessandromarcello.it",
     text: "Sito executive personale realizzato con grande maestria. Il design è sobrio ed elegante, perfetto per trasmettere professionalità e competenza a un pubblico di alto livello. La navigazione è fluida e i contenuti sono presentati in modo strategico. Molto soddisfatto del risultato finale.",
   },
   {
     name: "Gianfranco D.",
     source: "dassano.it",
-    href: "https://dassano.it",
+    href: "https://www.dassano.it",
     text: "È stato realizzato un sito web meraviglioso: elegante, velocissimo e facilissimo da navigare. Ogni esigenza è stata capita al volo, con una cura per i dettagli e una precisione davvero fuori dal comune. L'esperienza di navigazione è fluida e senza alcun difetto. Consigliatissimo!",
   },
   {
     name: "Marcella M.",
     source: "marcellamarcone.it",
-    href: "https://marcellamarcone.it",
+    href: "https://www.marcellamarcone.it",
     text: "Un'esperienza fantastica dal primo all'ultimo giorno. Grande disponibilità, puntualità e un'attenzione maniacale a ogni singolo particolare. Il risultato finale è un sito web su misura semplicemente impeccabile sotto ogni punto di vista. Il miglior investimento fatto per la mia attività!",
   },
 ] as const
