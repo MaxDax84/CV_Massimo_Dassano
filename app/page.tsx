@@ -1083,8 +1083,8 @@ function FAQSection() {
 const REVIEWS = [
   {
     name: "Paolo T.",
-    source: "olisticstudio.it",
-    href: "https://olisticstudio.it",
+    source: "olisticstudio.com",
+    href: "https://olisticstudio.com",
     text: "Grandissima professionalità e passione, ma soprattutto assistenza e consigli ragionati e mirati per arrivare all'obiettivo prefissato. Una persona speciale come pochissime, super consigliata. Un encomio speciale per la rapidità.",
   },
   {
