@@ -1097,7 +1097,7 @@ const REVIEWS = [
     name: "Gianfranco D.",
     source: "dassano.it",
     href: "https://www.dassano.it",
-    text: "È stato realizzato un sito web meraviglioso: elegante, velocissimo e facilissimo da navigare. Ogni esigenza è stata capita al volo, con una cura per i dettagli e una precisione davvero fuori dal comune. L'esperienza di navigazione è fluida e senza alcun difetto. Consigliatissimo!",
+    text: "Complimenti al team per il risultato. Il sito non è solo bello visivamente, ma risponde davvero alle esigenze di chi lo usa. L'interfaccia è intuitiva, la navigazione è fluida e tutto è facile da consultare anche per chi non è esperto. Si capisce che c'è attenzione dietro ogni dettaglio.",
   },
   {
     name: "Marcella M.",
