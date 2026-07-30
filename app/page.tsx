@@ -1105,6 +1105,12 @@ const REVIEWS = [
     href: "https://www.marcellamarcone.it",
     text: "Un'esperienza fantastica dal primo all'ultimo giorno. Grande disponibilità, puntualità e un'attenzione maniacale a ogni singolo particolare. Il risultato finale è un sito web su misura semplicemente impeccabile sotto ogni punto di vista. Il miglior investimento fatto per la mia attività!",
   },
+  {
+    name: "Daniela G.",
+    source: "gelateriaiconebydaniela.it",
+    href: "https://gelateriaiconebydaniela.it",
+    text: "Ho affidato la creazione del mio sito web a Max e sono pienamente soddisfatta. Il lavoro è stato eseguito con grande professionalità. Ha saputo ascoltare le mie richieste e trasformarle in un sito bello, veloce e facile da usare. Consigliatissimo/a per chi cerca competenza e affidabilità.",
+  },
 ] as const
 
 function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
