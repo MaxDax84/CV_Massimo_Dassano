@@ -134,6 +134,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="388252ff-756d-4a61-885b-ee03439a64f9" />
       </head>
       <body className="font-sans antialiased">
         <LanguageProvider>
