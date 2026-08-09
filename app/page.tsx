@@ -8,7 +8,7 @@ import {
   Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield, Target,
   ArrowRight, Mail, ChevronDown,
 } from "lucide-react"
-import { motion, useMotionValue, useAnimationFrame } from "framer-motion"
+import { motion, AnimatePresence, useMotionValue, useAnimationFrame } from "framer-motion"
 import { ParticleCanvas } from "@/components/particle-canvas"
 import { ContactReveal } from "@/components/contact-reveal"
 import { useLanguage } from "@/contexts/language-context"
@@ -1059,11 +1059,20 @@ function FAQSection() {
                       style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", color: "#00f5ff" }}
                     />
                   </button>
-                  {isOpen && (
-                    <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>
-                      {item.a}
-                    </div>
-                  )}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        style={{ overflow: "hidden" }}>
+                        <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>
+                          {item.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               )
             })}
