@@ -62,6 +62,15 @@ const t = {
         link: "https://www.olisticstudio.com",
         logo: "/lab/logos/olisticstudio.png",
       },
+      {
+        title: "Simplif-AI",
+        category: "Applicazioni Tech",
+        tag: "SaaS",
+        description:
+          "Piattaforma SaaS che spiega concetti complessi adattando profondità e lunghezza alle preferenze dell'utente, su tre livelli di semplicità. Sito creato da zero, multilingua, con sistema di crediti e modalità chiara/scura.",
+        link: "https://www.simplif-ai.it",
+        logo: "/lab/logos/simplifai.png",
+      },
     ],
     marquee: [
       "Invito digitale",
@@ -70,6 +79,7 @@ const t = {
       "Personal branding executive",
       "Band musicale",
       "Riflessologia e massoterapia",
+      "SaaS EdTech",
     ],
   },
   en: {
@@ -130,6 +140,15 @@ const t = {
         link: "https://www.olisticstudio.com",
         logo: "/lab/logos/olisticstudio.png",
       },
+      {
+        title: "Simplif-AI",
+        category: "Tech Applications",
+        tag: "SaaS",
+        description:
+          "SaaS platform that explains complex concepts by adapting depth and length to the user's preference, across three levels of simplicity. Built from scratch, multilingual, with a credit system and light/dark mode.",
+        link: "https://www.simplif-ai.it",
+        logo: "/lab/logos/simplifai.png",
+      },
     ],
     marquee: [
       "Digital invitation",
@@ -138,6 +157,7 @@ const t = {
       "Executive personal branding",
       "Music band",
       "Reflexology & massage",
+      "SaaS EdTech",
     ],
   },
 } as const;
