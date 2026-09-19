@@ -8,7 +8,7 @@ import './globals.css'
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
-const BASE_URL = 'https://massimodassano.it'
+const BASE_URL = 'https://www.massimodassano.it'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

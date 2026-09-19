@@ -143,6 +143,10 @@ const homeT = {
       nome_ph: "Mario",
       cognome_ph: "Rossi",
       email_ph: "mario@esempio.it",
+      privacy_pre: "Ho letto l'",
+      privacy_link: "informativa privacy",
+      privacy_post: " e acconsento al trattamento dei miei dati personali per ricevere risposta alla mia richiesta.",
+      err_privacy: "Devi accettare l'informativa privacy per inviare la richiesta.",
     },
     footer: { cv_link: "Il mio background" },
   },
@@ -270,6 +274,10 @@ const homeT = {
       nome_ph: "John",
       cognome_ph: "Smith",
       email_ph: "john@example.com",
+      privacy_pre: "I have read the ",
+      privacy_link: "privacy policy",
+      privacy_post: " and I consent to the processing of my personal data in order to receive a reply to my request.",
+      err_privacy: "You must accept the privacy policy to send your request.",
     },
     footer: { cv_link: "My background" },
   },
@@ -1259,6 +1267,8 @@ function ContactSection() {
   const router = useRouter()
   const ht = useHomeLang()
   const [form, setForm] = useState({ nome: "", cognome: "", email: "", tipo: "", messaggio: "" })
+  const [privacy, setPrivacy] = useState(false)
+  const [hp, setHp] = useState("")
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
@@ -1268,6 +1278,7 @@ function ContactSection() {
     if (!form.cognome.trim()) e.cognome = ht.contact.err_required
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = ht.contact.err_email
     if (!form.messaggio.trim()) e.messaggio = ht.contact.err_required
+    if (!privacy) e.privacy = ht.contact.err_privacy
     return e
   }
 
@@ -1281,7 +1292,7 @@ function ContactSection() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, privacy, _hp: hp }),
       })
       if (!res.ok) throw new Error()
       router.push("/grazie")
@@ -1332,6 +1343,17 @@ function ContactSection() {
             <div className="absolute bottom-0 right-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderRight: "2px solid rgba(0,245,255,0.55)" }} />
 
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              {/* Honeypot — invisibile agli umani, compilato dai bot */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={hp}
+                onChange={ev => setHp(ev.target.value)}
+                style={{ position: "absolute", opacity: 0, pointerEvents: "none", height: 0, width: 0 }}
+              />
               <div className="grid sm:grid-cols-2 gap-5">
                 {field("nome", ht.contact.nome, ht.contact.nome_ph)}
                 {field("cognome", ht.contact.cognome, ht.contact.cognome_ph)}
@@ -1383,6 +1405,37 @@ function ContactSection() {
                   onBlur={ev => { ev.target.style.borderColor = errors.messaggio ? "rgba(248,113,113,0.5)" : "rgba(0,245,255,0.12)"; ev.target.style.boxShadow = "none" }}
                 />
                 {errors.messaggio && <p className="text-xs mt-1" style={{ color: "rgba(248,113,113,0.85)" }}>{errors.messaggio}</p>}
+              </div>
+
+              {/* Consenso GDPR — obbligatorio, accanto al punto di raccolta dati */}
+              <div>
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={privacy}
+                    onChange={ev => setPrivacy(ev.target.checked)}
+                    required
+                    aria-describedby="privacy-consent-text"
+                    className="mt-0.5 shrink-0 w-4 h-4 cursor-pointer"
+                    style={{ accentColor: "#00f5ff" }}
+                  />
+                  <span id="privacy-consent-text" className="text-xs leading-relaxed" style={{ color: "rgba(175,200,235,0.7)" }}>
+                    {ht.contact.privacy_pre}
+                    <Link
+                      href="/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={ev => ev.stopPropagation()}
+                      className="underline underline-offset-2"
+                      style={{ color: "#00f5ff" }}
+                    >
+                      {ht.contact.privacy_link}
+                    </Link>
+                    {ht.contact.privacy_post}
+                    <span style={{ color: "#00f5ff" }}> *</span>
+                  </span>
+                </label>
+                {errors.privacy && <p className="text-xs mt-1.5" style={{ color: "rgba(248,113,113,0.85)" }}>{errors.privacy}</p>}
               </div>
 
               <button type="submit" disabled={loading}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLabLang } from "@/contexts/lab-lang-context";
 
@@ -37,6 +38,10 @@ const translations = {
     err_required: "Campo obbligatorio",
     err_email: "Email non valida",
     err_send: "Errore nell'invio. Riprova o scrivimi su LinkedIn.",
+    privacy_pre: "Ho letto l'",
+    privacy_link: "informativa privacy",
+    privacy_post: " e acconsento al trattamento dei miei dati personali per ricevere risposta alla mia richiesta.",
+    err_privacy: "Devi accettare l'informativa privacy per inviare la richiesta.",
   },
   en: {
     eyebrow: "Start today",
@@ -70,6 +75,10 @@ const translations = {
     err_required: "Required field",
     err_email: "Invalid email",
     err_send: "Send error. Try again or message me on LinkedIn.",
+    privacy_pre: "I have read the ",
+    privacy_link: "privacy policy",
+    privacy_post: " and I consent to the processing of my personal data in order to receive a reply to my request.",
+    err_privacy: "You must accept the privacy policy to send your request.",
   },
 } as const;
 
@@ -79,6 +88,7 @@ export default function CTA() {
 
   const [tipo, setTipo] = useState("");
   const [form, setForm] = useState({ nome: "", cognome: "", email: "", messaggio: "", _hp: "" });
+  const [privacy, setPrivacy] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -90,6 +100,7 @@ export default function CTA() {
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = ht.err_email;
     if (!form.messaggio.trim()) e.messaggio = ht.err_required;
+    if (!privacy) e.privacy = ht.err_privacy;
     return e;
   };
 
@@ -103,7 +114,7 @@ export default function CTA() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, tipo }),
+        body: JSON.stringify({ ...form, tipo, privacy }),
       });
       if (!res.ok) throw new Error();
       setSent(true);
@@ -279,6 +290,35 @@ export default function CTA() {
                     className={`${inputCls(errors.messaggio)} resize-none`}
                   />
                   {errors.messaggio && <p className="text-xs mt-1 text-red-400/80">{errors.messaggio}</p>}
+                </div>
+
+                {/* Consenso GDPR — obbligatorio, accanto al punto di raccolta dati */}
+                <div>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={privacy}
+                      onChange={e => setPrivacy(e.target.checked)}
+                      required
+                      aria-describedby="lab-privacy-consent-text"
+                      className="mt-0.5 shrink-0 w-4 h-4 cursor-pointer accent-[#E8622A]"
+                    />
+                    <span id="lab-privacy-consent-text" className="text-xs leading-relaxed text-white/70 font-inter">
+                      {ht.privacy_pre}
+                      <Link
+                        href="/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={e => e.stopPropagation()}
+                        className="underline underline-offset-2 text-[#E8622A] hover:text-[#F5A45C] transition-colors"
+                      >
+                        {ht.privacy_link}
+                      </Link>
+                      {ht.privacy_post}
+                      <span className="text-[#E8622A]"> *</span>
+                    </span>
+                  </label>
+                  {errors.privacy && <p className="text-xs mt-1.5 text-red-400/80">{errors.privacy}</p>}
                 </div>
 
                 <button

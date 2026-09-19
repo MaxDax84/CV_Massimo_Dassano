@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { ServicePageLayout, ServiceContent } from "@/components/service-page"
 
-const BASE_URL = "https://massimodassano.it"
+const BASE_URL = "https://www.massimodassano.it"
 const URL = `${BASE_URL}/servizi/creazione-siti-web`
 
 export const metadata: Metadata = {

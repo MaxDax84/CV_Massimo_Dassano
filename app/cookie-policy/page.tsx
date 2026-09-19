@@ -2,7 +2,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata = {
-  title: "Cookie Policy | Massimo Dassano",
+  title: "Cookie Policy",
   description: "Informativa sull'utilizzo dei cookie ai sensi del GDPR e del D.Lgs. 196/2003.",
   robots: { index: false },
 }

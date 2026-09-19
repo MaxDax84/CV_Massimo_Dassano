@@ -17,9 +17,24 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Massimo Dassano — /lab",
+  // Senza brand: il template del root layout aggiunge già "| Massimo Dassano".
+  title: "/lab — Vetrina tecnica",
   description:
     "Portfolio scrollytelling. Restyling siti per attività locali con approccio da ex consulente corporate.",
+  // Canonical proprio: senza questo la pagina eredita quello del root layout,
+  // che punta alla home.
+  alternates: {
+    canonical: "/lab",
+  },
+  openGraph: {
+    type: "website",
+    url: "/lab",
+    siteName: "Massimo Dassano",
+    title: "/lab — Vetrina tecnica | Massimo Dassano",
+    description:
+      "Portfolio scrollytelling. Restyling siti per attività locali con approccio da ex consulente corporate.",
+    locale: "it_IT",
+  },
 };
 
 export default function LabLayout({ children }: { children: React.ReactNode }) {

@@ -2,7 +2,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata = {
-  title: "Privacy Policy | Massimo Dassano",
+  title: "Privacy Policy",
   description: "Informativa sul trattamento dei dati personali ai sensi del GDPR (Reg. UE 2016/679).",
   robots: { index: false },
 }
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
           <ul className="list-none space-y-2 mt-2">
             {[
               "Dati di navigazione: indirizzi IP, tipo di browser, sistema operativo, pagine visitate, durata della visita. Questi dati sono raccolti automaticamente dai sistemi informatici e log dei server.",
-              "Dati di contatto via form: il sito dispone di moduli di contatto (nella homepage e nella sezione Laboratorio) tramite i quali è possibile inviare nome, indirizzo email e un messaggio. Questi dati vengono trasmessi via email al titolare tramite il servizio Resend e utilizzati esclusivamente per rispondere alla richiesta.",
+              "Dati di contatto via form: il sito dispone di moduli di contatto (nella homepage e nella sezione Laboratorio) tramite i quali è possibile inviare nome, cognome, indirizzo email, tipo di progetto e un messaggio. Questi dati vengono trasmessi via email al titolare tramite il servizio Resend e registrati su un foglio di lavoro Google Sheets ad accesso riservato, utilizzato dal Titolare per gestire le richieste ricevute. Sono usati esclusivamente per rispondere alla richiesta.",
               "Dati di contatto tramite email o LinkedIn: se decidi di contattarmi direttamente, trattiamo i dati da te forniti esclusivamente per rispondere alla tua richiesta.",
               "Dati analitici aggregati: tramite Vercel Analytics vengono raccolte statistiche anonime e aggregate sulle visite al sito, senza identificazione personale dell'utente.",
             ].map((item, i) => (
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
           <ul className="list-none space-y-2 mt-2">
             {[
               "Dati di navigazione e log: conservati per un massimo di 30 giorni, salvo necessità di accertamento di reati.",
-              "Dati di contatto: conservati per il tempo necessario a gestire la richiesta e, successivamente, fino a 2 anni per eventuali esigenze contrattuali.",
+              "Dati di contatto: conservati per il tempo necessario a gestire la richiesta e, successivamente, fino a 2 anni per eventuali esigenze contrattuali, sia nella casella email del Titolare sia nel foglio Google Sheets di gestione delle richieste.",
               "Dati analitici aggregati: conservati secondo le politiche di Vercel Analytics (dati anonimi, nessun limite temporale specifico).",
             ].map((item, i) => (
               <li key={i} className="flex gap-3">
@@ -148,6 +148,7 @@ export default function PrivacyPage() {
             {[
               "Vercel Inc. (hosting e analytics): i servizi di hosting sono forniti da Vercel Inc., con sede negli Stati Uniti. Il trasferimento avviene nel rispetto delle garanzie previste dal GDPR (Standard Contractual Clauses). Vercel Analytics opera in modalità privacy-first, senza raccogliere dati personali identificativi.",
               "Resend Inc. (invio email): i dati inseriti nei moduli di contatto (nome ed email) vengono trasmessi tramite Resend, un servizio di email transazionale con sede negli Stati Uniti, nel rispetto delle garanzie GDPR applicabili.",
+              "Google LLC / Google Ireland Ltd. (Google Sheets): i dati inviati tramite i moduli di contatto (nome, cognome, email, tipo di progetto e messaggio) vengono registrati su un foglio di lavoro Google Sheets ad accesso riservato al solo Titolare, che lo utilizza per tracciare e gestire le richieste. Google agisce in qualità di responsabile del trattamento ai sensi dell'art. 28 GDPR; eventuali trasferimenti extra UE avvengono nel rispetto delle garanzie previste dal GDPR (Standard Contractual Clauses e Data Privacy Framework).",
               "Autorità competenti: in caso di richiesta delle autorità giudiziarie o di pubblica sicurezza, i dati potranno essere comunicati nei limiti di legge.",
             ].map((item, i) => (
               <li key={i} className="flex gap-3">
