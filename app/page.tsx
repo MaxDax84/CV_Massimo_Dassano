@@ -642,8 +642,12 @@ function HomeNav() {
 function HeroSection() {
   const ht = useHomeLang()
 
+  // pt-24: la nav e' fixed e alta ~61px, quindi il contenuto va spinto sotto di essa.
+  // [align-items:safe_center]: con il semplice items-center, se il contenuto supera
+  // l'altezza disponibile l'eccedenza esce ANCHE dall'alto e torna sotto la nav sulle
+  // finestre basse; "safe" in quel caso ripiega sull'allineamento in alto.
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden scanlines">
+    <section className="relative min-h-screen flex [align-items:safe_center] justify-center overflow-hidden scanlines pt-24 pb-12">
       <div className="absolute inset-0 cyber-grid" style={{ opacity: 0.45 }} />
       <div className="absolute inset-0" style={{
         background: "radial-gradient(ellipse 75% 55% at 50% 42%, rgba(0,245,255,0.055) 0%, transparent 72%)"

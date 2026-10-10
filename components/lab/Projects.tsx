@@ -9,6 +9,15 @@ const t = {
     title: "Progetti selezionati",
     projects: [
       {
+        title: "Cartolina Lenta",
+        category: "Cartoline digitali",
+        tag: "Da zero",
+        description:
+          "Web app che reinterpreta la cartolina: la scrivi solo quando sei davvero in una delle 317 città supportate, e chi la riceve aspetta i giorni di un viaggio postale reale prima di poterla leggere.",
+        link: "https://www.cartolinalenta.it",
+        logo: null,
+      },
+      {
         title: "Marcella Marcone",
         category: "Psicoterapeuta",
         tag: "Restyling",
@@ -27,8 +36,8 @@ const t = {
         logo: "/lab/logos/gelateriaicone.png",
       },
       {
-        title: "Invito Compleanno",
-        category: "Invito digitale",
+        title: "Invito digitale",
+        category: "Festa di compleanno",
         tag: "Demo",
         description:
           "Invito digitale per il primo compleanno di un bambino. Tema dinosauri, banda interattiva e conferma presenza. Esempio di prodotto personalizzabile.",
@@ -87,6 +96,15 @@ const t = {
     title: "Selected projects",
     projects: [
       {
+        title: "Cartolina Lenta",
+        category: "Digital postcards",
+        tag: "From scratch",
+        description:
+          "A web app that reinvents the postcard: you can only write one while you are actually in one of the 317 supported cities, and the recipient waits the days of a real postal journey before reading it.",
+        link: "https://www.cartolinalenta.it",
+        logo: null,
+      },
+      {
         title: "Marcella Marcone",
         category: "Psychotherapist",
         tag: "Restyling",
@@ -105,8 +123,8 @@ const t = {
         logo: "/lab/logos/gelateriaicone.png",
       },
       {
-        title: "Birthday Invitation",
-        category: "Digital invitation",
+        title: "Digital invitation",
+        category: "Birthday party",
         tag: "Demo",
         description:
           "Digital birthday invitation for a child's first birthday. Dinosaur theme, interactive band and RSVP. Example of a fully customisable product.",
