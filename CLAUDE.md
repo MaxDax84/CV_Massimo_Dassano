@@ -18,8 +18,12 @@ la validazione dei tipi che `pnpm build` esegue.
 
 ## Architettura
 
-Sito commerciale di Massimo Dassano (MD Studio), Next.js 16 App Router, React 19, Tailwind CSS v4,
-shadcn/ui. Dominio canonico **`https://www.massimodassano.it`** (con `www`): è in `BASE_URL`
+Sito commerciale di Massimo Dassano (MD Studio), Next.js 16 App Router, React 19, Tailwind CSS v4.
+**Niente libreria di componenti**: tutto il sito è scritto a mano. C'era una installazione completa di
+shadcn/ui (55 componenti in `components/ui/`) che nessuna pagina importava, rimossa a ottobre 2026 insieme
+alle 42 dipendenze che si trascinava dietro. Se un giorno serve un componente, si reinstalla singolarmente
+con `npx shadcn add <nome>` invece di reintrodurre l'intera libreria.
+Dominio canonico **`https://www.massimodassano.it`** (con `www`): è in `BASE_URL`
 (`app/layout.tsx`) e alimenta canonical, Open Graph, JSON-LD e sitemap. L'apex reindirizza al www.
 
 **Eccezione da ricordare:** `public/robots.txt` è un file statico con il dominio **scritto a mano**, non

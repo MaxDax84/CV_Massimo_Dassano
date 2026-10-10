@@ -8,14 +8,14 @@ import { Footer } from "@/components/footer"
 import { Navigation } from "@/components/navigation"
 
 export const metadata = {
-  title: "Il mio background",
-  description: "Senior Manager con 15+ anni di esperienza internazionale in B2B sales planning, strategic partnerships e global business development. Milano, Italia.",
+  title: "Chi sono: esperienza corporate e siti web su misura",
+  description: "Quindici anni in aziende strutturate, da Ernst & Young ad Alibaba.com, a capire perché certi business crescono e altri si fermano. Oggi costruisco anche siti web per professionisti e piccole imprese a Milano.",
   alternates: {
     canonical: "https://www.massimodassano.it/cv",
   },
   openGraph: {
-    title: "Il mio background | Massimo Dassano",
-    description: "Senior Manager con 15+ anni di esperienza internazionale in B2B sales, strategic partnerships e business development globale.",
+    title: "Chi sono: esperienza corporate e siti web su misura | Massimo Dassano",
+    description: "Quindici anni in aziende strutturate, da Ernst & Young ad Alibaba.com. Oggi costruisco anche siti web per professionisti e piccole imprese a Milano.",
     url: "https://www.massimodassano.it/cv",
     locale: "it_IT",
   },
