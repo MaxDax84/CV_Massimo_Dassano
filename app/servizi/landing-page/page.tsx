@@ -44,7 +44,7 @@ const content: { it: ServiceContent; en: ServiceContent } = {
     tag: "LANDING PAGE",
     title: "Landing Page Personalizzate",
     subtitle: "Una pagina, un obiettivo: far agire chi la visita",
-    intro: "A volte non serve un sito intero — serve una pagina che convinca a fare una cosa precisa: prenotare, iscriversi, comprare, chiedere un preventivo. Una landing page è pensata per quello: un solo messaggio, una sola call to action, zero distrazioni. Perfetta per lanciare un prodotto, promuovere un evento o far partire una campagna pubblicitaria con una pagina di atterraggio all'altezza.",
+    intro: "A volte non serve un sito intero, serve una pagina che convinca a fare una cosa precisa: prenotare, iscriversi, comprare, chiedere un preventivo. Una landing page è pensata per quello: un solo messaggio, una sola call to action, zero distrazioni. Perfetta per lanciare un prodotto, promuovere un evento o far partire una campagna pubblicitaria con una pagina di atterraggio all'altezza.",
     features: [
       "Un solo obiettivo di conversione, senza distrazioni",
       "Design su misura in linea con la campagna",
@@ -73,7 +73,7 @@ const content: { it: ServiceContent; en: ServiceContent } = {
     tag: "LANDING PAGE",
     title: "Custom Landing Pages",
     subtitle: "One page, one goal: getting visitors to act",
-    intro: "Sometimes you don't need a whole website — you need one page that convinces people to do one specific thing: book, sign up, buy, request a quote. A landing page is built for exactly that: one message, one call to action, zero distractions. Perfect for launching a product, promoting an event, or kicking off an ad campaign with a landing page that matches it.",
+    intro: "Sometimes you don't need a whole website, you need one page that convinces people to do one specific thing: book, sign up, buy, request a quote. A landing page is built for exactly that: one message, one call to action, zero distractions. Perfect for launching a product, promoting an event, or kicking off an ad campaign with a landing page that matches it.",
     features: [
       "One conversion goal, no distractions",
       "Custom design matched to the campaign",

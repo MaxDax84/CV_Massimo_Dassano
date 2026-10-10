@@ -18,9 +18,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   // Senza brand: il template del root layout aggiunge già "| Massimo Dassano".
-  title: "/lab — Vetrina tecnica",
+  title: "Portfolio siti web: psicoterapia, gelateria, benessere, SaaS",
   description:
-    "Portfolio scrollytelling. Restyling siti per attività locali con approccio da ex consulente corporate.",
+    "Sette progetti reali: restyling per studi di psicoterapia e riflessologia a Milano, siti da zero per gelateria artigianale, personal branding, band musicale e SaaS.",
   // Canonical proprio: senza questo la pagina eredita quello del root layout,
   // che punta alla home.
   alternates: {
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "/lab",
     siteName: "Massimo Dassano",
-    title: "/lab — Vetrina tecnica | Massimo Dassano",
+    title: "Portfolio siti web: psicoterapia, gelateria, benessere, SaaS | Massimo Dassano",
     description:
-      "Portfolio scrollytelling. Restyling siti per attività locali con approccio da ex consulente corporate.",
+      "Sette progetti reali: restyling per studi di psicoterapia e riflessologia a Milano, siti da zero per gelateria artigianale, personal branding, band musicale e SaaS.",
     locale: "it_IT",
   },
 };

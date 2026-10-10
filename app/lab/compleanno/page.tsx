@@ -452,7 +452,7 @@ export default function CompleannnoPage() {
             <div className="info-label">Quando</div>
             <div className="info-value">{DATA_LABEL}</div>
             <div className="info-value" style={{fontSize:"1.15rem",color:"var(--peach)",marginTop:"2px"}}>🕒 ore {ORA}</div>
-            <div className="info-sub">{DATA_FULL.split(" ")[0]} — segnalo sul calendario!</div>
+            <div className="info-sub">{DATA_FULL.split(" ")[0]}, segnalo sul calendario!</div>
           </div>
           <div className="info-card info-card--where">
             <span className="info-icon">📍</span>
@@ -480,7 +480,7 @@ export default function CompleannnoPage() {
         {/* ── Dino trio ── */}
         <section className="card card--dino">
           <h2 className="card-title">🦕 Incontra la banda!</h2>
-          <p className="card-sub">Tre dinosauri ti aspettano — dagli un tocco e scopri cosa combinano!</p>
+          <p className="card-sub">Tre dinosauri ti aspettano: dagli un tocco e scopri cosa combinano!</p>
           <div className="dino-trio">
 
             {/* RUFY — brontosauro */}
@@ -489,7 +489,8 @@ export default function CompleannnoPage() {
                 role="button" aria-label="Saluta Rufy">
                 <div className="dino-bubble" id="bubbleLungo" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="dino-char dino-char--lungo" src={IMG_RUFY} alt="Rufy" draggable={false} />
+                <img className="dino-char dino-char--lungo" src={IMG_RUFY} alt="Rufy" draggable={false}
+                  width={500} height={500} loading="lazy" decoding="async" />
               </div>
               <div className="dino-name">Rufy</div>
             </div>
@@ -500,7 +501,8 @@ export default function CompleannnoPage() {
                 role="button" aria-label="Saluta Pippi">
                 <div className="dino-bubble" id="bubbleRex" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="dino-char dino-char--rex" src={IMG_PIPPI} alt="Pippi" draggable={false} />
+                <img className="dino-char dino-char--rex" src={IMG_PIPPI} alt="Pippi" draggable={false}
+                  width={411} height={361} loading="lazy" decoding="async" />
               </div>
               <div className="dino-name">Pippi</div>
             </div>
@@ -511,7 +513,8 @@ export default function CompleannnoPage() {
                 role="button" aria-label="Saluta Gus">
                 <div className="dino-bubble" id="bubbleRaptor" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="dino-char dino-char--raptor" src={IMG_GUS} alt="Gus" draggable={false} />
+                <img className="dino-char dino-char--raptor" src={IMG_GUS} alt="Gus" draggable={false}
+                  width={500} height={500} loading="lazy" decoding="async" />
               </div>
               <div className="dino-name">Gus</div>
             </div>

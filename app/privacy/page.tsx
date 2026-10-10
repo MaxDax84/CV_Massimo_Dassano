@@ -4,7 +4,20 @@ import { ArrowLeft } from "lucide-react"
 export const metadata = {
   title: "Privacy Policy",
   description: "Informativa sul trattamento dei dati personali ai sensi del GDPR (Reg. UE 2016/679).",
-  robots: { index: false },
+  // Canonical proprio: senza questo la pagina eredita quello del root layout, che
+  // punta alla home. Ora che il noindex è stato tolto, un canonical sbagliato la
+  // farebbe scartare dall'indice comunque.
+  alternates: {
+    canonical: "https://www.massimodassano.it/privacy",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.massimodassano.it/privacy",
+    siteName: "Massimo Dassano",
+    title: "Privacy Policy | Massimo Dassano",
+    description: "Informativa sul trattamento dei dati personali ai sensi del GDPR (Reg. UE 2016/679).",
+    locale: "it_IT",
+  },
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -68,7 +81,10 @@ export default function PrivacyPage() {
         <Section title="1. Titolare del Trattamento">
           <Item label="Nome">Massimo Dassano</Item>
           <Item label="Sede">Milano (MI), Italia</Item>
-          <Item label="Email">massimo.dassano@gmail.com</Item>
+          {/* La chiocciola è isolata in uno span: il testo resta identico, selezionabile e
+              copiabile, ma nel sorgente l'indirizzo non compare come stringa continua e i
+              raccoglitori che cercano "qualcosa@qualcosa" non lo agganciano. */}
+          <Item label="Email">massimo.dassano<span>@</span>gmail.com</Item>
           <Item label="Sito web">massimodassano.it</Item>
           <p className="mt-2">
             Il Titolare è la persona fisica o giuridica che determina le finalità e i mezzi del trattamento dei dati personali.
@@ -181,7 +197,7 @@ export default function PrivacyPage() {
             ))}
           </ul>
           <p className="mt-3">
-            Per esercitare i tuoi diritti, contatta il Titolare all&apos;indirizzo: <span style={{ color: "#00f5ff" }}>massimo.dassano@gmail.com</span>
+            Per esercitare i tuoi diritti, contatta il Titolare all&apos;indirizzo: <span style={{ color: "#00f5ff" }}>massimo.dassano<span>@</span>gmail.com</span>
           </p>
         </Section>
 

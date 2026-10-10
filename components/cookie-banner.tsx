@@ -29,7 +29,7 @@ export function CookieBanner() {
     >
       <div className="max-w-3xl mx-auto bg-card border border-border rounded-xl px-5 py-4 shadow-2xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <p className="flex-1 text-sm text-muted-foreground leading-relaxed">
-          <span className="text-foreground font-semibold">Cookie & Privacy — </span>
+          <span className="text-foreground font-semibold">Cookie &amp; Privacy: </span>
           Questo sito usa cookie tecnici necessari e{' '}
           <a
             href="https://vercel.com/legal/privacy-policy"

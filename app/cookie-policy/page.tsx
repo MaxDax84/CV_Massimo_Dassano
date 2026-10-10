@@ -4,7 +4,20 @@ import { ArrowLeft } from "lucide-react"
 export const metadata = {
   title: "Cookie Policy",
   description: "Informativa sull'utilizzo dei cookie ai sensi del GDPR e del D.Lgs. 196/2003.",
-  robots: { index: false },
+  // Canonical proprio: senza questo la pagina eredita quello del root layout, che
+  // punta alla home. Ora che il noindex è stato tolto, un canonical sbagliato la
+  // farebbe scartare dall'indice comunque.
+  alternates: {
+    canonical: "https://www.massimodassano.it/cookie-policy",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.massimodassano.it/cookie-policy",
+    siteName: "Massimo Dassano",
+    title: "Cookie Policy | Massimo Dassano",
+    description: "Informativa sull'utilizzo dei cookie ai sensi del GDPR e del D.Lgs. 196/2003.",
+    locale: "it_IT",
+  },
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -39,7 +52,7 @@ function CookieTable({ rows }: { rows: { nome: string; tipo: string; scopo: stri
               <td className="py-2.5 pr-4">{r.tipo}</td>
               <td className="py-2.5 pr-4">{r.scopo}</td>
               <td className="py-2.5 pr-4 whitespace-nowrap">{r.durata}</td>
-              <td className="py-2.5">{r.terze ?? "—"}</td>
+              <td className="py-2.5">{r.terze ?? "Nessuna"}</td>
             </tr>
           ))}
         </tbody>
@@ -113,7 +126,7 @@ export default function CookiePolicyPage() {
               </p>
               <CookieTable rows={[
                 { nome: "__vercel_live_token", tipo: "Tecnico", scopo: "Gestione sessione e sicurezza del server di hosting", durata: "Sessione", terze: "Vercel Inc." },
-                { nome: "Preferenze browser", tipo: "Tecnico", scopo: "Memorizzazione preferenze di visualizzazione", durata: "Sessione", terze: "—" },
+                { nome: "Preferenze browser", tipo: "Tecnico", scopo: "Memorizzazione preferenze di visualizzazione", durata: "Sessione", terze: "Nessuna" },
               ]} />
             </div>
 
@@ -214,7 +227,8 @@ export default function CookiePolicyPage() {
           </p>
           <div className="mt-2">
             <div><span className="text-white">Massimo Dassano</span></div>
-            <div>Email: <span style={{ color: "#a855f7" }}>massimo.dassano@gmail.com</span></div>
+            {/* Chiocciola isolata in uno span: vedi nota in app/privacy/page.tsx */}
+            <div>Email: <span style={{ color: "#a855f7" }}>massimo.dassano<span>@</span>gmail.com</span></div>
             <div className="mt-2">
               Per la Privacy Policy completa consulta:{" "}
               <Link href="/privacy" style={{ color: "#a855f7" }} className="underline underline-offset-4 hover:opacity-80 transition-opacity">

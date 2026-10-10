@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
 
+# Crawler di modelli linguistici e motori di risposta.
+# L'accesso era già consentito dalla regola generica: qui è reso esplicito,
+# così una modifica futura al blocco "*" non lo cambia per sbaglio.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://www.massimodassano.it/sitemap.xml

@@ -1,0 +1,43 @@
+# Massimo Dassano (MD Studio)
+
+> Massimo Dassano costruisce siti web su misura, scritti a mano in codice e senza temi preimpostati, per professionisti e piccole imprese che vogliono essere trovati online dai clienti giusti.
+
+- Sito: https://www.massimodassano.it
+- Base: Milano, Italia. Lavora con clienti in Lombardia e in tutta Italia, da remoto, con incontri di persona a Milano quando servono.
+- Come lavora: un solo interlocutore dall'inizio alla fine, nessuna agenzia e nessun passaggio di mano. Si parte da una chiacchierata sul progetto, poi struttura, design, sviluppo e pubblicazione. Risposta alle richieste entro 24-48 ore.
+- Lingue: italiano e inglese.
+- Contatto: modulo di contatto su https://www.massimodassano.it/#contatto
+
+## Servizi
+
+- [Creazione siti web da zero](https://www.massimodassano.it/servizi/creazione-siti-web): sito costruito da un foglio bianco, design personalizzato, mobile-first, SEO tecnico dal primo giorno.
+- [Restyling sito web](https://www.massimodassano.it/servizi/restyling-sito-web): rifacimento di un sito esistente che non porta più clienti, con mockup gratuito prima di iniziare.
+- [Landing page personalizzate](https://www.massimodassano.it/servizi/landing-page): una pagina singola con un solo obiettivo, per campagne, lanci di prodotto ed eventi.
+- [Manutenzione sito web](https://www.massimodassano.it/servizi/manutenzione-sito-web): aggiornamento continuativo di contenuti e sicurezza, piccole modifiche, supporto diretto.
+- [Audit digitale](https://www.massimodassano.it/servizi/audit-digitale): analisi di SEO tecnico, performance, UX e conformità GDPR, con report PDF e piano d'azione.
+- Indice dei servizi: https://www.massimodassano.it/servizi
+
+## Prezzi e tempi
+
+Sono le sole indicazioni pubblicate sul sito. Ogni progetto viene quotato su misura e il preventivo è gratuito e senza impegno.
+
+- Prezzi indicativi: da poche centinaia di euro per una diagnosi (audit digitale) a qualche migliaio di euro per un sito completo con integrazioni esterne. A pesare non è il numero di pagine, ma le funzionalità e le integrazioni con strumenti esterni.
+- Tempi: circa 1 settimana per una presenza online essenziale (fino a 10 pagine), 3-4 settimane per un sito completo con funzionalità avanzate, pochi giorni per una landing page. Per un restyling dipende da quanto contenuto va migrato.
+
+## Progetti realizzati
+
+Vetrina completa: https://www.massimodassano.it/lab
+
+- Marcella Marcone, studio di psicoterapia (restyling): https://www.marcellamarcone.it
+- Olistic Studio, riflessologia e massoterapia a Milano (restyling): https://www.olisticstudio.com
+- Gelateria Icone, gelateria artigianale (sito da zero): https://gelateriaiconebydaniela.it
+- Alessandro Marcello, personal branding executive (sito da zero): https://www.alessandromarcello.it
+- Dassano.it, band musicale (sito da zero): https://www.dassano.it
+- Simplif-AI, piattaforma SaaS multilingua per spiegare concetti complessi (sito da zero): https://www.simplif-ai.it
+- Invito digitale di compleanno, prodotto personalizzabile (demo): https://www.massimodassano.it/lab/compleanno
+
+## Altre pagine
+
+- Percorso professionale di Massimo Dassano: https://www.massimodassano.it/cv
+- Privacy policy: https://www.massimodassano.it/privacy
+- Cookie policy: https://www.massimodassano.it/cookie-policy

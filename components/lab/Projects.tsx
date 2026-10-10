@@ -269,6 +269,10 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
           <img
             src={project.logo}
             alt={`Logo ${project.title}`}
+            width={36}
+            height={36}
+            loading="lazy"
+            decoding="async"
             className="w-9 h-9 rounded-lg object-cover border border-white/10 bg-white/5 shrink-0"
           />
         )}

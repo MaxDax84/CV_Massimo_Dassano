@@ -4,13 +4,12 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
-  Linkedin, MapPin, ExternalLink, Menu, X,
-  Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield, Target,
+  MapPin, Menu, X,
+  Monitor, Wand2, Star, Zap, Code, Smartphone, Search, Shield, Target, Wrench,
   ArrowRight, Mail, ChevronDown,
 } from "lucide-react"
-import { motion, AnimatePresence, useMotionValue, useAnimationFrame } from "framer-motion"
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion"
 import { ParticleCanvas } from "@/components/particle-canvas"
-import { ContactReveal } from "@/components/contact-reveal"
 import { useLanguage } from "@/contexts/language-context"
 
 /* ─────────────────────────────────────────────────────
@@ -27,42 +26,51 @@ const homeT = {
       contact: "Contatti",
     },
     hero: {
-      tagline: "Aiuto piccole imprese e professionisti a crescere online, con siti pensati per portare clienti — non solo per essere belli da vedere. Che tu parta da zero o voglia rinnovare quello che hai, costruiamo una presenza digitale che lavora per te.",
+      kicker: "Massimo Dassano",
+      h1: "Siti web su misura per professionisti e piccole imprese",
+      tagline: "Che tu parta da zero o voglia rinnovare quello che hai, costruiamo una presenza digitale che lavora per te: pensata per portare clienti, non solo per essere bella da vedere.",
       cta_services: "Scopri i servizi",
       cta_contact: "Contattami",
     },
     services: {
       title: "Cosa posso fare per te",
-      subtitle: "Quattro percorsi, un obiettivo: una presenza digitale che fa crescere la tua attività",
+      subtitle: "Cinque percorsi, un obiettivo: una presenza digitale che fa crescere la tua attività",
       cta_preventivo: "Richiedi un preventivo",
       list: [
         {
           tag: "DIAGNOSI",
-          title: "Analisi del Sito",
-          sub: "Per chi vuole capire cosa non va — prima di agire",
-          body: "Analizzo il tuo sito esistente e ti consegno un report completo: SEO tecnico, UX e conversione, contenuti, privacy GDPR e una stima dell'opportunità di business. Il report include un punteggio per ogni area, le criticità più urgenti da risolvere e un piano d'azione concreto, utile anche se poi decidi di non proseguire con me. Il costo è scalabile da qualsiasi progetto successivo.",
+          title: "Audit Digitale",
+          sub: "Per chi vuole capire cosa non va, prima di agire",
+          body: "Analizzo il tuo sito e ti consegno un report in PDF: un punteggio per ogni area, le criticità più urgenti e un piano d'azione concreto. Il costo è scalabile da qualsiasi progetto successivo.",
           features: ["SEO tecnico e visibilità Google", "UX & tasso di conversione", "Privacy & GDPR compliance", "Stima opportunità di business"],
         },
         {
           tag: "LANDING PAGE",
-          title: "Landing Page Personalizzata",
-          sub: "Per chi vuole una pagina singola, veloce ed efficace",
-          body: "Non sempre serve un sito intero. A volte basta una pagina pensata per un solo obiettivo: prenotare, iscriversi, comprare. Perfetta per lanciare un prodotto, promuovere un evento o sostenere una campagna pubblicitaria, con consegna in pochi giorni.",
+          title: "Landing Page Personalizzate",
+          sub: "Una pagina, un obiettivo: far agire chi la visita",
+          body: "Non sempre serve un sito intero. A volte basta una pagina costruita su un solo obiettivo: prenotare, iscriversi, comprare. Pronta in pochi giorni.",
           features: ["Un solo obiettivo di conversione", "Design su misura per la campagna", "Ottimizzata per Google/Meta Ads", "Consegna in pochi giorni"],
         },
         {
           tag: "RESTYLING",
-          title: "Restyling Sito Esistente",
+          title: "Restyling Sito Web",
           sub: "Per chi ha un sito che non porta più clienti come dovrebbe",
-          body: "Il tuo sito ha qualche anno? Il design sembra datato? Analizziamo quello che hai, manteniamo ciò che funziona e trasformiamo il resto in qualcosa di moderno ed efficace. Prima di toccare una riga di codice, ti mostro un mockup del nuovo design costruito sui tuoi contenuti reali, così vedi il risultato prima di impegnarti.",
-          features: ["Analisi del sito attuale", "Nuovo design moderno", "Migrazione completa dei contenuti", "Ottimizzazione performance"],
+          body: "Analizzo quello che hai, mantengo ciò che funziona e trasformo il resto. Prima di toccare una riga di codice ti mostro un mockup del nuovo design sui tuoi contenuti reali.",
+          features: ["Analisi del sito attuale", "Mockup prima di iniziare", "Migrazione completa dei contenuti", "Ottimizzazione di velocità e SEO"],
         },
         {
           tag: "EX NOVO",
-          title: "Sito Web da Zero",
+          title: "Creazione Siti Web da Zero",
           sub: "Per chi vuole iniziare a farsi trovare online dai clienti giusti",
-          body: "Partiamo da un foglio bianco e costruiamo insieme la tua identità digitale. Design personalizzato, struttura pensata per i tuoi obiettivi, ottimizzato per convertire visitatori in clienti. Nessun tema preimpostato: colori, font e struttura vengono scelti in base al tuo settore e a chi vuoi raggiungere, non pescati da un catalogo.",
-          features: ["Design custom su misura", "Mobile-first & responsive", "SEO ottimizzato", "Veloce, sicuro e ottimizzato per tutti i dispositivi"],
+          body: "Partiamo da un foglio bianco: design personalizzato e struttura pensata per i tuoi obiettivi. Nessun tema preimpostato, colori e font scelti sul tuo settore.",
+          features: ["Design custom su misura", "Mobile-first & responsive", "SEO ottimizzato", "Veloce, sicuro e pronto per crescere"],
+        },
+        {
+          tag: "MANUTENZIONE",
+          title: "Manutenzione Sito Web",
+          sub: "Per chi ha già un sito e vuole tenerlo aggiornato e sicuro",
+          body: "Nuovi contenuti, piccole modifiche, controlli di sicurezza e aggiornamenti tecnici. Supporto continuativo, che il sito l'abbia costruito io o qualcun altro.",
+          features: ["Aggiornamento testi, foto e contenuti", "Controlli di sicurezza e aggiornamenti", "Piccole modifiche di design", "Supporto diretto, senza ticket"],
         },
       ],
     },
@@ -70,14 +78,14 @@ const homeT = {
       tag: "IL MIO APPROCCIO",
       quote_pre: "Lavoro come una boutique artigianale: poche cose, semplici, fatte ",
       quote_highlight: "bene.",
-      body: "Niente template da compilare, niente pacchetti fissi, niente strumenti automatici che producono siti tutti uguali. Ogni elemento è personalizzabile: struttura, testi, immagini, colori. Hai foto da inserire o descrizioni da aggiungere? Vengono posizionate esattamente dove vuoi — con la cura e la flessibilità che nessun compilatore automatico potrà mai offrirti.",
+      body: "Niente template da compilare, niente pacchetti fissi, niente strumenti automatici che producono siti tutti uguali. Ogni elemento è personalizzabile: struttura, testi, immagini, colori. Hai foto da inserire o descrizioni da aggiungere? Vengono posizionate esattamente dove vuoi, con la cura e la flessibilità che nessun compilatore automatico potrà mai offrirti.",
     },
     whyme: {
       title: "Perché lavorare con me è diverso",
-      p1: "Ho trascorso 15 anni in aziende strutturate — da Ernst & Young ad Alibaba.com — a capire perché certi business crescono e altri si fermano. Ho gestito budget, partner, team internazionali e strategie go-to-market in mercati competitivi.",
+      p1: "Ho trascorso 15 anni in aziende strutturate (da Ernst & Young ad Alibaba.com) a capire perché certi business crescono e altri si fermano. Ho gestito budget, partner, team internazionali e strategie go-to-market in mercati competitivi.",
       p2_pre: "Ora costruisco siti web. Ma con una prospettiva che la maggior parte dei web designer non ha: so cosa guarda davvero un decision maker quando apre un sito. So cosa lo convince e cosa lo perde. So che ",
       p2_highlight: "un sito bello che non converte è un costo, non un investimento.",
-      p3: "Lavoro con professionisti e piccole imprese che vogliono una presenza digitale che lavori per loro — non solo una che sembri professionale. Da remoto, ovunque.",
+      p3: "Lavoro con professionisti e piccole imprese che vogliono una presenza digitale che lavori per loro, non solo una che sembri professionale. Da remoto, ovunque.",
       cta: "Scopri il Laboratorio",
     },
     faq: {
@@ -91,7 +99,7 @@ const homeT = {
         },
         {
           q: "Quanto tempo serve per realizzare un sito?",
-          a: "Per una presenza online essenziale (10+ pagine), circa 1 settimana. Per un sito completo con funzionalità avanzate, 3-4 settimane. Un restyling dipende da quanto contenuto va migrato. Ti do sempre una stima realistica prima di iniziare, non una promessa generica.",
+          a: "Per una presenza online essenziale (fino a 10 pagine), circa 1 settimana. Per un sito completo con funzionalità avanzate, 3-4 settimane. Un restyling dipende da quanto contenuto va migrato. Ti do sempre una stima realistica prima di iniziare, non una promessa generica.",
         },
         {
           q: "Usi WordPress, Wix o altri costruttori di siti?",
@@ -99,11 +107,11 @@ const homeT = {
         },
         {
           q: "Potrò modificare i testi o le foto da solo dopo la consegna?",
-          a: "Onestamente: dipende da come è costruito il sito. Essendo codice su misura e non un builder drag-and-drop, le modifiche autonome non sono immediate come su Wix o WordPress. Per questo, se ti serve aggiornare spesso i contenuti, ne parliamo prima e valutiamo insieme la soluzione più adatta — inclusa la possibilità di un piccolo pannello di modifica per i contenuti che cambiano più spesso, o un supporto continuativo per le modifiche.",
+          a: "Onestamente: dipende da come è costruito il sito. Essendo codice su misura e non un builder drag-and-drop, le modifiche autonome non sono immediate come su Wix o WordPress. Per questo, se ti serve aggiornare spesso i contenuti, ne parliamo prima e valutiamo insieme la soluzione più adatta, inclusa la possibilità di un piccolo pannello di modifica per i contenuti che cambiano più spesso, o un supporto continuativo per le modifiche.",
         },
         {
           q: "Chi si occupa di dominio, hosting e messa online?",
-          a: "Me ne occupo io, dall'acquisto del dominio (se non ne hai già uno) al deploy finale. Di solito uso Vercel, una piattaforma professionale veloce e sicura — non dovrai preoccuparti di aspetti tecnici.",
+          a: "Me ne occupo io, dall'acquisto del dominio (se non ne hai già uno) al deploy finale. Di solito uso Vercel, una piattaforma professionale veloce e sicura: non dovrai preoccuparti di aspetti tecnici.",
         },
         {
           q: "Il sito sarà ottimizzato per Google (SEO)?",
@@ -158,42 +166,51 @@ const homeT = {
       contact: "Contact",
     },
     hero: {
-      tagline: "I help small businesses and professionals grow online, with websites built to bring in customers — not just to look good. Whether you're starting from scratch or want to refresh what you have, let's build a digital presence that works for you.",
+      kicker: "Massimo Dassano",
+      h1: "Custom websites for professionals and small businesses",
+      tagline: "Whether you're starting from scratch or want to refresh what you have, let's build a digital presence that works for you: made to bring in customers, not just to look good.",
       cta_services: "Explore services",
       cta_contact: "Contact me",
     },
     services: {
       title: "What I can do for you",
-      subtitle: "Four paths, one goal: a digital presence that grows your business",
+      subtitle: "Five paths, one goal: a digital presence that grows your business",
       cta_preventivo: "Request a quote",
       list: [
         {
           tag: "DIAGNOSIS",
-          title: "Website Analysis",
-          sub: "For those who want to understand what's wrong — before acting",
-          body: "I analyze your existing website and deliver a complete report: technical SEO, UX and conversion, content, GDPR privacy and a business opportunity estimate. The report includes a score for each area, the most urgent issues to fix and a concrete action plan, useful even if you decide not to move forward with me. The cost is deductible from any follow-up project.",
+          title: "Digital Audit",
+          sub: "For those who want to understand what's wrong, before acting",
+          body: "I analyze your website and deliver a PDF report: a score for each area, the most urgent issues and a concrete action plan. The cost is deductible from any follow-up project.",
           features: ["Technical SEO & Google visibility", "UX & conversion rate", "Privacy & GDPR compliance", "Business opportunity estimate"],
         },
         {
           tag: "LANDING PAGE",
-          title: "Custom Landing Page",
-          sub: "For those who want one fast, focused page",
-          body: "You don't always need a whole website. Sometimes one page built around a single goal is enough: book, sign up, buy. Perfect for launching a product, promoting an event, or supporting an ad campaign, delivered in just a few days.",
+          title: "Custom Landing Pages",
+          sub: "One page, one goal: getting visitors to act",
+          body: "You don't always need a whole website. Sometimes one page built around a single goal is enough: book, sign up, buy. Ready in a few days.",
           features: ["One conversion goal", "Custom design matched to the campaign", "Optimized for Google/Meta Ads", "Delivered in a few days"],
         },
         {
           tag: "RESTYLING",
           title: "Website Restyling",
           sub: "For those whose site no longer brings in customers the way it should",
-          body: "Your website is a few years old? The design looks dated? We analyze what you have, keep what works, and transform the rest into something modern and effective. Before touching a line of code, I'll show you a mockup of the new design built on your real content, so you see the result before committing.",
-          features: ["Current site analysis", "New modern design", "Full content migration", "Performance optimization"],
+          body: "I analyze what you have, keep what works and transform the rest. Before touching a line of code I'll show you a mockup of the new design built on your real content.",
+          features: ["Current site analysis", "Mockup before we start", "Full content migration", "Speed and SEO optimization"],
         },
         {
           tag: "FROM SCRATCH",
           title: "Website from Scratch",
           sub: "For those who want to start getting found online by the right customers",
-          body: "We start from a blank page and build your digital identity together. Custom design, structure tailored to your goals, optimized to turn visitors into clients. No preset themes: colors, fonts and structure are chosen based on your industry and audience, not picked from a catalog.",
-          features: ["Custom design", "Mobile-first & responsive", "SEO optimized", "Fast, secure and optimized for all devices"],
+          body: "We start from a blank page: custom design and a structure tailored to your goals. No preset themes, colors and fonts chosen for your industry.",
+          features: ["Custom design", "Mobile-first & responsive", "SEO optimized", "Fast, secure and ready to grow"],
+        },
+        {
+          tag: "MAINTENANCE",
+          title: "Website Maintenance",
+          sub: "For those who already have a site and want to keep it updated and secure",
+          body: "New content, small changes, security checks and technical updates. Ongoing support, whether I built the site or someone else did.",
+          features: ["Text, photo and content updates", "Security checks and technical updates", "Small design changes", "Direct support, no tickets"],
         },
       ],
     },
@@ -201,14 +218,14 @@ const homeT = {
       tag: "MY APPROACH",
       quote_pre: "I work like an artisan boutique: a few things, simple, done ",
       quote_highlight: "well.",
-      body: "No templates to fill in, no fixed packages, no automated tools that produce identical sites. Every element is customizable: structure, text, images, colors. Do you have photos to include or descriptions to add? They're placed exactly where you want — with the care and flexibility that no automatic builder will ever offer you.",
+      body: "No templates to fill in, no fixed packages, no automated tools that produce identical sites. Every element is customizable: structure, text, images, colors. Do you have photos to include or descriptions to add? They're placed exactly where you want, with the care and flexibility that no automatic builder will ever offer you.",
     },
     whyme: {
       title: "Why working with me is different",
-      p1: "I spent 15 years in structured companies — from Ernst & Young to Alibaba.com — understanding why some businesses grow and others stall. I managed budgets, partners, international teams and go-to-market strategies in competitive markets.",
+      p1: "I spent 15 years in structured companies (from Ernst & Young to Alibaba.com) understanding why some businesses grow and others stall. I managed budgets, partners, international teams and go-to-market strategies in competitive markets.",
       p2_pre: "Now I build websites. But with a perspective most web designers don't have: I know what a decision-maker really looks at when they open a site. I know what convinces them and what loses them. I know that ",
       p2_highlight: "a beautiful site that doesn't convert is a cost, not an investment.",
-      p3: "I work with professionals and small businesses who want a digital presence that works for them — not just one that looks professional. Remotely, from anywhere.",
+      p3: "I work with professionals and small businesses who want a digital presence that works for them, not just one that looks professional. Remotely, from anywhere.",
       cta: "Explore the Laboratorio",
     },
     faq: {
@@ -218,11 +235,11 @@ const homeT = {
       items: [
         {
           q: "How much does a website cost?",
-          a: "It depends on the complexity of the structure. The number of pages isn't a constraint — what matters most is the type of features and integrations with external tools. Indicative prices range from a few hundred euros for a diagnosis to a few thousand for a complete site with external integrations. The quote is always free and with no commitment, after an initial chat about your project.",
+          a: "It depends on the complexity of the structure. The number of pages isn't a constraint: what matters most is the type of features and integrations with external tools. Indicative prices range from a few hundred euros for a diagnosis to a few thousand for a complete site with external integrations. The quote is always free and with no commitment, after an initial chat about your project.",
         },
         {
           q: "How long does it take to build a website?",
-          a: "For an essential online presence (10+ pages), about 1 week. For a complete site with advanced features, 3-4 weeks. A restyling depends on how much content needs to be migrated. I always give you a realistic estimate before starting, not a generic promise.",
+          a: "For an essential online presence (up to 10 pages), about 1 week. For a complete site with advanced features, 3-4 weeks. A restyling depends on how much content needs to be migrated. I always give you a realistic estimate before starting, not a generic promise.",
         },
         {
           q: "Do you use WordPress, Wix or other website builders?",
@@ -230,11 +247,11 @@ const homeT = {
         },
         {
           q: "Will I be able to edit text or photos myself after delivery?",
-          a: "Honestly: it depends on how the site is built. Since it's custom code rather than a drag-and-drop builder, self-service edits aren't as immediate as on Wix or WordPress. If you need to update content often, we discuss this upfront and find the right solution together — including a small content-editing panel for what changes most often, or ongoing support for edits.",
+          a: "Honestly: it depends on how the site is built. Since it's custom code rather than a drag-and-drop builder, self-service edits aren't as immediate as on Wix or WordPress. If you need to update content often, we discuss this upfront and find the right solution together, including a small content-editing panel for what changes most often, or ongoing support for edits.",
         },
         {
           q: "Who handles the domain, hosting and going live?",
-          a: "I do, from buying the domain (if you don't have one yet) to the final deploy. I usually use Vercel, a fast and secure professional platform — you won't need to worry about the technical side.",
+          a: "I do, from buying the domain (if you don't have one yet) to the final deploy. I usually use Vercel, a fast and secure professional platform: you won't need to worry about the technical side.",
         },
         {
           q: "Will the site be optimized for Google (SEO)?",
@@ -242,7 +259,7 @@ const homeT = {
         },
         {
           q: "What do I need to provide to get started?",
-          a: "An idea of what you want to communicate, your content (text, photos, logos if you have them) and a few style references you like. If you don't have everything ready, that's not a problem — we build that part together too.",
+          a: "An idea of what you want to communicate, your content (text, photos, logos if you have them) and a few style references you like. If you don't have everything ready, that's not a problem, we build that part together too.",
         },
         {
           q: "Do you only work with clients in Milan?",
@@ -300,6 +317,7 @@ const SERVICE_STATIC = [
   { icon: Target, color: "#f0abfc", rgb: "240,171,252", featureIcons: [Target, Wand2, Zap, ArrowRight], href: "/servizi/landing-page" },
   { icon: Wand2, color: "#a855f7", rgb: "168,85,247", featureIcons: [Star, Wand2, ArrowRight, Zap], href: "/servizi/restyling-sito-web" },
   { icon: Monitor, color: "#00f5ff", rgb: "0,245,255", featureIcons: [Code, Smartphone, Search, Zap], href: "/servizi/creazione-siti-web" },
+  { icon: Wrench, color: "#4ade80", rgb: "74,222,128", featureIcons: [Wand2, Shield, Star, Mail], href: "/servizi/manutenzione-sito-web" },
 ] as const
 
 /* ─────────────────────────────────────────────────────
@@ -598,7 +616,7 @@ function HomeNav() {
         </div>
       </div>
 
-      {/* Mobile dropdown (no lang toggle here — it's always in the topbar) */}
+      {/* Mobile dropdown (no lang toggle here, it's always in the topbar) */}
       {menuOpen && (
         <div className="md:hidden px-6 py-4 flex flex-col gap-5"
           style={{ borderTop: "1px solid rgba(0,245,255,0.08)", background: "rgba(3,6,16,0.97)" }}>
@@ -610,7 +628,7 @@ function HomeNav() {
           ))}
           <a href="/lab" onClick={() => setMenuOpen(false)}
             className="text-sm tracking-wider uppercase" style={{ color: "#00f5ff" }}>
-            /lab — I miei progetti
+            /lab, i miei progetti
           </a>
         </div>
       )}
@@ -693,16 +711,23 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Name with HUD frame */}
+        {/* Name with HUD frame: kicker, non H1. Il nome resta l'elemento dominante
+            tipograficamente, ma il titolo semantico della pagina è l'offerta (sotto). */}
         <div className="relative inline-block px-8 py-5 mb-5">
           <div className="absolute top-0 left-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.7)", borderLeft: "2px solid rgba(0,245,255,0.7)" }} />
           <div className="absolute top-0 right-0 w-5 h-5" style={{ borderTop: "2px solid rgba(0,245,255,0.7)", borderRight: "2px solid rgba(0,245,255,0.7)" }} />
           <div className="absolute bottom-0 left-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.7)", borderLeft: "2px solid rgba(0,245,255,0.7)" }} />
           <div className="absolute bottom-0 right-0 w-5 h-5" style={{ borderBottom: "2px solid rgba(0,245,255,0.7)", borderRight: "2px solid rgba(0,245,255,0.7)" }} />
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white"
+          <p className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white"
             style={{ textShadow: "0 0 40px rgba(0,245,255,0.22), 0 0 80px rgba(0,245,255,0.08)" }}>
-            <GlitchText text="Massimo Dassano" />
-          </h1>
+            <GlitchText text={ht.hero.kicker} />
+          </p>
+          <div className="mt-3 flex items-center justify-center gap-3" aria-hidden="true">
+            <span className="h-px w-8 md:w-12" style={{ background: "linear-gradient(90deg, transparent, rgba(0,245,255,0.45))" }} />
+            <span className="text-[11px] md:text-sm tracking-[0.38em] uppercase font-semibold whitespace-nowrap"
+              style={{ color: "rgba(0,245,255,0.72)" }}>MD Studio</span>
+            <span className="h-px w-8 md:w-12" style={{ background: "linear-gradient(90deg, rgba(0,245,255,0.45), transparent)" }} />
+          </div>
         </div>
 
         {/* Typing subtitle */}
@@ -717,6 +742,12 @@ function HeroSection() {
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00f5ff", boxShadow: "0 0 9px rgba(0,245,255,0.9)" }} />
           <div className="h-px w-20" style={{ background: "linear-gradient(90deg, rgba(0,245,255,0.45), transparent)" }} />
         </div>
+
+        {/* H1: il titolo semantico della pagina è l'offerta, non il nome */}
+        <h1 className="text-xl md:text-3xl font-bold text-white max-w-3xl mx-auto mb-5 leading-snug"
+          style={{ textShadow: "0 0 30px rgba(0,245,255,0.16)" }}>
+          {ht.hero.h1}
+        </h1>
 
         {/* Description */}
         <p className="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
@@ -764,10 +795,11 @@ function ServicesSection() {
   const card2 = useHoloTilt()
   const card3 = useHoloTilt()
   const card4 = useHoloTilt()
+  const card5 = useHoloTilt()
   const ht = useHomeLang()
 
   const services = ht.services.list.map((s, i) => ({ ...s, ...SERVICE_STATIC[i] }))
-  const tilts = [card1, card2, card3, card4]
+  const tilts = [card1, card2, card3, card4, card5]
 
   return (
     <section id="servizi" className="py-24 relative">
@@ -779,10 +811,13 @@ function ServicesSection() {
             {services.map((svc, i) => {
               const Icon = svc.icon
               const t = tilts[i]
+              // Con un numero dispari di card l'ultima resta sola nella riga: la facciamo
+              // occupare entrambe le colonne così la griglia non sembra interrotta a metà.
+              const isLastAlone = services.length % 2 === 1 && i === services.length - 1
               return (
                 <div key={i}
                   ref={t.ref}
-                  className="relative rounded-2xl p-7 overflow-hidden cursor-default flex flex-col"
+                  className={`relative rounded-2xl p-7 overflow-hidden cursor-default flex flex-col ${isLastAlone ? "md:col-span-2" : ""}`}
                   style={{
                     background: `rgba(${svc.rgb},0.035)`,
                     border: `1px solid rgba(${svc.rgb},0.2)`,
@@ -944,85 +979,6 @@ function WhyMeSection() {
 }
 
 /* ─────────────────────────────────────────────────────
-   PORTFOLIO  (hidden — toggle false → true to show)
-───────────────────────────────────────────────────── */
-const PORTFOLIO_ITEMS = [
-  {
-    label: "Sito istituzionale",
-    title: "Dassano",
-    desc: "Sito vetrina personalizzato per un professionista del settore commerciale.",
-    tags: ["Branding", "SEO", "Performance"],
-    href: "https://www.dassano.it",
-    external: true,
-    color: "#00f5ff",
-    rgb: "0,245,255",
-  },
-  {
-    label: "Invito digitale",
-    title: "Festa di compleanno",
-    desc: "Pagina invito interattiva con countdown, dinosauri animati e form di conferma presenza.",
-    tags: ["Animazioni", "Interattivo", "Mobile-first"],
-    href: "/esempi/compleanno.html",
-    external: false,
-    color: "#f0abfc",
-    rgb: "240,171,252",
-  },
-] as const
-
-function PortfolioSection() {
-  const { ref, inView } = useScrollInView()
-  const ht = useHomeLang()
-
-  return (
-    <section id="portfolio" className="py-14 md:py-20 relative">
-      <div className="max-w-5xl mx-auto px-6">
-        <div ref={ref} className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <SectionHeader
-            title={ht.nav.services === "Servizi" ? "Alcuni lavori" : "Recent work"}
-            subtitle={ht.nav.services === "Servizi" ? "Esempi reali di quello che costruisco" : "Real examples of what I build"}
-          />
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {PORTFOLIO_ITEMS.map((item) => (
-              <a
-                key={item.title}
-                href={item.href}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noopener noreferrer" : undefined}
-                className="group relative rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 hover:scale-[1.02]"
-                style={{
-                  background: `rgba(${item.rgb},0.035)`,
-                  border: `1px solid rgba(${item.rgb},0.18)`,
-                  textDecoration: "none",
-                }}
-              >
-                <div>
-                  <span className="text-xs font-mono tracking-widest uppercase" style={{ color: `rgba(${item.rgb},0.65)` }}>
-                    {item.label}
-                  </span>
-                  <h3 className="text-lg font-semibold mt-1 group-hover:text-white transition-colors" style={{ color: item.color }}>
-                    {item.title}
-                  </h3>
-                  <p className="text-sm mt-2" style={{ color: "rgba(155,175,210,0.7)" }}>{item.desc}</p>
-                </div>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {item.tags.map(tag => (
-                    <span key={tag} className="text-xs px-2.5 py-1 rounded-full font-mono"
-                      style={{ background: `rgba(${item.rgb},0.09)`, border: `1px solid rgba(${item.rgb},0.22)`, color: `rgba(${item.rgb},0.8)` }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <ExternalLink className="absolute top-5 right-5 w-4 h-4 opacity-30 group-hover:opacity-70 transition-opacity" style={{ color: item.color }} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ─────────────────────────────────────────────────────
    FAQ
 ───────────────────────────────────────────────────── */
 function FAQSection() {
@@ -1059,6 +1015,8 @@ function FAQSection() {
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${i}`}
+                    id={`faq-question-${i}`}
                     className="w-full flex items-center justify-between gap-4 text-left px-6 py-4 transition-colors duration-200 hover:text-cyan-400"
                     style={{ color: "rgba(225,235,250,0.92)" }}>
                     <span className="text-sm font-semibold">{item.q}</span>
@@ -1067,20 +1025,30 @@ function FAQSection() {
                       style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", color: "#00f5ff" }}
                     />
                   </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        style={{ overflow: "hidden" }}>
-                        <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>
-                          {item.a}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {/* La risposta resta SEMPRE nel DOM: si anima solo l'altezza (0fr → 1fr).
+                      Niente smontaggio e niente display:none, altrimenti i crawler che non
+                      eseguono JS vedono una sola risposta su otto. */}
+                  <div
+                    id={`faq-answer-${i}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${i}`}
+                    className="grid"
+                    style={{
+                      gridTemplateRows: isOpen ? "1fr" : "0fr",
+                      transition: "grid-template-rows 300ms ease-in-out",
+                    }}>
+                    <div style={{ overflow: "hidden" }}>
+                      <div
+                        className="px-6 pb-5 text-sm leading-relaxed"
+                        style={{
+                          color: "rgba(165,190,225,0.85)",
+                          opacity: isOpen ? 1 : 0,
+                          transition: "opacity 300ms ease-in-out",
+                        }}>
+                        {item.a}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )
             })}
@@ -1094,7 +1062,7 @@ function FAQSection() {
 /* ─────────────────────────────────────────────────────
    REVIEWS
    Recensioni reali, non tradotte (contenuto fattuale, come
-   COMPANIES in ExperienceSection) — solo il titolo/sottotitolo
+   COMPANIES in ExperienceSection), solo il titolo/sottotitolo
    della sezione passano per homeT.
 ───────────────────────────────────────────────────── */
 const REVIEWS = [
@@ -1170,12 +1138,12 @@ function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
  * Marquee infinito trascinabile: scorre lento in autoplay, il drag lo sposta
  * a velocità naturale (1:1 col puntatore) in entrambe le direzioni. Al
  * rilascio riparte con lo slancio (velocity.x) del gesto e decelera
- * progressivamente — decadimento esponenziale — fino alla velocità
+ * progressivamente (decadimento esponenziale) fino alla velocità
  * standard, nella direzione del lancio.
  */
-const REVIEWS_BASE_SPEED = 26 // px/s — velocità di crociera dell'autoplay
-const REVIEWS_MOMENTUM_TAU = 0.7 // secondi — costante di tempo del decadimento
-const REVIEWS_MAX_FLING = 3000 // px/s — tetto allo slancio iniziale
+const REVIEWS_BASE_SPEED = 26 // px/s, velocità di crociera dell'autoplay
+const REVIEWS_MOMENTUM_TAU = 0.7 // secondi, costante di tempo del decadimento
+const REVIEWS_MAX_FLING = 3000 // px/s, tetto allo slancio iniziale
 
 function ReviewsCarousel() {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -1343,7 +1311,7 @@ function ContactSection() {
             <div className="absolute bottom-0 right-0 w-6 h-6" style={{ borderBottom: "2px solid rgba(0,245,255,0.55)", borderRight: "2px solid rgba(0,245,255,0.55)" }} />
 
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-              {/* Honeypot — invisibile agli umani, compilato dai bot */}
+              {/* Honeypot: invisibile agli umani, compilato dai bot */}
               <input
                 type="text"
                 name="website"
@@ -1407,7 +1375,7 @@ function ContactSection() {
                 {errors.messaggio && <p className="text-xs mt-1" style={{ color: "rgba(248,113,113,0.85)" }}>{errors.messaggio}</p>}
               </div>
 
-              {/* Consenso GDPR — obbligatorio, accanto al punto di raccolta dati */}
+              {/* Consenso GDPR: obbligatorio, accanto al punto di raccolta dati */}
               <div>
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
@@ -1533,7 +1501,6 @@ export default function HomePage() {
       <ServicesSection />
       <ManifestoSection />
       <WhyMeSection />
-      {false && <PortfolioSection />}
       <FAQSection />
       <ReviewsSection />
       <ContactSection />

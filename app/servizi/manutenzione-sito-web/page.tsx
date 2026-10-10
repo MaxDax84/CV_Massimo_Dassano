@@ -44,7 +44,7 @@ const content: { it: ServiceContent; en: ServiceContent } = {
     tag: "MANUTENZIONE",
     title: "Manutenzione Sito Web",
     subtitle: "Per chi ha già un sito e vuole tenerlo aggiornato, sicuro e funzionante",
-    intro: "Un sito web non è un progetto che finisce alla consegna — è qualcosa che va tenuto aggiornato: nuovi contenuti, piccole modifiche, controlli di sicurezza, aggiornamenti tecnici. Offro supporto continuativo per chi non ha tempo o competenze per occuparsene da solo, che il sito l'abbia costruito io o qualcun altro.",
+    intro: "Un sito web non è un progetto che finisce alla consegna, è qualcosa che va tenuto aggiornato: nuovi contenuti, piccole modifiche, controlli di sicurezza, aggiornamenti tecnici. Offro supporto continuativo per chi non ha tempo o competenze per occuparsene da solo, che il sito l'abbia costruito io o qualcun altro.",
     features: [
       "Aggiornamento testi, foto e contenuti su richiesta",
       "Controlli di sicurezza e aggiornamenti tecnici",
@@ -60,7 +60,7 @@ const content: { it: ServiceContent; en: ServiceContent } = {
     forWho: "Chi ha già un sito (costruito da me o da altri) e vuole che resti aggiornato senza doverci pensare, o chi non ha le competenze tecniche per modificarlo da solo.",
     faq: {
       q: "Serve un contratto fisso o posso chiedere solo interventi puntuali?",
-      a: "Entrambi. Puoi scegliere un pacchetto di ore mensile se aggiorni spesso il sito, oppure chiedere un intervento puntuale solo quando ti serve — nessun vincolo obbligatorio.",
+      a: "Entrambi. Puoi scegliere un pacchetto di ore mensile se aggiorni spesso il sito, oppure chiedere un intervento puntuale solo quando ti serve, nessun vincolo obbligatorio.",
     },
     related: [
       { href: "/servizi/creazione-siti-web", label: "Creazione Siti Web da Zero", tag: "Ex Novo", color: "#00f5ff", rgb: "0,245,255" },
@@ -73,7 +73,7 @@ const content: { it: ServiceContent; en: ServiceContent } = {
     tag: "MAINTENANCE",
     title: "Website Maintenance",
     subtitle: "For those who already have a website and want to keep it updated, secure and running",
-    intro: "A website isn't a project that ends at delivery — it's something that needs ongoing care: new content, small changes, security checks, technical updates. I offer ongoing support for those who don't have the time or skills to handle it themselves, whether I built the site or someone else did.",
+    intro: "A website isn't a project that ends at delivery, it's something that needs ongoing care: new content, small changes, security checks, technical updates. I offer ongoing support for those who don't have the time or skills to handle it themselves, whether I built the site or someone else did.",
     features: [
       "Text, photo and content updates on request",
       "Security checks and technical updates",
@@ -89,7 +89,7 @@ const content: { it: ServiceContent; en: ServiceContent } = {
     forWho: "Anyone with an existing website (built by me or someone else) who wants it to stay updated without having to think about it, or who doesn't have the technical skills to edit it themselves.",
     faq: {
       q: "Do I need a fixed contract, or can I request one-off interventions?",
-      a: "Both. You can choose a monthly hours package if you update the site often, or request a one-off intervention only when you need it — no mandatory commitment.",
+      a: "Both. You can choose a monthly hours package if you update the site often, or request a one-off intervention only when you need it, no mandatory commitment.",
     },
     related: [
       { href: "/servizi/creazione-siti-web", label: "Website from Scratch", tag: "From Scratch", color: "#00f5ff", rgb: "0,245,255" },

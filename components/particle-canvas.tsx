@@ -15,6 +15,19 @@ interface Particle {
   pulseSpeed: number
 }
 
+const MOBILE_MAX = 767
+
+/**
+ * Le due "nebulose" di sfondo si spostavano di ±60px con un periodo di circa due
+ * minuti: percettivamente statiche, ma costavano due createRadialGradient e due
+ * fillRect a schermo pieno per ogni frame. Ora sono due radial-gradient CSS.
+ * Le alpha sono quelle originali moltiplicate per 0.65, l'opacity che il canvas
+ * applicava a tutto il suo contenuto, così la resa è la stessa.
+ */
+const NEBULAE =
+  "radial-gradient(circle 42vw at 72% 28%, rgba(0,245,255,0.0293) 0%, rgba(0,245,255,0) 100%)," +
+  "radial-gradient(circle 38vw at 22% 72%, rgba(168,85,247,0.026) 0%, rgba(168,85,247,0) 100%)"
+
 export function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -24,7 +37,11 @@ export function ParticleCanvas() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    let animId: number
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const isMobile = window.innerWidth <= MOBILE_MAX
+
+    let animId = 0
+    let running = false
     const mouse = { x: -9999, y: -9999 }
 
     const resize = () => {
@@ -40,10 +57,13 @@ export function ParticleCanvas() {
     }
 
     window.addEventListener("resize", handleResize)
-    window.addEventListener("mousemove", handleMouseMove)
+    if (!reduceMotion) window.addEventListener("mousemove", handleMouseMove, { passive: true })
 
     const COLORS = ["#00f5ff", "#00f5ff", "#00f5ff", "#a855f7", "#e879f9", "#ffffff"]
-    const COUNT = 110
+    // Su mobile: metà particelle e niente linee di connessione (il doppio ciclo
+    // su tutte le coppie è la voce più cara del frame).
+    const COUNT = isMobile ? 55 : 110
+    const DRAW_LINKS = !isMobile
     const MAX_DIST = 140
     const MOUSE_REPEL = 100
 
@@ -60,59 +80,31 @@ export function ParticleCanvas() {
       pulseSpeed: 0.018 + Math.random() * 0.022,
     }))
 
-    const draw = () => {
+    const render = (animate: boolean) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      const time = Date.now() * 0.00008
-
-      // Nebula blob 1 — cyan
-      const g1 = ctx.createRadialGradient(
-        canvas.width * 0.72 + Math.sin(time) * 60,
-        canvas.height * 0.28 + Math.cos(time * 0.7) * 50,
-        0,
-        canvas.width * 0.72,
-        canvas.height * 0.28,
-        canvas.width * 0.42
-      )
-      g1.addColorStop(0, "rgba(0,245,255,0.045)")
-      g1.addColorStop(1, "transparent")
-      ctx.fillStyle = g1
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      // Nebula blob 2 — purple
-      const g2 = ctx.createRadialGradient(
-        canvas.width * 0.22 + Math.cos(time * 0.9) * 55,
-        canvas.height * 0.72 + Math.sin(time * 0.6) * 55,
-        0,
-        canvas.width * 0.22,
-        canvas.height * 0.72,
-        canvas.width * 0.38
-      )
-      g2.addColorStop(0, "rgba(168,85,247,0.04)")
-      g2.addColorStop(1, "transparent")
-      ctx.fillStyle = g2
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       // Update & draw particles
       for (const p of particles) {
-        p.pulse += p.pulseSpeed
-        p.opacity = p.baseOpacity + Math.sin(p.pulse) * 0.18
+        if (animate) {
+          p.pulse += p.pulseSpeed
+          p.opacity = p.baseOpacity + Math.sin(p.pulse) * 0.18
 
-        p.x += p.vx
-        p.y += p.vy
+          p.x += p.vx
+          p.y += p.vy
 
-        if (p.x < -5) p.x = canvas.width + 5
-        if (p.x > canvas.width + 5) p.x = -5
-        if (p.y < -5) p.y = canvas.height + 5
-        if (p.y > canvas.height + 5) p.y = -5
+          if (p.x < -5) p.x = canvas.width + 5
+          if (p.x > canvas.width + 5) p.x = -5
+          if (p.y < -5) p.y = canvas.height + 5
+          if (p.y > canvas.height + 5) p.y = -5
 
-        const dx = p.x - mouse.x
-        const dy = p.y - mouse.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < MOUSE_REPEL && dist > 0) {
-          const force = (MOUSE_REPEL - dist) / MOUSE_REPEL
-          p.x += (dx / dist) * force * 1.8
-          p.y += (dy / dist) * force * 1.8
+          const dx = p.x - mouse.x
+          const dy = p.y - mouse.y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < MOUSE_REPEL && dist > 0) {
+            const force = (MOUSE_REPEL - dist) / MOUSE_REPEL
+            p.x += (dx / dist) * force * 1.8
+            p.y += (dy / dist) * force * 1.8
+          }
         }
 
         ctx.beginPath()
@@ -125,41 +117,93 @@ export function ParticleCanvas() {
       ctx.globalAlpha = 1
 
       // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i]
-          const b = particles[j]
-          const ddx = a.x - b.x
-          const ddy = a.y - b.y
-          const d = Math.sqrt(ddx * ddx + ddy * ddy)
-          if (d < MAX_DIST) {
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(0,245,255,${(1 - d / MAX_DIST) * 0.11})`
-            ctx.lineWidth = 0.5
-            ctx.stroke()
+      if (DRAW_LINKS) {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i]
+            const b = particles[j]
+            const ddx = a.x - b.x
+            const ddy = a.y - b.y
+            const d = Math.sqrt(ddx * ddx + ddy * ddy)
+            if (d < MAX_DIST) {
+              ctx.beginPath()
+              ctx.moveTo(a.x, a.y)
+              ctx.lineTo(b.x, b.y)
+              ctx.strokeStyle = `rgba(0,245,255,${(1 - d / MAX_DIST) * 0.11})`
+              ctx.lineWidth = 0.5
+              ctx.stroke()
+            }
           }
         }
       }
-
-      animId = requestAnimationFrame(draw)
     }
 
-    draw()
+    // ── prefers-reduced-motion: un solo fotogramma, nessun requestAnimationFrame.
+    // Il campo stellato resta visibile, semplicemente non si muove.
+    if (reduceMotion) {
+      render(false)
+      const redraw = () => { resize(); render(false) }
+      window.addEventListener("resize", redraw)
+      return () => {
+        window.removeEventListener("resize", handleResize)
+        window.removeEventListener("resize", redraw)
+      }
+    }
+
+    const loop = () => {
+      render(true)
+      animId = requestAnimationFrame(loop)
+    }
+
+    const start = () => {
+      if (running) return
+      running = true
+      animId = requestAnimationFrame(loop)
+    }
+    const stop = () => {
+      if (!running) return
+      running = false
+      cancelAnimationFrame(animId)
+    }
+
+    // Il canvas è position:fixed, quindi in pratica non esce mai dal viewport:
+    // l'observer è una rete di sicurezza se un domani smettesse di esserlo.
+    // La sospensione che si attiva davvero è quella su visibilitychange.
+    const io = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? start() : stop()),
+      { threshold: 0 }
+    )
+    io.observe(canvas)
+
+    const onVisibility = () => {
+      if (document.hidden) stop()
+      else start()
+    }
+    document.addEventListener("visibilitychange", onVisibility)
+
+    start()
 
     return () => {
-      cancelAnimationFrame(animId)
+      stop()
+      io.disconnect()
+      document.removeEventListener("visibilitychange", onVisibility)
       window.removeEventListener("resize", handleResize)
       window.removeEventListener("mousemove", handleMouseMove)
     }
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0, opacity: 0.65 }}
-    />
+    <>
+      <div
+        className="fixed inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{ zIndex: 0, background: NEBULAE }}
+      />
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: 0, opacity: 0.65 }}
+      />
+    </>
   )
 }

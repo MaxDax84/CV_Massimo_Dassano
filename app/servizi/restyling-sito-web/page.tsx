@@ -54,11 +54,11 @@ const content: { it: ServiceContent; en: ServiceContent } = {
     ],
     process: [
       { step: "1. Analisi", desc: "Valuto il sito attuale: design, SEO tecnico, velocità, mobile." },
-      { step: "2. Mockup", desc: "Ti mostro come potrebbe diventare, sui tuoi contenuti reali — prima di ogni impegno." },
+      { step: "2. Mockup", desc: "Ti mostro come potrebbe diventare, sui tuoi contenuti reali, prima di ogni impegno." },
       { step: "3. Sviluppo", desc: "Costruisco il nuovo sito mantenendo ciò che funziona già." },
       { step: "4. Passaggio", desc: "Migro i contenuti e mando online il nuovo sito senza interruzioni." },
     ],
-    forWho: "Chi ha già un sito — magari fatto anni fa, o con un builder come Wix o WordPress — che non rispecchia più l'attività o non converte i visitatori in clienti.",
+    forWho: "Chi ha già un sito, magari fatto anni fa, o con un builder come Wix o WordPress, che non rispecchia più l'attività o non converte i visitatori in clienti.",
     faq: {
       q: "Devo perdere il posizionamento SEO che ho già?",
       a: "No, anzi: il restyling include il mantenimento (o miglioramento) delle URL e dei contenuti che già funzionano per il motore di ricerca, così non perdi il lavoro fatto finora.",
@@ -83,14 +83,14 @@ const content: { it: ServiceContent; en: ServiceContent } = {
     ],
     process: [
       { step: "1. Analysis", desc: "I evaluate the current site: design, technical SEO, speed, mobile." },
-      { step: "2. Mockup", desc: "I show you what it could become, on your real content — before any commitment." },
+      { step: "2. Mockup", desc: "I show you what it could become, on your real content, before any commitment." },
       { step: "3. Development", desc: "I build the new site while keeping what already works." },
       { step: "4. Handover", desc: "I migrate the content and launch the new site with no downtime." },
     ],
-    forWho: "Anyone who already has a website — maybe built years ago, or with a builder like Wix or WordPress — that no longer reflects the business or doesn't convert visitors into customers.",
+    forWho: "Anyone who already has a website, maybe built years ago, or with a builder like Wix or WordPress, that no longer reflects the business or doesn't convert visitors into customers.",
     faq: {
       q: "Will I lose the SEO ranking I already have?",
-      a: "No — quite the opposite: the restyling includes keeping (or improving) the URLs and content that already work for search engines, so you don't lose the progress made so far.",
+      a: "No, quite the opposite: the restyling includes keeping (or improving) the URLs and content that already work for search engines, so you don't lose the progress made so far.",
     },
     related: [
       { href: "/servizi/creazione-siti-web", label: "Website from Scratch", tag: "From Scratch", color: "#00f5ff", rgb: "0,245,255" },

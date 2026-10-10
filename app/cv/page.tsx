@@ -19,10 +19,6 @@ export const metadata = {
     url: "https://www.massimodassano.it/cv",
     locale: "it_IT",
   },
-  robots: {
-    index: false,
-    follow: false,
-  },
 }
 
 export default function CvPage() {

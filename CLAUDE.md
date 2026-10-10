@@ -1,34 +1,124 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guida per Claude Code (claude.ai/code) in questo repository.
 
-## Commands
+## Comandi
 
 ```bash
-pnpm dev        # start dev server at http://localhost:3000
-pnpm build      # production build (TypeScript errors are ignored — see next.config.mjs)
-pnpm lint       # ESLint
-pnpm start      # serve production build
+pnpm dev        # dev server su http://localhost:3000
+pnpm build      # build di produzione — esegue DAVVERO il type-check TypeScript
+pnpm start      # serve la build di produzione
 ```
 
-There are no tests in this project.
+Non ci sono test.
 
-## Architecture
+`pnpm lint` è dichiarato in `package.json` ma **non funziona**: ESLint non è tra le dipendenze del
+progetto. Non è una regressione da sistemare di corsa, è lo stato storico. Il gate reale sulla qualità è
+la validazione dei tipi che `pnpm build` esegue.
 
-Single-page CV/portfolio site for Massimo Dassano, built with Next.js 16 (App Router), React 19, Tailwind CSS v4, and shadcn/ui.
+## Architettura
 
-**Single route** — `app/page.tsx` is the only page. It renders a vertical stack of section components: `Navigation → HeroSection → AboutSection → ExperienceSection → EducationSection → SkillsSection → InterestsSection → Footer`.
+Sito commerciale di Massimo Dassano (MD Studio), Next.js 16 App Router, React 19, Tailwind CSS v4,
+shadcn/ui. Dominio canonico **`https://www.massimodassano.it`** (con `www`): è in `BASE_URL`
+(`app/layout.tsx`) e alimenta canonical, Open Graph, JSON-LD e sitemap. L'apex reindirizza al www.
 
-**i18n** — All user-visible text lives in `i18n/translations.ts`. It exports a `translations` map keyed by `Lang` (`"it" | "en" | "fr" | "de" | "zh" | "sw" | "ql"`). The `LanguageProvider` in `contexts/language-context.tsx` holds `lang` state (defaults to `"en"`); every section component calls `const { t } = useLanguage()` to get the current translation object. The `LanguageSwitcher` component in the nav writes to that context. **All content edits belong in `i18n/translations.ts`**, not in the section components.
+**Eccezione da ricordare:** `public/robots.txt` è un file statico con il dominio **scritto a mano**, non
+generato da `BASE_URL`. Se un giorno il dominio canonico cambia, robots.txt resta in silenzio sul vecchio
+dominio e nessuno se ne accorge.
 
-**Exceptions to the i18n pattern** — `ExperienceSection` hard-codes company names (`COMPANIES`) and date ranges (`PERIODS`) outside the translation object, because they don't change across languages. The `HeroSection` hard-codes the name "Massimo Dassano".
+**Non è un sito a pagina singola.** Le route sono:
 
-**Scroll-reveal animations** — Sections use `useInView` (`hooks/use-in-view.ts`), a thin IntersectionObserver wrapper that fires once and stops observing. Attach `ref={ref}` to the animated container and toggle Tailwind classes based on `isInView`.
+| Route | Cosa |
+|---|---|
+| `/` | Landing commerciale. `app/page.tsx`, ~1550 righe, in gran parte autonomo |
+| `/cv` | Il vecchio sito-CV, composto dai componenti `*-section` |
+| `/servizi/*` | 5 pagine servizio, tutte basate su `components/service-page.tsx` |
+| `/lab` | Vetrina tecnica, componenti in `components/lab/` |
+| `/lab/compleanno` | Pagina una tantum |
+| `/privacy`, `/cookie-policy`, `/grazie` | Pagine di servizio |
+| `/api/contact` | Handler del form di contatto |
 
-**Contact email protection** — `ContactReveal` (`components/contact-reveal.tsx`) accepts the email as a reversed string (`encodedEmail`). It shows a math CAPTCHA before reversing and displaying/linking the address, blocking simple scrapers.
+**Attenzione a non confondere `/` e `/cv`.** I componenti `hero-section`, `about-section`,
+`experience-section`, `education-section`, `skills-section`, `interests-section` appartengono **solo a
+`/cv`**. La homepage ha il proprio hero scritto inline dentro `app/page.tsx` (titolo con `GlitchText` in
+cornice HUD, sottotitolo con effetto macchina da scrivere). Modificare un `*-section` non cambia nulla
+sulla homepage.
 
-**Theme** — The site uses a single futuristic dark theme (deep navy + cyan `--primary`). CSS custom properties are defined once in `app/globals.css`; there is no light/dark toggle.
+**i18n** — I testi stanno in `i18n/translations.ts` (~1100 righe), mappa indicizzata per `Lang`
+(`it | en | fr | de | zh | sw | ql`). `LanguageProvider` (`contexts/language-context.tsx`) tiene lo stato;
+i componenti chiamano `const { t } = useLanguage()`. **Le modifiche ai testi vanno lì**, non nei
+componenti. La sezione `/lab` ha un contesto separato, `contexts/lab-lang-context.tsx`.
 
-**UI primitives** — `components/ui/` is a standard shadcn/ui library. Prefer these primitives for any new interactive elements rather than writing from scratch.
+**Animazioni scroll-reveal** — `useInView` (`hooks/use-in-view.ts`), wrapper di IntersectionObserver che
+scatta una volta sola e smette di osservare.
 
-**SEO** — Full metadata is in `app/layout.tsx` (Open Graph, Twitter card, JSON-LD `Person` schema). The canonical domain is `https://massimodassano.it`. `app/sitemap.ts` and `app/opengraph-image.tsx` handle sitemap and OG image generation.
+**Email di contatto** — `components/contact-reveal.tsx` riceve l'indirizzo come stringa rovesciata
+(`encodedEmail`) e mostra un CAPTCHA matematico prima di rivelarlo, per bloccare gli scraper banali.
+
+**Tema** — Tema scuro unico (navy profondo + ciano `--primary`), variabili CSS in `app/globals.css`.
+Nessun toggle chiaro/scuro.
+
+## La sezione /lab
+
+**Sfondo video** (`components/lab/LabBackground.tsx`): video ospitato su CDN esterna (DigitalOcean
+Spaces, già in allowlist nella CSP alla voce `media-src`). Il loop infinito è ottenuto con **due elementi
+video in crossfade**: quando il primo si avvicina alla fine parte il secondo e si dissolvono l'uno
+nell'altro, così non si vede lo stacco. Non sostituire con `loop` nativo, lo stacco tornerebbe visibile.
+
+Tre accorgimenti aggiunti a ottobre 2026, da non smontare per sbaglio:
+- Il **secondo video sta a `preload="none"`** e viene caricato solo quando il primo supera il 60% della
+  durata. Prima erano entrambi su `preload="auto"`: lo stesso file da 3,46 MB veniva scaricato due volte,
+  circa 7 MB a visita.
+- Su **mobile (≤767px) e con `prefers-reduced-motion: reduce` non viene montato nessun `<video>`**: resta
+  il solo `poster` (`public/lab-hero-poster.jpg`, 180 KB), e `lab:video-playing` viene emesso subito, così
+  `LabContentWrapper` non resta ad aspettare il proprio fallback.
+- Il `poster` è impostato su entrambi i video e come sfondo del contenitore.
+
+**Componenti effettivamente montati** in `/lab`: `Hero`, `Projects`, `CTA`, `CustomCursor` (dalla page) più
+`LabBackground` e `LabContentWrapper` (dal layout). Se ne aggiungi uno, verifica che sia importato davvero:
+qui è già successo che del codice restasse nel repo senza essere montato da nessuna parte.
+
+**Animazione a frame rimossa (ottobre 2026).** Esisteva un `ScrollyCanvas.tsx` che disegnava su canvas 151
+frame da `public/sequence/`, scrubbati con lo scroll. **Non era importato da nessuna pagina**: erano 175 MB
+di PNG trascinati in ogni clone e in ogni deploy per un'animazione che nessun visitatore vedeva. Rimossi
+componente e frame, insieme ad altri tre componenti orfani (`About`, `Overlay`, `PageTransition`).
+
+Se un giorno si vuole rifare quell'effetto: esportare i frame **in WebP, non in PNG** (la conversione fatta
+prima di cancellarli portava quei 175 MB a 9 MB a parità di resa). Il video al posto dei frame è stato
+valutato e scartato: lo scrubbing di un video con lo scroll dà seeking a scatti e problemi su iOS, i frame
+su canvas sono più affidabili.
+
+## Form di contatto e sicurezza
+
+`app/api/contact/route.ts` manda una mail con **Resend** e scrive una riga su **Google Sheets**
+(`lib/google-sheets.ts`). Difese presenti, da non rimuovere:
+
+- `valueInputOption: "RAW"` **più** sanitizzazione dei valori che iniziano con `= + - @`, contro la
+  formula injection su Sheets. Serve la doppia protezione: RAW copre il foglio, l'apice copre l'export CSV
+  aperto in Excel.
+- `escapeHtml()` su tutti i campi interpolati nel template HTML della mail.
+- Whitelist sul campo `tipo`, limiti di lunghezza, campo honeypot nascosto, rate limit in memoria,
+  controllo server-side del consenso privacy.
+
+Il rate limit è una `Map` in memoria: su serverless ogni istanza ha la sua, quindi è una barriera debole.
+Per una protezione vera servirebbe uno storage esterno (KV/Upstash): non è stato fatto perché richiede di
+attivare un servizio.
+
+**CSP** — Definita in `next.config.mjs` insieme agli altri header di sicurezza. Aggiungendo uno script di
+terze parti va aggiornata, altrimenti il browser lo blocca in silenzio. È già successo: Umami era stato
+inserito dopo la CSP, veniva bloccato e non ha raccolto dati per due mesi senza che nessuno se ne
+accorgesse. **Analytics attuale: solo Vercel Analytics** (cookieless). Umami è stato rimosso.
+
+`images: { unoptimized: true }` in `next.config.mjs` è di fatto ininfluente: il progetto non usa
+`next/image`, solo tag `<img>`.
+
+## Convenzioni
+
+- **Mai l'em dash (—) nei testi visibili.** Regola valida su tutti i siti di questo cliente: si usano
+  virgola, due punti o parentesi.
+- Prima di pubblicare modifiche al sito, verificare che il build passi: il type-check è attivo e un
+  errore di tipo blocca il deploy su Vercel.
+- Il working tree pesa circa 2,5 MB: non reintrodurre immagini non compresse. Prima di aggiungere asset
+  pesanti, verificare che siano davvero referenziati da una pagina.
+- **La storia git conserva ancora i vecchi PNG**, quindi `.git` pesa ~180 MB e un `git clone` li scarica
+  comunque. Ripulirla richiede un `filter-repo` che riscrive tutti gli hash: non è stato fatto.

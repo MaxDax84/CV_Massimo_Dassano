@@ -57,7 +57,7 @@ const t_it = {
         description:
           "Responsabile del coordinamento dei team di vendita a livello mondiale e dei programmi di crescita strategica.",
         highlights: [
-          "Guidato programmi interfunzionali tra Vendite, Marketing e Operazioni per rafforzare l'eccellenza operativa — includendo lanci di prodotto, implementazione di CRM e data platform, strategia di pricing, redesign del modello di revenue, localizzazione dell'esperienza cliente e revisione delle performance aziendali",
+          "Guidato programmi interfunzionali tra Vendite, Marketing e Operazioni per rafforzare l'eccellenza operativa, includendo lanci di prodotto, implementazione di CRM e data platform, strategia di pricing, redesign del modello di revenue, localizzazione dell'esperienza cliente e revisione delle performance aziendali",
           "Monitorato le performance commerciali e il ROI dei partner nell'ecosistema di vendita, progettando strutture incentivanti, tracciando i risultati di sell-out e definendo metriche di performance per garantire piena trasparenza e responsabilità",
           "Coordinato 21 team regionali, fungendo da collegamento chiave tra il Top Management e i team per il dispiegamento delle strategie globali",
           "Preparato il Piano Strategico quinquennale e definito obiettivi di vendita e piani di incentivi per 300 commerciali",
@@ -153,7 +153,7 @@ const t_it = {
   },
   footer: {
     connect: "Connettiamoci",
-    cta: "Aperto a discutere opportunità nelle vendite, nella strategia commerciale, nella pianificazione e nella sales leadership — in qualsiasi settore, in tutto il mondo",
+    cta: "Aperto a discutere opportunità nelle vendite, nella strategia commerciale, nella pianificazione e nella sales leadership, in qualsiasi settore, in tutto il mondo",
     rights: "Tutti i diritti riservati",
   },
   contact: {
@@ -211,7 +211,7 @@ const t_en = {
         description:
           "In charge of the coordination of the sales teams worldwide, and the strategic growth programs.",
         highlights: [
-          "Directed end-to-end strategic initiatives across Sales, Marketing, and Operations to optimize internal workflows — managing full-cycle product rollouts, CRM and data architecture integration, revenue stream restructuring, regional user journey adaptation, and comprehensive business audits.",
+          "Directed end-to-end strategic initiatives across Sales, Marketing, and Operations to optimize internal workflows, managing full-cycle product rollouts, CRM and data architecture integration, revenue stream restructuring, regional user journey adaptation, and comprehensive business audits.",
           "Analyzed global sales results and organizational ROI, engineering high-impact motivation frameworks, auditing final market output, and defining success KPIs to maintain absolute visibility and departmental responsibility.",
           "Coordinated 21 regional teams, serving as a key connection between Top Management and teams for deploying global strategies",
           "Prepared the 5-year Strategic Plan and set sales targets & incentive plans for 300 salespeople",
@@ -307,7 +307,7 @@ const t_en = {
   },
   footer: {
     connect: "Let's Connect",
-    cta: "Open to discussing opportunities in sales, sales strategy, sales planning, and sales leadership — across any industry, worldwide",
+    cta: "Open to discussing opportunities in sales, sales strategy, sales planning, and sales leadership, across any industry, worldwide",
     rights: "All rights reserved",
   },
   contact: {
@@ -365,7 +365,7 @@ const t_fr = {
         description:
           "Chargé de la coordination des équipes de vente mondiales et des programmes de croissance stratégique.",
         highlights: [
-          "Piloté des programmes transversaux entre les équipes Ventes, Marketing et Opérations pour renforcer l'excellence opérationnelle — incluant des lancements de produits, le déploiement de CRM et data platform, la stratégie tarifaire, la refonte du modèle de revenus, la localisation de l'expérience client et les revues de performance globale",
+          "Piloté des programmes transversaux entre les équipes Ventes, Marketing et Opérations pour renforcer l'excellence opérationnelle, incluant des lancements de produits, le déploiement de CRM et data platform, la stratégie tarifaire, la refonte du modèle de revenus, la localisation de l'expérience client et les revues de performance globale",
           "Suivi les performances commerciales et le ROI des partenaires au sein de l'écosystème commercial, en concevant des structures d'incentives, en suivant les résultats de sell-out et en établissant des métriques de performance pour garantir la transparence et la pleine responsabilité",
           "Coordonné 21 équipes régionales, servant de lien clé entre la Direction Générale et les équipes pour le déploiement des stratégies globales",
           "Élaboré le Plan Stratégique sur 5 ans et fixé les objectifs de vente et les plans d'incentives pour 300 commerciaux",
@@ -461,7 +461,7 @@ const t_fr = {
   },
   footer: {
     connect: "Restons en contact",
-    cta: "Ouvert à discuter d'opportunités dans la vente, la stratégie commerciale, la planification et le leadership commercial — dans tout secteur, partout dans le monde",
+    cta: "Ouvert à discuter d'opportunités dans la vente, la stratégie commerciale, la planification et le leadership commercial, dans tout secteur, partout dans le monde",
     rights: "Tous droits réservés",
   },
   contact: {
@@ -519,7 +519,7 @@ const t_de = {
         description:
           "Verantwortlich für die Koordination der weltweiten Vertriebsteams und der strategischen Wachstumsprogramme.",
         highlights: [
-          "Geleitete funktionsübergreifende Programme in Vertrieb, Marketing und Operations zur Stärkung der operativen Exzellenz — darunter Produktlaunches, CRM- und Data-Platform-Einführung, Preisstrategie, Umsatzmodell-Überarbeitung, Customer-Experience-Lokalisierung und Business-Performance-Reviews",
+          "Geleitete funktionsübergreifende Programme in Vertrieb, Marketing und Operations zur Stärkung der operativen Exzellenz, darunter Produktlaunches, CRM- und Data-Platform-Einführung, Preisstrategie, Umsatzmodell-Überarbeitung, Customer-Experience-Lokalisierung und Business-Performance-Reviews",
           "Überwachte kommerzielle Leistung und Partner-ROI im gesamten Vertriebsökosystem, entwarf Incentive-Strukturen, verfolgte Sell-out-Ergebnisse und etablierte Leistungskennzahlen für volle Transparenz und Verantwortlichkeit",
           "Koordinierte 21 regionale Teams als Schlüsselverbindung zwischen Top-Management und Teams für die Umsetzung globaler Strategien",
           "Erstellte den 5-Jahres-Strategieplan und legte Vertriebsziele & Incentive-Pläne für 300 Vertriebsmitarbeiter fest",
@@ -589,7 +589,7 @@ const t_de = {
       {
         title: "Web-Erstellung & Redesign",
         description:
-          "Ich kümmere mich persönlich um die Erstellung maßgeschneiderter Websites und das Redesign bestehender Seiten — veraltete Online-Auftritte werden in moderne, elegante digitale Erlebnisse verwandelt.",
+          "Ich kümmere mich persönlich um die Erstellung maßgeschneiderter Websites und das Redesign bestehender Seiten: veraltete Online-Auftritte werden in moderne, elegante digitale Erlebnisse verwandelt.",
       },
       {
         title: "Tennis-Coach",
@@ -615,7 +615,7 @@ const t_de = {
   },
   footer: {
     connect: "Vernetzen wir uns",
-    cta: "Offen für Gespräche über Möglichkeiten in Vertrieb, Vertriebsstrategie, Vertriebsplanung und Vertriebsführung — branchenübergreifend und weltweit",
+    cta: "Offen für Gespräche über Möglichkeiten in Vertrieb, Vertriebsstrategie, Vertriebsplanung und Vertriebsführung, branchenübergreifend und weltweit",
     rights: "Alle Rechte vorbehalten",
   },
   contact: {
@@ -827,7 +827,7 @@ const t_sw = {
         description:
           "Anayehusika na uratibu wa timu za mauzo ulimwenguni kote, na programu za ukuaji wa kimkakati.",
         highlights: [
-          "Kuongoza mipango ya mseto kati ya Mauzo, Masoko na Uendeshaji ili kuimarisha ubora wa uendeshaji — ikiwa ni pamoja na uzinduzi wa bidhaa, uwekaji wa CRM na data platform, mkakati wa bei, mabadiliko ya mfumo wa mapato, ubinafsi wa uzoefu wa mteja na mapitio ya utendaji wa biashara",
+          "Kuongoza mipango ya mseto kati ya Mauzo, Masoko na Uendeshaji ili kuimarisha ubora wa uendeshaji, ikiwa ni pamoja na uzinduzi wa bidhaa, uwekaji wa CRM na data platform, mkakati wa bei, mabadiliko ya mfumo wa mapato, ubinafsi wa uzoefu wa mteja na mapitio ya utendaji wa biashara",
           "Kufuatilia utendaji wa kibiashara na ROI ya washirika katika mfumo mzima wa mauzo, kuunda miundo ya motisha, kufuatilia matokeo ya mauzo na kuweka vipimo vya utendaji ili kuhakikisha uwazi kamili na uwajibikaji",
           "Kuratibu timu 21 za kikanda, kutumikia kama unganisho muhimu kati ya Menejimenti ya Juu na timu kwa ajili ya kupeleka mikakati ya kimataifa",
           "Kuandaa Mpango wa Kimkakati wa miaka 5 na kuweka malengo ya mauzo na mipango ya motisha kwa watu wa mauzo 300",
@@ -923,7 +923,7 @@ const t_sw = {
   },
   footer: {
     connect: "Tuungane",
-    cta: "Niko wazi kujadili fursa katika mauzo, mkakati wa mauzo, mipango ya mauzo, na uongozi wa mauzo — katika sekta yoyote, duniani kote",
+    cta: "Niko wazi kujadili fursa katika mauzo, mkakati wa mauzo, mipango ya mauzo, na uongozi wa mauzo, katika sekta yoyote, duniani kote",
     rights: "Haki zote zimehifadhiwa",
   },
   contact: {
@@ -945,15 +945,15 @@ const t_ql = {
   hero: {
     subtitle: "Taura Haryon",
     description:
-      "Yéni neldëquain i carë nórë rimbë — malta, toron, ar ando hildë",
+      "Yéni neldëquain i carë nórë rimbë, malta, toron, ar ando hildë",
     location: "Mílano, Italiandor",
   },
   about: {
     heading: "Anwa Nar",
     lead: "Taura Haryon i carna lanta malta nórëo rimbë, carë mardë ar hirë toron rimbë.",
-    p1: "Yéni cainen ar neldë i sercë nórëo quenyaron, noldë curwë indo vanyë — macil-ranthaina, maltë hirna, ar ando hildë rimbë.",
+    p1: "Yéni cainen ar neldë i sercë nórëo quenyaron, noldë curwë indo vanyë, macil-ranthaina, maltë hirna, ar ando hildë rimbë.",
     p2: "Quetë malta meldë ar faina toron. Rimbë nossë ranthaina; Istya onóro ar carna mírë ondolissë yaimëo.",
-    p3: "Sí tirë malta-sout ar ROI — carna mírë ar istya sanya, cormë ilye yaimëo.",
+    p3: "Sí tirë malta-sout ar ROI, carna mírë ar istya sanya, cormë ilye yaimëo.",
     stats: {
       yearsExp: "Yéni Carwëo",
       teams: "Nossë Ranthainë",
@@ -969,7 +969,7 @@ const t_ql = {
         description:
           "Carë lanta malta Alibaba-nórëo hyarmendë, malta-ranta ar ando-telpë.",
         highlights: [
-          "Rantha i nossë rimbë: Malta, Cormë ar Telpë — carna anwa mírë ar Malta-Jukwa hildë",
+          "Rantha i nossë rimbë: Malta, Cormë ar Telpë, carna anwa mírë ar Malta-Jukwa hildë",
           "Tirë malta-sout ar toron-ROI, carna incentivë ar metriki rimbë",
           "Tirë maltë HQ, carna P&L ar yéni-ranta sanya",
           "Hir toron C-ranta, carna malta-plan yaimëo Alibaba (USD 2.0M+, nossë 10, ando 3, nossë 35+)",
@@ -982,8 +982,8 @@ const t_ql = {
         description:
           "Rantha nossë malta-rimbë ar mardë ukuajio kimkakati.",
         highlights: [
-          "Rantha nossë rimbë Sales, Cormë ar Telpë — carna mírë ar carwë vanya: malta-carna, CRM, telpë-ranta ar nórëo carwë vanyë",
-          "Tirë malta-carwë ar toron-ROI, carna incentivë, sell-out ar metriki — anwa istya ar nossëo",
+          "Rantha nossë rimbë Sales, Cormë ar Telpë, carna mírë ar carwë vanya: malta-carna, CRM, telpë-ranta ar nórëo carwë vanyë",
+          "Tirë malta-carwë ar toron-ROI, carna incentivë, sell-out ar metriki, anwa istya ar nossëo",
           "Rantha nossë neldequain ar minquë, carna liaison Top-Haryon ar nossë",
           "Carna Malta-Plan cainen-yéni, seti malengo 300 malta-quenyaron",
           "Tir Salesforce neldëquain BU, nossë neldëquain ar minquë, ar quenyar neldë-rimbë",
@@ -1052,12 +1052,12 @@ const t_ql = {
       {
         title: "Telpë-Mir Carë & Sírë",
         description:
-          "Carë telpë-mir vanwa ar sírë telpë-mir yaimë — cormë-mir danna olosse vanyarë ar anwavë.",
+          "Carë telpë-mir vanwa ar sírë telpë-mir yaimë, cormë-mir danna olosse vanyarë ar anwavë.",
       },
       {
         title: "Tenisi Haryon",
         description:
-          "Meldë tenisi, malta-quetya ar haryon — nórë ronyo ar telpë indo.",
+          "Meldë tenisi, malta-quetya ar haryon, nórë ronyo ar telpë indo.",
       },
       {
         title: "Chesi Quetya",
@@ -1067,7 +1067,7 @@ const t_ql = {
       {
         title: "Cormë Mírë & AI",
         description:
-          "Meldë AI ar cormë-mírë yaimëo — carë mardë ar nórë rimbë anwa.",
+          "Meldë AI ar cormë-mírë yaimëo, carë mardë ar nórë rimbë anwa.",
       },
       {
         title: "Nórëo Ando Hildë",
@@ -1078,14 +1078,14 @@ const t_ql = {
   },
   footer: {
     connect: "Nai Hiruvalmë",
-    cta: "Meldë quetë malta-ando rimbë — nórëo rimbë, yaimëo ilye",
+    cta: "Meldë quetë malta-ando rimbë, nórëo rimbë, yaimëo ilye",
     rights: "Ilye rimbë nótë",
   },
   contact: {
     show: "Cen i Quenta",
     challenge: "Man",
     challengeQ: "?",
-    error: "Voro lá mára — rehtë",
+    error: "Voro lá mára, rehtë",
   },
 }
 

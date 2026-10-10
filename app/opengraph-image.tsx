@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Massimo Dassano — Digital Growth Partner per piccole imprese'
+export const alt = 'Massimo Dassano, web designer a Milano: creazione siti web su misura'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

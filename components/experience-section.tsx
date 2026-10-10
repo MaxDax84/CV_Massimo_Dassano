@@ -13,10 +13,10 @@ const COMPANIES = [
 ]
 
 const PERIODS = [
-  "2021 — Present",
-  "2015 — 2021",
-  "2014 — 2015",
-  "2010 — 2014",
+  "2021 – Present",
+  "2015 – 2021",
+  "2014 – 2015",
+  "2010 – 2014",
 ]
 
 export function ExperienceSection() {

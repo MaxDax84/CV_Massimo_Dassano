@@ -1,10 +1,10 @@
-"use client"
-
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Mail, Check } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
+import { ServiceLangPanels, ServiceLangToggle } from "@/components/service-lang"
 
 export type RelatedService = { href: string; label: string; tag: string; color: string; rgb: string }
+
+export type FaqItem = { q: string; a: string }
 
 export type ServiceContent = {
   tag: string
@@ -14,7 +14,8 @@ export type ServiceContent = {
   features: string[]
   process: { step: string; desc: string }[]
   forWho: string
-  faq: { q: string; a: string }
+  /** Una o più domande. L'array alimenta anche lo schema FAQPage della pagina. */
+  faq: FaqItem | FaqItem[]
   related: RelatedService[]
 }
 
@@ -52,6 +53,10 @@ const UI = {
   },
 } as const
 
+type Ui = (typeof UI)["it"] | (typeof UI)["en"]
+
+const asFaqList = (faq: ServiceContent["faq"]): FaqItem[] => (Array.isArray(faq) ? faq : [faq])
+
 function Corners({ color }: { color: string }) {
   return (
     <>
@@ -71,21 +76,22 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   )
 }
 
-export function ServicePageLayout({ color, rgb, jsonLd, content }: ServicePageProps) {
-  const { lang, setLang } = useLanguage()
-  const activeLang = lang === "en" ? "en" : "it"
-  const ui = UI[activeLang]
-  const { tag, title, subtitle, intro, features, process, forWho, faq, related } = content[activeLang]
-
-  const toggleLang = () => {
-    const next = activeLang === "en" ? "it" : "en"
-    setLang(next)
-  }
+function ServiceBody({
+  color,
+  rgb,
+  ui,
+  content,
+}: {
+  color: string
+  rgb: string
+  ui: Ui
+  content: ServiceContent
+}) {
+  const { tag, title, subtitle, intro, features, process, forWho, related } = content
+  const faqs = asFaqList(content.faq)
 
   return (
-    <main style={{ background: "#030610", minHeight: "100vh", color: "#e2e8f0" }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-
+    <>
       {/* Nav */}
       <nav className="sticky top-0 z-50 px-6 py-4 flex items-center justify-between gap-4"
         style={{ background: "rgba(3,6,16,0.92)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(0,245,255,0.08)" }}>
@@ -97,14 +103,13 @@ export function ServicePageLayout({ color, rgb, jsonLd, content }: ServicePagePr
             {ui.navHome}
           </Link>
           <div className="w-px h-4" style={{ background: "rgba(0,245,255,0.15)" }} />
-          <span className="text-sm font-mono" style={{ color: "rgba(0,245,255,0.45)" }}>{ui.navLabel}</span>
+          {/* Il breadcrumb punta all'hub /servizi: senza questo link la pagina hub
+              resta orfana, raggiungibile solo dalla sitemap. */}
+          <Link href="/servizi"
+            className="text-sm font-mono transition-colors duration-200 hover:text-cyan-400"
+            style={{ color: "rgba(0,245,255,0.45)" }}>{ui.navLabel}</Link>
         </div>
-        <button
-          onClick={toggleLang}
-          className="text-xs font-mono tracking-[0.14em] px-2.5 py-1 transition-all duration-200 hover:scale-105"
-          style={{ color: "#00f5ff", border: "1px solid rgba(0,245,255,0.28)", background: "rgba(0,245,255,0.05)" }}>
-          {activeLang === "en" ? "IT" : "EN"}
-        </button>
+        <ServiceLangToggle />
       </nav>
 
       <div className="max-w-3xl mx-auto px-6 py-16">
@@ -156,10 +161,17 @@ export function ServicePageLayout({ color, rgb, jsonLd, content }: ServicePagePr
           <p className="text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>{forWho}</p>
         </div>
 
-        {/* FAQ */}
+        {/* FAQ — domanda come heading, così è un'entità leggibile da Google e dai lettori di schermo */}
         <div className="mb-14 rounded-xl p-6" style={{ background: "rgba(0,245,255,0.022)", border: "1px solid rgba(0,245,255,0.11)" }}>
-          <div className="text-sm font-semibold mb-2 text-white">{faq.q}</div>
-          <div className="text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>{faq.a}</div>
+          {faqs.map((item, i) => (
+            <div
+              key={i}
+              className={i > 0 ? "mt-5 pt-5" : undefined}
+              style={i > 0 ? { borderTop: "1px solid rgba(0,245,255,0.08)" } : undefined}>
+              <h3 className="text-sm font-semibold mb-2 text-white">{item.q}</h3>
+              <div className="text-sm leading-relaxed" style={{ color: "rgba(165,190,225,0.85)" }}>{item.a}</div>
+            </div>
+          ))}
         </div>
 
         {/* CTA */}
@@ -204,6 +216,33 @@ export function ServicePageLayout({ color, rgb, jsonLd, content }: ServicePagePr
           </Link>
         </div>
       </div>
+    </>
+  )
+}
+
+export function ServicePageLayout({ color, rgb, jsonLd, content }: ServicePageProps) {
+  // Lo schema FAQPage deve rispecchiare ciò che il crawler vede nell'HTML servito,
+  // cioè la versione italiana.
+  const faqs = asFaqList(content.it.faq)
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  }
+
+  return (
+    <main style={{ background: "#030610", minHeight: "100vh", color: "#e2e8f0" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+
+      <ServiceLangPanels
+        it={<ServiceBody color={color} rgb={rgb} ui={UI.it} content={content.it} />}
+        en={<ServiceBody color={color} rgb={rgb} ui={UI.en} content={content.en} />}
+      />
     </main>
   )
 }
