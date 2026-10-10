@@ -15,7 +15,7 @@ const t = {
         description:
           "Web app che reinterpreta la cartolina: la scrivi solo quando sei davvero in una delle 317 città supportate, e chi la riceve aspetta i giorni di un viaggio postale reale prima di poterla leggere.",
         link: "https://www.cartolinalenta.it",
-        logo: null,
+        logo: "/lab/logos/cartolinalenta.png",
       },
       {
         title: "Marcella Marcone",
@@ -82,6 +82,7 @@ const t = {
       },
     ],
     marquee: [
+      "Cartoline digitali",
       "Invito digitale",
       "Psicoterapia",
       "Gelateria artigianale",
@@ -102,7 +103,7 @@ const t = {
         description:
           "A web app that reinvents the postcard: you can only write one while you are actually in one of the 317 supported cities, and the recipient waits the days of a real postal journey before reading it.",
         link: "https://www.cartolinalenta.it",
-        logo: null,
+        logo: "/lab/logos/cartolinalenta.png",
       },
       {
         title: "Marcella Marcone",
@@ -169,6 +170,7 @@ const t = {
       },
     ],
     marquee: [
+      "Digital postcards",
       "Digital invitation",
       "Psychotherapy",
       "Artisan ice cream",
