@@ -80,6 +80,42 @@ const t = {
         link: "https://www.simplif-ai.it",
         logo: "/lab/logos/simplifai.png",
       },
+      {
+        title: "Evviva Inviti",
+        category: "Inviti digitali",
+        tag: "Piattaforma",
+        description:
+          "Piattaforma per creare inviti online gratuiti per battesimi, comunioni, cresime, lauree, pensionamenti e compleanni. Si personalizza in pochi minuti, si condivide con un link e raccoglie le conferme di presenza.",
+        link: "https://www.evvivainviti.com",
+        logo: "/lab/logos/evviva.png",
+      },
+      {
+        title: "Maternità360",
+        category: "Sostegno alla maternità",
+        tag: "Team",
+        description:
+          "Sito vetrina per un team multidisciplinare che accompagna la maternità: ostetriche, psicologhe, nutrizionista, riflessologo e altre professioniste. Schede individuali per ogni specialista, bilingue, con SEO tecnico per la ricerca locale.",
+        link: "https://www.maternita360.it",
+        logo: "/lab/logos/maternita360.png",
+      },
+      {
+        title: "You Are Mighty",
+        category: "Pagina con musica",
+        tag: "Esperimento",
+        description:
+          "Una dichiarazione epica di grandezza personale, accompagnata dalla musica. Pagina a schermo intero pensata per essere dedicata a chiunque, con il nome scelto da chi la apre.",
+        link: "https://youaremighty.vercel.app",
+        logo: null,
+      },
+      {
+        title: "The Philip Touch",
+        category: "Insulti eleganti",
+        tag: "Gioco",
+        description:
+          "Web app bilingue che genera insulti raffinati e taglienti, oppure trasforma uno sfogo rabbioso in una frase elegante e presentabile. Per dire quello che pensi con stile.",
+        link: "https://the-philip-touch.vercel.app",
+        logo: null,
+      },
     ],
     marquee: [
       "Cartoline digitali",
@@ -90,6 +126,10 @@ const t = {
       "Band musicale",
       "Riflessologia e massoterapia",
       "SaaS EdTech",
+      "Inviti online",
+      "Sostegno alla maternità",
+      "Pagina con musica",
+      "Insulti eleganti",
     ],
   },
   en: {
@@ -168,6 +208,42 @@ const t = {
         link: "https://www.simplif-ai.it",
         logo: "/lab/logos/simplifai.png",
       },
+      {
+        title: "Evviva Inviti",
+        category: "Digital invitations",
+        tag: "Platform",
+        description:
+          "Platform to create free online invitations for baptisms, communions, confirmations, graduations, retirements and birthdays. Customised in minutes, shared with a link, with RSVP tracking built in.",
+        link: "https://www.evvivainviti.com",
+        logo: "/lab/logos/evviva.png",
+      },
+      {
+        title: "Maternità360",
+        category: "Maternity support",
+        tag: "Team",
+        description:
+          "Showcase site for a multidisciplinary team supporting maternity: midwives, psychologists, a nutritionist, a reflexologist and other professionals. Individual profile pages for each specialist, bilingual, with technical SEO for local search.",
+        link: "https://www.maternita360.it",
+        logo: "/lab/logos/maternita360.png",
+      },
+      {
+        title: "You Are Mighty",
+        category: "Page with music",
+        tag: "Experiment",
+        description:
+          "An epic declaration of personal greatness, set to music. A full-screen page meant to be dedicated to anyone, with the name chosen by whoever opens it.",
+        link: "https://youaremighty.vercel.app",
+        logo: null,
+      },
+      {
+        title: "The Philip Touch",
+        category: "Elegant insults",
+        tag: "Game",
+        description:
+          "Bilingual web app that generates refined, cutting insults, or turns an angry rant into an elegant, presentable sentence. Say what you think, with style.",
+        link: "https://the-philip-touch.vercel.app",
+        logo: null,
+      },
     ],
     marquee: [
       "Digital postcards",
@@ -178,6 +254,10 @@ const t = {
       "Music band",
       "Reflexology & massage",
       "SaaS EdTech",
+      "Online invitations",
+      "Maternity support",
+      "Page with music",
+      "Elegant insults",
     ],
   },
 } as const;
